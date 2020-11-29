@@ -96,6 +96,7 @@ open class MountTyreDetailsFragment : AbstractTyreDetailsFragment() {
                     tyreMount.isHorse()
                 )
                 if (!availableResults) {
+                    endProgressBar()
                     showToast("Err: Position already has a tyre mounted on it.")
                     return@launch
                 }

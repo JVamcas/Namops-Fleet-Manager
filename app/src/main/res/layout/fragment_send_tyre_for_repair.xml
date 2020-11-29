@@ -115,13 +115,40 @@
                 app:spinner_popup_animation="dropdown"
                 app:spinner_popup_background="@color/shimmer_background"
                 app:spinner_popup_elevation="14dp" />
+            <com.skydoves.powerspinner.PowerSpinnerView
+                android:id="@+id/receive_tyre_condition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/textview_border"
+                errorMsg="@{`Select current tyre condition.`}"
+                editContent="@{tyreRepair.repairCondition}"
+                android:gravity="start"
+                android:hint="@string/current_condition"
+                android:padding="10dp"
+                app:spinner_item_array="@array/Tyre_conditions"
+                android:text="@={tyreRepair.repairCondition}"
+                android:textColor="@color/hint_color"
+                android:textColorHint="@color/emphasis_color"
+                android:textSize="14.5sp"
+                app:layout_constraintTop_toBottomOf="@id/sent_thread_type"
+                app:spinner_arrow_gravity="end"
+                app:spinner_arrow_padding="8dp"
+                app:spinner_arrow_tint="@color/emphasis_color"
+                app:spinner_divider_color="@color/white"
+                app:spinner_divider_show="true"
+                app:spinner_divider_size="0.4dp"
+                app:spinner_popup_animation="dropdown"
+                app:spinner_popup_background="@color/shimmer_background"
+                app:spinner_popup_elevation="14dp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/sent_thread_depth_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/sent_thread_type">
+                app:layout_constraintTop_toBottomOf="@id/receive_tyre_condition">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/sent_thread_depth"
                     android:layout_width="fill_parent"
@@ -201,6 +228,7 @@
                 sent_thread_type="@{tyreRepair.sentThreadType}"
                 repair_cost="@{tyre.purchasePrice}"
                 sent_thread_depth="@{tyreRepair.sentThreadDepth}"
+                repair_tyre_condition="@{tyreRepair.repairCondition}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"

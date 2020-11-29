@@ -38,11 +38,11 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/unit_number"
-                    unit_number="@{vehicle.unitNumber}"
-                    errorMsg="@{`Invalid unit number.`}"
+                    vehicle_number="@{vehicle.unitNumber}"
+                    errorMsg="@{`Invalid vehicle number.`}"
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
-                    android:hint="@string/unit_number"
+                    android:hint="@string/vehicle_number"
                     android:inputType="text"
                     android:paddingBottom="9dp"
                     android:singleLine="true"

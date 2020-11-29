@@ -53,6 +53,7 @@ class UnMountTyreDetailsFragment : MountTyreDetailsFragment() {
             val mountList = (mountItemSearchResults as Results.Success<*>).data
 
             if (mountList.isNullOrEmpty()) {
+                //mount item cannot be found hence hide actual error - should not occur
                 showToast("Err: Unknown error has occurred.")
                 navController.popBackStack()
                 return@launch

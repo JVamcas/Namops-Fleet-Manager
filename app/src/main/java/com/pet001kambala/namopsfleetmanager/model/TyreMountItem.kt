@@ -2,6 +2,7 @@ package com.pet001kambala.namopsfleetmanager.model
 
 import androidx.annotation.Keep
 import androidx.databinding.Bindable
+import com.google.firebase.firestore.Exclude
 import com.pet001kambala.namopsfleetmanager.BR
 @Keep
 data class TyreMountItem(
@@ -9,7 +10,7 @@ data class TyreMountItem(
     var unMountDate: String? = null
 
 ) : AbstractModel() {
-
+    @Exclude
     fun isHorse() =
         !this.vehicleNo.isNullOrEmpty() && this.vehicleNo?.first()?.toLowerCase() == 'h'
 

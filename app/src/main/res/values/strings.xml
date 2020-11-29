@@ -18,7 +18,7 @@
     <string name="export_to_excel">Export to excel</string>
     <string name="unmount_tyre">UnMount Tyre</string>
     <string name="find_vehicle">Find vehicle</string>
-    <string name="unit_number">Unit number</string>
+    <string name="unit_number">Unit number e.g T01</string>
     <string name="vin_number">VIN number</string>
     <string name="select_vehicle_type">Vehicle Type</string>
     <string name="select_vehicle_model">Vehicle Model</string>
@@ -126,6 +126,7 @@
     <string name="find_trailer">Find trailer</string>
     <string name="mount_trailer">Mount Trailer</string>
     <string name="unmount_trailer">UnMount Trailer</string>
+    <string name="vehicle_number">Unit number e.g. H01</string>
 
     <!--    String constants-->
     <string-array name="Tyre_brand">
@@ -264,7 +265,6 @@
         <item>Grey</item>
         <item>Black</item>
         <item>Light Black</item>
-        <item>Afrit</item>
     </string-array>
     <string-array name="Valve_condition">
         <item>Select valve condition…</item>

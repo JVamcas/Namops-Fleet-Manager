@@ -2,6 +2,7 @@ package com.pet001kambala.namopsfleetmanager.model
 
 import androidx.annotation.Keep
 import androidx.databinding.Bindable
+import com.google.firebase.firestore.Exclude
 import com.pet001kambala.namopsfleetmanager.BR
 import com.pet001kambala.namopsfleetmanager.utils.Const
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.extractDigit
@@ -16,6 +17,7 @@ data class Tyre(
     var reference_vehicle_km: String? = null,
     var accumulatedCost: String? = null
 ) : AbstractModel() {
+    @get:Exclude @Transient override var id: String = ""
 
     override fun data() = arrayListOf(
         Pair("Serial Number", serialNumber),

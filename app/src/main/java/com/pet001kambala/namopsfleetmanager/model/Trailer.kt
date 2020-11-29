@@ -1,6 +1,7 @@
 package com.pet001kambala.namopsfleetmanager.model
 
 import androidx.databinding.Bindable
+import com.google.firebase.firestore.Exclude
 import com.pet001kambala.namopsfleetmanager.BR
 import com.pet001kambala.namopsfleetmanager.utils.Const
 
@@ -8,10 +9,10 @@ data class Trailer(
     var location: String = Const.defaultLocation,
     var mounted: Boolean = false,
     var horseNo: String? = null,
-    var mountedTyreIdList: ArrayList<String> = ArrayList()
+    var mountedTyreSNList: ArrayList<String> = ArrayList()
 )
     : AbstractModel() {
-
+    @Transient @get:Exclude  override var id: String = ""
     override fun data()  = arrayListOf(
         Pair("Unit No",unitNumber),
         Pair("Plate No", plate),

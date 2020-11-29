@@ -18,8 +18,7 @@ class TrailerRepo {
 
     suspend fun registerTrailer(trailer: Trailer): Results {
         return try {
-            val docRef = DB.collection(Docs.TRAILER.name).document()
-            trailer.id = docRef.id
+            val docRef = DB.collection(Docs.TRAILER.name).document(trailer.unitNumber!!)
             docRef.set(trailer).await()
             Results.Success<Trailer>(code = Results.Success.CODE.WRITE_SUCCESS)
         } catch (e: Exception) {
@@ -29,11 +28,11 @@ class TrailerRepo {
     suspend fun findTrailer(unitNumber: String): Results {
         return try {
             val shot =
-                DB.collection(Docs.TRAILER.name).whereEqualTo("unitNumber", unitNumber).get()
+                DB.collection(Docs.TRAILER.name).document(unitNumber).get()
                     .await()
-            val data = shot.documents.mapNotNull { it.toObject(Trailer::class.java) }
-            Results.Success<Trailer>(
-                data = ArrayList(data),
+            val data = shot.toObject(Trailer::class.java)
+            Results.Success(
+                data = if(shot.exists()) arrayListOf(data!!) else null,
                 code = Results.Success.CODE.LOAD_SUCCESS
             )
         } catch (e: java.lang.Exception) {
@@ -80,7 +79,7 @@ class TrailerRepo {
     }
 
     suspend fun updateTrailerDetails(trailer: Trailer): Results {
-        val docRef = DB.collection(Docs.TRAILER.name).document(trailer.id)
+        val docRef = DB.collection(Docs.TRAILER.name).document(trailer.unitNumber!!)
         return try {
             docRef.update(trailer.toMap()).await()
             Results.Success<Trailer>(code = Results.Success.CODE.UPDATE_SUCCESS)

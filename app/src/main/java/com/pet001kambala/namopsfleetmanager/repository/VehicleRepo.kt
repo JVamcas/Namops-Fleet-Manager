@@ -25,8 +25,7 @@ class VehicleRepo {
 
     suspend fun registerVehicle(vehicle: Vehicle): Results {
         return try {
-            val docRef = DB.collection(Docs.VEHICLES.name).document()
-            vehicle.id = docRef.id
+            val docRef = DB.collection(Docs.VEHICLES.name).document(vehicle.unitNumber!!)
             docRef.set(vehicle).await()
             Results.Success<Vehicle>(code = Results.Success.CODE.WRITE_SUCCESS)
         } catch (e: Exception) {
@@ -87,7 +86,7 @@ class VehicleRepo {
     }
 
     suspend fun updateVehicleDetails(vehicle: Vehicle): Results {
-        val docRef = DB.collection(Docs.VEHICLES.name).document(vehicle.id)
+        val docRef = DB.collection(Docs.VEHICLES.name).document(vehicle.unitNumber!!)
         return try {
             docRef.update(vehicle.toMap()).await()
             Results.Success<Vehicle>(code = Results.Success.CODE.UPDATE_SUCCESS)

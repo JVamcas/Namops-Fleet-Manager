@@ -15,8 +15,10 @@ import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.getSNPrefi
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isMoney
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isValidEmail
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isValidMobile
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isValidTrailerNo
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isValidTyreSN
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isValidUnitNo
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isValidVehicleNo
 import com.skydoves.powerspinner.PowerSpinnerView
 import com.squareup.picasso.Picasso
 import java.util.regex.Pattern
@@ -167,16 +169,15 @@ class BindingUtil {
         ) {
             mButton.isEnabled = isValidSelection(
                 arrayListOf(
-                    unitNo,
                     trailerDepartment,
                     trailerMake,
                     trailerPlate
                 )
-            )
+            ) && unitNo.isValidTrailerNo()
         }
 
         @JvmStatic
-        @BindingAdapter(value = ["serialNo", "repair_vendor", "repair_thread_depth", "repair_thread_type", "repair_cost", "sent_thread_depth", "sent_thread_type"])
+        @BindingAdapter(value = ["serialNo", "repair_vendor", "repair_thread_depth", "repair_thread_type", "repair_cost", "sent_thread_depth", "sent_thread_type","repair_tyre_condition"])
         fun validateTyreRepair(
             mButton: MaterialButton,
             serialNo: String?,
@@ -185,7 +186,8 @@ class BindingUtil {
             repair_thread_type: String?,
             repair_cost: String?,
             sent_thread_depth: String?,
-            sent_thread_type: String?
+            sent_thread_type: String?,
+            repair_tyre_condition: String?
         ) {
             mButton.isEnabled = serialNo.isValidTyreSN()
                     && isValidSelection(
@@ -194,7 +196,8 @@ class BindingUtil {
                     repair_vendor,
                     repair_thread_type,
                     sent_thread_depth,
-                    sent_thread_type
+                    sent_thread_type,
+                    repair_tyre_condition
                 )
             ) && isMoney(repair_cost)
         }
@@ -309,6 +312,19 @@ class BindingUtil {
         fun validateUnitNo(mEditText: EditText,errorMsg: String?,unit_number: String?){
             mEditText.error = if(unit_number.isValidUnitNo()) null else errorMsg
         }
+
+        @JvmStatic
+        @BindingAdapter(value = ["errorMsg","vehicle_number"])
+        fun validateVehicleNo(mEditText: EditText,errorMsg: String?,unit_number: String?){
+            mEditText.error = if(unit_number.isValidVehicleNo()) null else errorMsg
+        }
+
+        @JvmStatic
+        @BindingAdapter(value = ["errorMsg","trailer_number"])
+        fun validateTrailerNo(mEditText: EditText,errorMsg: String?,unit_number: String?){
+            mEditText.error = if(unit_number.isValidTrailerNo()) null else errorMsg
+        }
+
         @JvmStatic
         @BindingAdapter(value = ["serialNo", "mountPosition", "vehicleUnitNo", "un_mount_reason"])
         fun validateTyreMount(
@@ -352,7 +368,7 @@ class BindingUtil {
                         vinNo
                     )
                 )
-                        && unitNo.isValidUnitNo()
+                        && unitNo.isValidVehicleNo()
         }
 
         @JvmStatic

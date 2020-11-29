@@ -2,6 +2,7 @@ package com.pet001kambala.namopsfleetmanager.model
 
 import androidx.annotation.Keep
 import androidx.databinding.Bindable
+import com.google.firebase.firestore.Exclude
 import com.pet001kambala.namopsfleetmanager.BR
 
 @Keep
@@ -9,7 +10,8 @@ enum class AuthType {
     EMAIL, PHONE
 }
 @Keep
-class Account
+class Account(
+)
     : AbstractModel() {
     @Bindable
     var name: String? = null

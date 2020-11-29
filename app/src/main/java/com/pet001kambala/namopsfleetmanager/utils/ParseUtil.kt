@@ -5,6 +5,7 @@ import android.text.TextUtils
 import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
 import com.pet001kambala.namopsfleetmanager.model.AbstractModel
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isValidUnitNo
 import com.squareup.picasso.Picasso
 import jxl.write.Label
 import jxl.write.WritableWorkbook
@@ -28,7 +29,16 @@ class ParseUtil {
             return json.convert()
         }
         fun String?.isValidUnitNo() :Boolean{
-            val pattern = Pattern.compile("^[HT]\\d+")
+            return this.isValidTrailerNo() || this.isValidVehicleNo()
+        }
+
+        fun String?.isValidVehicleNo() :Boolean{
+            val pattern = Pattern.compile("^[H]\\d+")
+            return !this.isNullOrEmpty() && pattern.matcher(this).matches()
+        }
+
+        fun String?.isValidTrailerNo() :Boolean{
+            val pattern = Pattern.compile("^[T]\\d+")
             return !this.isNullOrEmpty() && pattern.matcher(this).matches()
         }
 

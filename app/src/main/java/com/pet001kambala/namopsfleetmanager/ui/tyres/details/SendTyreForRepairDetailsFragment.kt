@@ -39,6 +39,7 @@ open class SendTyreForRepairDetailsFragment : AbstractTyreDetailsFragment() {
             repairCost = "NAD"
             repairThreadDepth = " - "
             repairThreadType = " - "
+            repairCondition = " - "
         }
     }
 
@@ -60,6 +61,7 @@ open class SendTyreForRepairDetailsFragment : AbstractTyreDetailsFragment() {
         repair_thread_type.visibility = GONE
         repair_thread_depth_layout.visibility = GONE
         repair_cost_layout.visibility = GONE
+        receive_tyre_condition.visibility = GONE
 
         tyreModel.tyreVendorsList.observe(viewLifecycleOwner, Observer {
             if (it is Results.Success<*>) {

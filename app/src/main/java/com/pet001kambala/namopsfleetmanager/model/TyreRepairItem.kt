@@ -14,6 +14,7 @@ class TyreRepairItem(
         Pair("Date Returned", dateReturned),
         Pair("Vendor", repairVendor),
         Pair("Repair cost", repairCost),
+        Pair("Condition when received", repairCondition),
         Pair("Send thread depth", sentThreadDepth),
         Pair("Received thread depth", repairThreadDepth),
         Pair("Send thread type", sentThreadType),
@@ -27,6 +28,15 @@ class TyreRepairItem(
             if (field != value) {
                 field = value
                 notifyPropertyChanged(BR.repairThreadDepth)
+            }
+        }
+
+    @Bindable
+    var repairCondition: String? = null
+        set(value) {
+            if (field != value) {
+                field = value
+                notifyPropertyChanged(BR.repairCondition)
             }
         }
     @Bindable

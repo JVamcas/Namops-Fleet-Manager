@@ -38,8 +38,8 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/unit_number"
-                    editContent="@{trailer.unitNumber}"
-                    errorMsg="@{`Field cannot be empty.`}"
+                    trailer_number="@{trailer.unitNumber}"
+                    errorMsg="@{`Invalid trailer number.`}"
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/unit_number"
