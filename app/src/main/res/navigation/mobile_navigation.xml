@@ -307,7 +307,24 @@
             android:id="@+id/trailerHomeDetailsFragment"
             android:name="com.pet001kambala.namopsfleetmanager.ui.trailer.TrailerHomeDetailsFragment"
             android:label="Trailer"
-            tools:layout="@layout/fragment_trailer_registration_details" />
+            tools:layout="@layout/fragment_trailer_registration_details" >
+            <action
+                android:id="@+id/action_trailerHomeDetailsFragment_to_mountTrailerFragment"
+                app:destination="@id/mountTrailerFragment" />
+            <action
+                android:id="@+id/action_trailerHomeDetailsFragment_to_unMountTrailerDetailsFragment"
+                app:destination="@id/unMountTrailerDetailsFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/mountTrailerFragment"
+            android:name="com.pet001kambala.namopsfleetmanager.ui.trailer.MountTrailerDetailsFragment"
+            android:label="Mount Trailer"
+            tools:layout="@layout/fragment_mount_trailer" />
+        <fragment
+            android:id="@+id/unMountTrailerDetailsFragment"
+            android:name="com.pet001kambala.namopsfleetmanager.ui.trailer.UnMountTrailerDetailsFragment"
+            android:label="UnMount Trailer"
+            tools:layout="@layout/fragment_mount_trailer" />
     </navigation>
     <action android:id="@+id/action_global_trailerGraph" app:destination="@id/trailerGraph" />
 </navigation>

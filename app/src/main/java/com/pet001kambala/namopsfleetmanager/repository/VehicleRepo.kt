@@ -122,4 +122,15 @@ class VehicleRepo {
             "0.0"
         }
     }
+
+    suspend fun isHorseEmpty(horseNo: String): Boolean {
+        val ref = DB.collection(Docs.TRAILER_MOUNT.name).whereEqualTo("horseNo",horseNo)
+        return try {
+            val shot = ref.get().await()
+            shot.isEmpty
+        }catch (e: java.lang.Exception){
+            false
+        }
+
+    }
 }

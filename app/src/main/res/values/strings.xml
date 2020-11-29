@@ -127,6 +127,8 @@
     <string name="mount_trailer">Mount Trailer</string>
     <string name="unmount_trailer">UnMount Trailer</string>
     <string name="vehicle_number">Unit number e.g. H01</string>
+    <string name="trailer_number">Trailer Number</string>
+    <string name="horse_number">Horse Number e.g. H01</string>
 
     <!--    String constants-->
     <string-array name="Tyre_brand">

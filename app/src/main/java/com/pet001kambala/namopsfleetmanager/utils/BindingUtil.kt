@@ -177,7 +177,7 @@ class BindingUtil {
         }
 
         @JvmStatic
-        @BindingAdapter(value = ["serialNo", "repair_vendor", "repair_thread_depth", "repair_thread_type", "repair_cost", "sent_thread_depth", "sent_thread_type","repair_tyre_condition"])
+        @BindingAdapter(value = ["serialNo", "repair_vendor", "repair_thread_depth", "repair_thread_type", "repair_cost", "sent_thread_depth", "sent_thread_type", "repair_tyre_condition"])
         fun validateTyreRepair(
             mButton: MaterialButton,
             serialNo: String?,
@@ -308,21 +308,32 @@ class BindingUtil {
         }
 
         @JvmStatic
-        @BindingAdapter(value = ["errorMsg","unit_number"])
-        fun validateUnitNo(mEditText: EditText,errorMsg: String?,unit_number: String?){
-            mEditText.error = if(unit_number.isValidUnitNo()) null else errorMsg
+        @BindingAdapter(value = ["trailer_number", "vehicle_number"])
+        fun validateTrailerMount(
+            mButton: MaterialButton,
+            trailer_number: String?,
+            vehicle_number: String?
+        ) {
+            mButton.isEnabled =
+                trailer_number.isValidTrailerNo() && vehicle_number.isValidVehicleNo()
         }
 
         @JvmStatic
-        @BindingAdapter(value = ["errorMsg","vehicle_number"])
-        fun validateVehicleNo(mEditText: EditText,errorMsg: String?,unit_number: String?){
-            mEditText.error = if(unit_number.isValidVehicleNo()) null else errorMsg
+        @BindingAdapter(value = ["errorMsg", "unit_number"])
+        fun validateUnitNo(mEditText: EditText, errorMsg: String?, unit_number: String?) {
+            mEditText.error = if (unit_number.isValidUnitNo()) null else errorMsg
         }
 
         @JvmStatic
-        @BindingAdapter(value = ["errorMsg","trailer_number"])
-        fun validateTrailerNo(mEditText: EditText,errorMsg: String?,unit_number: String?){
-            mEditText.error = if(unit_number.isValidTrailerNo()) null else errorMsg
+        @BindingAdapter(value = ["errorMsg", "vehicle_number"])
+        fun validateVehicleNo(mEditText: EditText, errorMsg: String?, unit_number: String?) {
+            mEditText.error = if (unit_number.isValidVehicleNo()) null else errorMsg
+        }
+
+        @JvmStatic
+        @BindingAdapter(value = ["errorMsg", "trailer_number"])
+        fun validateTrailerNo(mEditText: EditText, errorMsg: String?, unit_number: String?) {
+            mEditText.error = if (unit_number.isValidTrailerNo()) null else errorMsg
         }
 
         @JvmStatic

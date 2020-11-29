@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group>
         <item
-            android:id="@+id/find_trailer"
-            android:icon="@drawable/ic_search"
-            android:title="@string/find_trailer"
-            app:showAsAction="ifRoom"
+            android:id="@+id/mount_trailer"
+            android:title="@string/mount_trailer"
+            />
+        <item android:title="@string/unmount_trailer"
+            android:id="@+id/un_mount_trailer"
             />
         <item
             android:id="@+id/export_all_history"

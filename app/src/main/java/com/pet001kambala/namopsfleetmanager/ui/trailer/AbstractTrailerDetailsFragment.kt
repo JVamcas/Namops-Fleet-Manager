@@ -5,6 +5,7 @@ import androidx.fragment.app.activityViewModels
 import com.pet001kambala.namopsfleetmanager.model.Trailer
 import com.pet001kambala.namopsfleetmanager.ui.AbstractFragment
 import com.pet001kambala.namopsfleetmanager.utils.Const
+import com.pet001kambala.namopsfleetmanager.utils.Docs
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.convert
 
 abstract class AbstractTrailerDetailsFragment : AbstractFragment() {
@@ -16,7 +17,7 @@ abstract class AbstractTrailerDetailsFragment : AbstractFragment() {
         super.onCreate(savedInstanceState)
         trailer = Trailer()
         arguments?.let {
-            val json = it.getString(Const.VEHICLE)
+            val json = it.getString(Const.TRAILER)
             json?.let {
                 trailer = it.convert()
             }

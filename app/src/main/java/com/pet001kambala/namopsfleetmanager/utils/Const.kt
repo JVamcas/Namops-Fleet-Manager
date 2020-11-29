@@ -12,6 +12,7 @@ internal interface Const {
         val ACCOUNT: String = "account"
         val TYRE: String = "tyre"
         val defaultLocation: String = "Storage"
+        val TRAILER = "trailer"
 
         //constant for activity results
         val RC_SIGN_IN = 0
