@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.viewModelScope
 import com.pet001kambala.namopsfleetmanager.R
 import com.pet001kambala.namopsfleetmanager.databinding.FragmentFindTyreDetailsBinding
+import com.pet001kambala.namopsfleetmanager.model.Tyre
 import com.pet001kambala.namopsfleetmanager.repository.TyreRepo
 import com.pet001kambala.namopsfleetmanager.utils.Const
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.toJson
@@ -21,7 +22,7 @@ class FindTyreDetailsFragment : AbstractTyreDetailsFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentFindTyreDetailsBinding.inflate(inflater, container, false)
         binding.tyre = tyre
@@ -42,6 +43,8 @@ class FindTyreDetailsFragment : AbstractTyreDetailsFragment() {
                         showToast("No such tyre. Is it registered?")
                         return@launch
                     }
+
+                    tyre = searchTyreResult.data.first() as Tyre
 
                     val bundle = Bundle().also { it.putString(Const.TYRE, tyre.toJson()) }
                     navController.navigate(
