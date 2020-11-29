@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            tools:context=".ui.vehicles.TyreSurveyFragment">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tyre_sn_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tyre_sn"
+                    tyre="@{tyre}"
+                    tyre_sn="@{tyre.serialNumber}"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/tyre_sn"
+                    android:inputType="number"
+                    android:paddingBottom="9dp"
+                    android:singleLine="true"
+                    android:text="@={tyre.serialNumber}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/thread_depth_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tyre_sn_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/thread_depth"
+                    editContent="@{tyreSurvey.depth}"
+                    errorMsg="@{`Enter a valid value.`}"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/current_depth"
+                    android:inputType="number"
+                    android:paddingBottom="9dp"
+                    android:singleLine="true"
+                    android:text="@={tyreSurvey.depth}" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.skydoves.powerspinner.PowerSpinnerView
+                android:id="@+id/tyre_current_thread_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/textview_border"
+                android:gravity="start"
+                android:hint="@string/current_tread_type"
+                android:padding="10dp"
+                android:text="@={tyreSurvey.currentThreadType}"
+                android:textColor="@color/hint_color"
+                android:textColorHint="@color/emphasis_color"
+                android:textSize="14.5sp"
+                app:layout_constraintTop_toBottomOf="@id/thread_depth_layout"
+                app:spinner_arrow_gravity="end"
+                app:spinner_arrow_padding="8dp"
+                app:spinner_arrow_tint="@color/emphasis_color"
+                app:spinner_divider_color="@color/white"
+                app:spinner_divider_show="true"
+                app:spinner_divider_size="0.4dp"
+                app:spinner_item_array="@array/treadTypes"
+                app:spinner_popup_animation="dropdown"
+                app:spinner_popup_background="@color/shimmer_background"
+                app:spinner_popup_elevation="14dp" />
+            <com.skydoves.powerspinner.PowerSpinnerView
+                android:id="@+id/tyre_current_condition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/textview_border"
+                android:gravity="start"
+                android:hint="@string/current_condition"
+                android:padding="10dp"
+                android:text="@={tyreSurvey.currentCondition}"
+                android:textColor="@color/hint_color"
+                android:textColorHint="@color/emphasis_color"
+                android:textSize="14.5sp"
+                app:layout_constraintTop_toBottomOf="@id/tyre_current_thread_type"
+                app:spinner_arrow_gravity="end"
+                app:spinner_arrow_padding="8dp"
+                app:spinner_arrow_tint="@color/emphasis_color"
+                app:spinner_divider_color="@color/white"
+                app:spinner_divider_show="true"
+                app:spinner_divider_size="0.4dp"
+                app:spinner_item_array="@array/Tyre_conditions"
+                app:spinner_popup_animation="dropdown"
+                app:spinner_popup_background="@color/shimmer_background"
+                app:spinner_popup_elevation="14dp" />
+
+            <com.skydoves.powerspinner.PowerSpinnerView
+                android:id="@+id/valve_condition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/textview_border"
+                android:gravity="start"
+                android:hint="@string/valve_condition"
+                android:padding="10dp"
+                android:text="@={tyreSurvey.valveCondition}"
+                android:textColor="@color/hint_color"
+                android:textColorHint="@color/emphasis_color"
+                android:textSize="14.5sp"
+                app:layout_constraintTop_toBottomOf="@id/tyre_current_condition"
+                app:spinner_arrow_gravity="end"
+                app:spinner_arrow_padding="8dp"
+                app:spinner_arrow_tint="@color/emphasis_color"
+                app:spinner_divider_color="@color/white"
+                app:spinner_divider_show="true"
+                app:spinner_divider_size="0.4dp"
+                app:spinner_item_array="@array/Valve_condition"
+                app:spinner_popup_animation="dropdown"
+                app:spinner_popup_background="@color/shimmer_background"
+                app:spinner_popup_elevation="14dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/actual_pressure_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/valve_condition">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/actual_pressure"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/actual_pressure"
+                    android:inputType="number"
+                    android:lines="4"
+                    android:maxLines="4"
+                    android:minLines="1"
+                    android:paddingBottom="9dp"
+                    android:singleLine="false"
+                    android:text="@={tyreSurvey.actualPressure}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/comment_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/actual_pressure_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/comment"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/comment"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:lines="4"
+                    android:maxLines="4"
+                    android:minLines="1"
+                    android:paddingBottom="9dp"
+                    android:singleLine="false"
+                    android:text="@={tyreSurvey.comment}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cap_present"
+                android:checked="@={tyreSurvey.capPresent}"
+                android:drawablePadding="20dp"
+                android:textColor="@color/hint_color"
+                android:shadowColor="@color/shimmer_background"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/survey_tyre"
+                app:layout_constraintTop_toTopOf="@id/survey_tyre"
+                />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/survey_tyre"
+                style="@style/save_btn_outlined"
+                currentCondition="@{tyreSurvey.currentCondition}"
+                serialNo="@{tyre.serialNumber}"
+                threadDepth="@{tyreSurvey.depth}"
+                valve_condition="@{tyreSurvey.valveCondition}"
+                actual_pressure="@{tyreSurvey.actualPressure}"
+                current_thread_type="@{tyreSurvey.currentThreadType}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:enabled="false"
+                android:text="@string/record"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/comment_layout" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+
+    <data>
+
+        <import type="com.pet001kambala.namopsfleetmanager.utils.BindingUtil" />
+
+        <variable
+            name="tyre"
+            type="com.pet001kambala.namopsfleetmanager.model.Tyre" />
+
+        <variable
+            name="tyreSurvey"
+            type="com.pet001kambala.namopsfleetmanager.model.TyreSurveyItem" />
+    </data>
+</layout>

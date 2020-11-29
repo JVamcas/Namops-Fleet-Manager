@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.tyres.details.FindTyreDetailsFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/find_entity_layout"
+            android:layout_width="match_parent"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/find_tyre_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:hintTextColor="@color/hint_color"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/find_tyre_edit"
+                    android:layout_width="fill_parent"
+                    tyre_sn="@{tyre.serialNumber}"
+                    android:layout_height="match_parent"
+                    android:hint="@string/tyre_sn_number"
+                    android:inputType="text"
+                    android:paddingBottom="9dp"
+                    android:singleLine="true"
+                    android:text="@={tyre.serialNumber}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/find_tyre_btn"
+                style="@style/save_btn_outlined"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:enabled="@{ParseUtil.isValidTyreSN(tyre.serialNumber)}"
+                android:text="@string/find_tyre"
+                android:textAllCaps="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/find_tyre_layout" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+    <data>
+        <import type="com.pet001kambala.namopsfleetmanager.utils.ParseUtil"/>
+        <variable
+            name="tyre"
+            type="com.pet001kambala.namopsfleetmanager.model.Tyre" />
+    </data>
+</layout>

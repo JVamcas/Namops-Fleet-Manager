@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group>
+        <item
+            android:id="@+id/find_trailer"
+            android:icon="@drawable/ic_search"
+            android:title="@string/find_trailer"
+            app:showAsAction="ifRoom"
+            />
+        <item
+            android:id="@+id/mount_trailer"
+            android:title="@string/mount_trailer"
+            />
+        <item android:title="@string/unmount_trailer"
+            android:id="@+id/un_mount_trailer"
+            />
+        <item
+            android:id="@+id/export_all_history"
+            android:title="@string/export_to_excel"
+            app:showAsAction="never"
+            />
+    </group>
+</menu>

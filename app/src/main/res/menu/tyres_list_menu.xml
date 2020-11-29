@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group>
+        <item
+            android:id="@+id/find_tyre"
+            android:icon="@drawable/ic_search"
+            android:title="@string/find_tyre"
+            app:showAsAction="ifRoom"
+            />
+        <item
+            android:id="@+id/tyre_vendors"
+            android:title="@string/tyre_vendors"
+            app:showAsAction="never"
+            />
+        <item
+            android:id="@+id/export_all_tyres_history"
+            android:title="@string/export_to_excel"
+            app:showAsAction="never"
+            />
+        <item
+            android:id="@+id/import_from_excel"
+            android:title="@string/import_from_excel"
+            app:showAsAction="never"
+            />
+    </group>
+</menu>

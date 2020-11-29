@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "381667090127",
+    "firebase_url": "https://namops-fleet-manager.firebaseio.com",
+    "project_id": "namops-fleet-manager",
+    "storage_bucket": "namops-fleet-manager.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:381667090127:android:b142631ddde3a5c22c21ba",
+        "android_client_info": {
+          "package_name": "com.pet001kambala.namopsfleetmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "381667090127-8ssb1n71jmgej9rgub106uq6qf530jt7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZ_3j-mx9I3QipYKZ4HXTrW-yIw3-IzCw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "381667090127-8ssb1n71jmgej9rgub106uq6qf530jt7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

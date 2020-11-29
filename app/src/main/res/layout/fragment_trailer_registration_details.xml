@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            tools:context=".ui.vehicles.VehicleRegistrationDetailsFragment">
+
+            <include
+                android:id="@+id/trailer_image"
+                layout="@layout/user_icon_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                bind:cameraVisible="@{true}"
+                bind:model="@{trailer}"
+                bind:size="@{300}" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/unit_number_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/trailer_image">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/unit_number"
+                    editContent="@{trailer.unitNumber}"
+                    errorMsg="@{`Field cannot be empty.`}"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/unit_number"
+                    android:inputType="text"
+                    android:paddingBottom="9dp"
+                    android:singleLine="true"
+                    android:text="@={trailer.unitNumber}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/plate_number_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/unit_number_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/plate_number"
+                    editContent="@{trailer.plate}"
+                    errorMsg="@{`Invalid plate number.`}"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/plate_number"
+                    android:inputType="text"
+                    android:paddingBottom="9dp"
+                    android:singleLine="true"
+                    android:text="@={trailer.plate}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.skydoves.powerspinner.PowerSpinnerView
+                android:id="@+id/trailer_make"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/textview_border"
+                android:gravity="start"
+                android:hint="@string/select_trailer_type"
+                android:padding="10dp"
+                android:text="@={trailer.make}"
+                android:textColor="@color/hint_color"
+                app:spinner_popup_background="@color/shimmer_background"
+                android:textColorHint="@color/emphasis_color"
+                android:textSize="14.5sp"
+                app:layout_constraintTop_toBottomOf="@id/plate_number_layout"
+                app:spinner_arrow_gravity="end"
+                app:spinner_arrow_padding="8dp"
+                app:spinner_arrow_tint="@color/emphasis_color"
+                app:spinner_divider_color="@color/white"
+                app:spinner_divider_show="true"
+                app:spinner_divider_size="0.4dp"
+                app:spinner_item_array="@array/Vehicle_make"
+                app:spinner_popup_animation="dropdown"
+                app:spinner_popup_elevation="14dp" />
+
+            <com.skydoves.powerspinner.PowerSpinnerView
+                android:id="@+id/department"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/textview_border"
+                android:gravity="start"
+                android:hint="@string/select_department"
+                android:padding="10dp"
+                android:text="@={trailer.department}"
+                android:textColor="@color/hint_color"
+                app:spinner_popup_background="@color/shimmer_background"
+                android:textColorHint="@color/emphasis_color"
+                android:textSize="14.5sp"
+                app:layout_constraintTop_toBottomOf="@id/trailer_make"
+                app:spinner_arrow_gravity="end"
+                app:spinner_arrow_padding="8dp"
+                app:spinner_arrow_tint="@color/emphasis_color"
+                app:spinner_divider_color="@color/white"
+                app:spinner_divider_show="true"
+                app:spinner_divider_size="0.4dp"
+                app:spinner_item_array="@array/Vehicle_models"
+                app:spinner_popup_animation="dropdown"
+                app:spinner_popup_elevation="14dp" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/register"
+                style="@style/save_btn_outlined"
+                unitNo="@{trailer.unitNumber}"
+                trailerMake="@{trailer.make}"
+                trailerPlate="@{trailer.plate}"
+                trailerDepartment="@{trailer.department}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textAllCaps="false"
+                android:enabled="false"
+                android:text="@string/register"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/department" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+
+    <data>
+        <variable
+            name="trailer"
+            type="com.pet001kambala.namopsfleetmanager.model.Trailer" />
+    </data>
+</layout>

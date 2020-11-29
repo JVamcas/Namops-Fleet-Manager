@@ -1,0 +1,291 @@
+<resources>
+    <string name="app_name">Namops Fleet Manager</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="signout">Sign Out</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_vehicles">Vehicles</string>
+    <string name="menu_tyres">Tyres</string>
+    <string name="menu_fuel">Fuel</string>
+    <string name="Cancel">Cancel</string>
+    <string name="OK">OK</string>
+    <string name="user_avatar">User Icon layout</string>
+    <string name="vehicle_list">Vehicles</string>
+    <string name="swap_tyres">Swap Tyres</string>
+    <string name="mount_tyre">Mount Tyre</string>
+    <string name="export_to_excel">Export to excel</string>
+    <string name="unmount_tyre">UnMount Tyre</string>
+    <string name="find_vehicle">Find vehicle</string>
+    <string name="unit_number">Unit number</string>
+    <string name="vin_number">VIN number</string>
+    <string name="select_vehicle_type">Vehicle Type</string>
+    <string name="select_vehicle_model">Vehicle Model</string>
+    <string name="select_vehicle_make">Vehicle Make</string>
+    <string name="Year">Year</string>
+    <string name="import_from_excel">Import from excel</string>
+    <string name="continue_vehicle_reg">Next</string>
+    <string name="plate_number">Plate Number</string>
+    <string name="vehicle_color">Color</string>
+    <string name="select_vehicle_color">Color</string>
+    <string name="engine_number">Engine number</string>
+    <string name="select_department">Department</string>
+    <string name="select_fueltype">Fuel Type</string>
+    <string name="register">Register</string>
+    <string name="tyre_sn_number">Serial Number</string>
+    <string name="tyre_size">Size</string>
+    <string name="select_tyre_brand">Brand</string>
+    <string name="tyre_condition">Current Tyre Condition</string>
+    <string name="select_tyre_condition">Current tyre condition</string>
+    <string name="tyre_purchase_date">Purchase date</string>
+    <string name="select_tyre_purchase_condition">Condition when purchased</string>
+    <string name="tyre_cost">Purchase Price</string>
+    <string name="select_purchase_tread_type">Tread type when purchased</string>
+    <string name="survey_tyre">Surveys</string>
+    <string name="no_place">No record found.</string>
+    <string name="tyre_tread_depth">Tread depth when purchased</string>
+    <string name="no_tyres_recorded">No record found.</string>
+    <string name="no_vehicles">No record found.</string>
+    <string name="tyre_sn">Tyre serial number</string>
+    <string name="vehicle_no">Unit number</string>
+    <string name="mount_position">Mount position</string>
+    <string name="comment">Comments…</string>
+    <string name="mount">Mount</string>
+    <string name="un_mount_tyre">UnMount</string>
+    <string name="current_depth">Current tread depth</string>
+    <string name="current_tread_condition">Current tread condition</string>
+    <string name="record">Record</string>
+    <string name="current_condition">Tyre condition</string>
+    <string name="mount_record">Mount Records</string>
+    <string name="survey_record">Survey Records</string>
+    <string name="update">Update</string>
+    <string name="recommended_pressure">Recommended pressure</string>
+    <string name="un_mount_reason">Reason for unmounting tyre</string>
+    <string name="actual_pressure">Actual tyre pressure</string>
+    <string name="valve_condition">Valve condition</string>
+    <string name="valve_present">Valve present?</string>
+    <string name="cap_present">Is the cap present?</string>
+    <string name="current_tread_type">Current tread type</string>
+    <string name="select_removal_reason">Select reason for removal</string>
+    <string name="menu_notifications">Notifications</string>
+    <string name="tyre_vendor">Select tyre vendor…</string>
+    <string name="repair_cost">Cost of repair</string>
+    <string name="send_tyre_for_repair">Repairs</string>
+    <string name="send">Send for repair</string>
+    <string name="receive">Return from repair</string>
+    <string name="receive_tyre_repair">Receive</string>
+    <string name="tyre_vendors">Tyre vendors</string>
+    <string name="reason_for_repair">Reason for repair</string>
+    <string name="records">Records</string>
+    <string name="repair_record">Repair Records</string>
+    <string name="vendor_name">Name</string>
+    <string name="vendor_type">Type</string>
+    <string name="phone_1">Phone 1</string>
+    <string name="phone_2">Phone 2</string>
+    <string name="vendor_fax">Fax</string>
+    <string name="vendor_email">Email address</string>
+    <string name="vendor_contact">Contact</string>
+    <string name="vendor_address_1">Address 1</string>
+    <string name="vendor_address_2">Address 2</string>
+    <string name="vendor_city">City</string>
+    <string name="vendor_country">Country</string>
+    <string name="find_tyre_vendor">Find tyre vendor</string>
+    <string name="find_tyre">Find tyre</string>
+    <string name="sign_up_with_email">Sign up with email</string>
+    <string name="sign_up_with_phone">Sign up with phone</string>
+    <string name="have_an_account">Already have an account? Sign in.</string>
+    <string name="re_password">Confirm password</string>
+    <string name="name">Full name</string>
+    <string name="cellphone">Cellphone</string>
+    <string name="email_address">Email address</string>
+    <string name="company_number">Company number</string>
+    <string name="password">Password</string>
+    <string name="select_company_name">Company name</string>
+    <string name="verify_email">Email verification link has been sent to your email.\nClick on the link to verify your email address.
+    </string>
+    <string name="resend_link">Resend Link</string>
+    <string name="sign_in_with_email">Sign in with email</string>
+    <string name="sign_in_with_phone">Sign in with phone</string>
+    <string name="create_account">Create new account</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="btn_login">Login</string>
+    <string name="reset_btn">Reset</string>
+    <string name="btn_submit">Submit</string>
+    <string name="resend_code">Resend code</string>
+    <string name="input_phone_verify_code">Enter phone verification code</string>
+    <string name="my_profile">My Profile</string>
+    <string name="info">Info</string>
+    <string name="share_app">Share app</string>
+    <string name="about_developer">About developer</string>
+    <string name="update_account">Update account</string>
+    <string name="menu_trailer">Trailers</string>
+    <string name="select_trailer_type">Manufacturer</string>
+    <string name="onto_horse">Mount onto Horse</string>
+    <string name="onto_trailer">Mount onto Trailer</string>
+    <string name="find_trailer">Find trailer</string>
+    <string name="mount_trailer">Mount Trailer</string>
+    <string name="unmount_trailer">UnMount Trailer</string>
+
+    <!--    String constants-->
+    <string-array name="Tyre_brand">
+        <item>Select brand…</item>
+        <item>GoodYear</item>
+        <item>Mirage</item>
+        <item>DunLop</item>
+        <item>Yokohama</item>
+        <item>GOL</item>
+        <item>GAL</item>
+        <item>SUN</item>
+        <item>TAI</item>
+        <item>Continental</item>
+        <item>SunFull</item>
+        <item>DuraTough</item>
+        <item>JIN</item>
+        <item>Kelly</item>
+        <item>Rhino</item>
+        <item>Michelin</item>
+        <item>SP</item>
+        <item>TRE</item>
+        <item>BridgeStone</item>
+        <item>Kapsen</item>
+        <item>Tree</item>
+        <item>CAR</item>
+        <item>B.S</item>
+        <item>KAP</item>
+        <item>GY</item>
+        <item>RDA</item>
+        <item>D.C</item>
+        <item>HanKook</item>
+        <item>AM</item>
+        <item>Ter</item>
+        <item>Sava</item>
+        <item>BAR</item>
+        <item>Belangu</item>
+        <item>Double Coin</item>
+        <item>ZEF</item>
+        <item>DOW</item>
+        <item>TEX</item>
+        <item>DSR</item>
+        <item>SEM</item>
+        <item>WF</item>
+        <item>HRD</item>
+        <item>Wireforce</item>
+        <item>SAV</item>
+
+    </string-array>
+    <string-array name="Departments">
+        <item>Select department…</item>
+        <item>Workshop</item>
+        <item>Depot Operations</item>
+        <item>Local Transport</item>
+    </string-array>
+    <string-array name="Tyre_conditions">
+        <item>Select tyre condition…</item>
+        <item>New</item>
+        <item>Scrap</item>
+        <item>Puncture</item>
+        <item>Re-tread</item>
+        <item>Damaged</item>
+        <item>Others</item>
+    </string-array>
+    <string-array name="treadTypes">
+        <item>Select tread type…</item>
+        <item>MGO</item>
+        <item>FD</item>
+    </string-array>
+    <string-array name="Vehicle_Types">
+        <item>Select type…</item>
+        <item>Pick Up Bakkie</item>
+        <item>Side Loader</item>
+        <item>Truck</item>
+        <item>ForkLift</item>
+        <item>Stacker</item>
+        <item>Flat Deck</item>
+    </string-array>
+    <string-array name="Vehicle_models">
+        <item>Select model…</item>
+        <item>FH440</item>
+        <item>Flat Deck</item>
+        <item>G420</item>
+        <item>NP200</item>
+        <item>7600i</item>
+        <item>K0274</item>
+        <item>R124</item>
+        <item>R410</item>
+        <item>ICB1</item>
+        <item>Side Loader</item>
+        <item>Skeletal</item>
+        <item>SMV15–1200B</item>
+        <item>Super Link</item>
+        <item>Actros</item>
+        <item>8 TON</item>
+        <item>FD70T-MWF3</item>
+    </string-array>
+    <string-array name="Fuel_type">
+        <item>Select fuel type…</item>
+        <item>Diesel</item>
+        <item>Petrol</item>
+    </string-array>
+    <string-array name="Vehicle_make">
+        <item>Select make…</item>
+        <item>Toyota</item>
+        <item>Kalmar</item>
+        <item>Nissan</item>
+        <item>Scania</item>
+        <item>Steelbro</item>
+        <item>Afrit</item>
+        <item>Transwerk</item>
+        <item>SA Truck Bodies</item>
+        <item>Kone Cranes</item>
+        <item>Ice Cold Bodies</item>
+        <item>Top Trailers</item>
+        <item>Henred Fruehauf</item>
+        <item>Volvo</item>
+        <item>Maximal</item>
+        <item>Mercedes Benz</item>
+        <item>Iveco</item>
+        <item>Man</item>
+        <item>International</item>
+        <item>Afrit</item>
+    </string-array>
+    <string-array name="company_name">
+        <item>NamOps Logistics Pty Ltd</item>
+        <item>SeaNam</item>
+    </string-array>
+    <string-array name="Vehicle_color">
+        <item>Select color…</item>
+        <item>Red</item>
+        <item>Silver</item>
+        <item>White</item>
+        <item>Brown</item>
+        <item>Blue</item>
+        <item>Light Blue</item>
+        <item>Grey</item>
+        <item>Black</item>
+        <item>Light Black</item>
+        <item>Afrit</item>
+    </string-array>
+    <string-array name="Valve_condition">
+        <item>Select valve condition…</item>
+        <item>Excellent</item>
+        <item>Good</item>
+        <item>Fair</item>
+        <item>Poor</item>
+    </string-array>
+    <string-array name="Removal_reasons">
+        <item>Select reason for removal…</item>
+        <item>Re-tread</item>
+        <item>Puncture</item>
+        <item>Repair</item>
+        <item>Scrapped</item>
+        <item>Others</item>
+    </string-array>
+    <string-array name="vendor_type">
+        <item>Select vendor type…</item>
+        <item>Garage</item>
+        <item>Retailer</item>
+        <item>Depot</item>
+        <item>Supplier</item>
+    </string-array>
+</resources>

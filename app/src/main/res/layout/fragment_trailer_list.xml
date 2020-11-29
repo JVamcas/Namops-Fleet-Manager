@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="1dp"
+        >
+
+        <com.evrencoskun.tableview.TableView
+            android:id="@+id/trailer_table"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{trailerCount > 0? View.VISIBLE: View.GONE}"
+            app:column_header_height="@dimen/column_header_height"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:row_header_width="@dimen/row_header_width"
+            app:selected_color="@color/selected_background_color"
+            app:separator_color="@color/white"
+            app:shadow_color="@color/shadow_background_color"
+            app:unselected_color="@color/unselected_background_color" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/no_places"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="@string/no_tyres_recorded"
+            android:textAlignment="center"
+            android:textColor="@color/hint_color"
+            android:visibility="@{trailerCount > 0? View.GONE: View.VISIBLE}"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/register_trailer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:src="@drawable/ic_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="trailerCount"
+            type="Integer" />
+    </data>
+</layout>

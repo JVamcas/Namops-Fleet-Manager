@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.pet001kambala.namopsfleetmanager.ui.HomeFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/tyresListFragment"
+        android:name="com.pet001kambala.namopsfleetmanager.ui.tyres.records.TyresListFragment"
+        android:label="Tyres"
+        tools:layout="@layout/tyres_list_fragment" >
+        <action
+            android:id="@+id/action_tyresListFragment_to_tyreRegistrationFragment"
+            app:destination="@id/tyreRegistrationFragment" />
+        <action
+            android:id="@+id/action_tyresListFragment_to_tyreHomeDetailsFragment"
+            app:destination="@id/tyreHomeDetailsFragment" />
+        <action
+            android:id="@+id/action_tyresListFragment_to_tyreVendors"
+            app:destination="@id/tyreVendors" />
+        <action
+            android:id="@+id/action_tyresListFragment_to_findTyreDetailsFragment"
+            app:destination="@id/findTyreDetailsFragment" />
+    </fragment>
+    <action android:id="@+id/action_global_tyresListFragment" app:destination="@id/tyresListFragment" />
+    <fragment
+        android:id="@+id/tyreRegistrationFragment"
+        android:name="com.pet001kambala.namopsfleetmanager.ui.tyres.details.TyreRegistrationDetailsFragment"
+        android:label="Register Tyre"
+        tools:layout="@layout/fragment_tyre_registration" />
+    <fragment
+        android:id="@+id/mountTyreFragment"
+        android:name="com.pet001kambala.namopsfleetmanager.ui.tyres.details.MountTyreDetailsFragment"
+        android:label="Mount Tyre"
+        tools:layout="@layout/fragment_mount_tyre" />
+    <fragment
+        android:id="@+id/unMountTyreFragment"
+        android:name="com.pet001kambala.namopsfleetmanager.ui.tyres.details.UnMountTyreDetailsFragment"
+        android:label="UnMount Tyre"
+        tools:layout="@layout/fragment_mount_tyre" />
+    <fragment
+        android:id="@+id/tyreSurveyFragment"
+        android:name="com.pet001kambala.namopsfleetmanager.ui.tyres.details.TyreSurveyDetailsFragment"
+        android:label="Record Tyre Survey"
+        tools:layout="@layout/fragment_tyre_survey" />
+    <fragment
+        android:id="@+id/tyreHomeDetailsFragment"
+        android:name="com.pet001kambala.namopsfleetmanager.ui.tyres.details.TyreHomeDetailsFragment"
+        android:label="Tyre Details"
+        tools:layout="@layout/fragment_tyre_registration" >
+        <action
+            android:id="@+id/action_tyreDetailsFragment_to_tyreMountRecordsFragment"
+            app:destination="@id/tyreMountRecordsFragment" />
+        <action
+            android:id="@+id/action_tyreDetailsFragment_to_tyreSurveyRecordsFragment"
+            app:destination="@id/tyreSurveyRecordsFragment" />
+        <action
+            android:id="@+id/action_tyreDetailsFragment_to_tyreRepairFragment"
+            app:destination="@id/tyreRepairFragment" />
+        <action
+            android:id="@+id/action_tyreDetailsFragment_to_mountTyreFragment"
+            app:destination="@id/mountTyreFragment" />
+        <action
+            android:id="@+id/action_tyreDetailsFragment_to_tyreSurveyFragment"
+            app:destination="@id/tyreSurveyFragment" />
+        <action
+            android:id="@+id/action_tyreDetailsFragment_to_unMountTyreFragment"
+            app:destination="@id/unMountTyreFragment" />
+        <action
+            android:id="@+id/action_tyreDetailsFragment_to_receiveTyreFromRepairFragment"
+            app:destination="@id/receiveTyreFromRepairFragment" />
+        <action
+            android:id="@+id/action_tyreDetailsFragment_to_tyreRepairRecordsFragment"
+            app:destination="@id/tyreRepairRecordsFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/tyreMountRecordsFragment"
+        android:name="com.pet001kambala.namopsfleetmanager.ui.tyres.records.TyreMountRecordsFragment"
+        android:label="Tyre mount records"
+        tools:layout="@layout/tyres_list_fragment" />
+    <fragment
+        android:id="@+id/tyreSurveyRecordsFragment"
+        android:name="com.pet001kambala.namopsfleetmanager.ui.tyres.records.TyreSurveyRecordsFragment"
+        android:label="Tyre survey records"
+        tools:layout="@layout/tyres_list_fragment" />
+    <fragment
+        android:id="@+id/tyreRepairFragment"
+        android:name="com.pet001kambala.namopsfleetmanager.ui.tyres.details.SendTyreForRepairDetailsFragment"
+        android:label="Send Tyre for Repair"
+        tools:layout="@layout/fragment_send_tyre_for_repair" />
+    <fragment
+        android:id="@+id/receiveTyreFromRepairFragment"
+        android:name="com.pet001kambala.namopsfleetmanager.ui.tyres.details.ReceiveTyreFromRepairDetailsFragment"
+        android:label="Receive tyre from repair"
+        tools:layout="@layout/fragment_send_tyre_for_repair" />
+    <fragment
+        android:id="@+id/tyreRepairRecordsFragment"
+        android:name="com.pet001kambala.namopsfleetmanager.ui.tyres.records.TyreRepairRecordsFragment"
+        android:label="Tyre repair records"
+        tools:layout="@layout/tyres_list_fragment" />
+    <navigation android:id="@+id/tyreVendors"
+        app:startDestination="@id/tyreVendorListFragment">
+        <fragment
+            android:id="@+id/tyreVendorHomeFragment"
+            android:name="com.pet001kambala.namopsfleetmanager.ui.tyres.vendor.TyreVendorHomeDetailsFragment"
+            android:label="Vendor details"
+            tools:layout="@layout/fragment_tyre_vendor_registration" />
+        <fragment
+            android:id="@+id/tyreVendorRegistrationDetailsFragment"
+            android:name="com.pet001kambala.namopsfleetmanager.ui.tyres.vendor.TyreVendorRegistrationDetailsFragment"
+            android:label="Register tyre vendor"
+            tools:layout="@layout/fragment_tyre_vendor_registration"
+            />
+        <fragment
+            android:id="@+id/tyreVendorListFragment"
+            android:name="com.pet001kambala.namopsfleetmanager.ui.tyres.vendor.TyreVendorListFragment"
+            android:label="Tyre Vendors"
+            tools:layout="@layout/fragment_tyre_vendor_list"
+            >
+            <action
+                android:id="@+id/action_tyreVendorListFragment_to_tyreVendorRegistrationDetailsFragment"
+                app:destination="@id/tyreVendorRegistrationDetailsFragment" />
+            <action
+                android:id="@+id/action_tyreVendorListFragment_to_tyreVendorHomeFragment"
+                app:destination="@id/tyreVendorHomeFragment" />
+        </fragment>
+    </navigation>
+    <fragment
+        android:id="@+id/findTyreDetailsFragment"
+        android:name="com.pet001kambala.namopsfleetmanager.ui.tyres.details.FindTyreDetailsFragment"
+        android:label="Find Tyre"
+        tools:layout="@layout/fragment_find_tyre_details" >
+        <action
+            android:id="@+id/action_findTyreDetailsFragment_to_tyreHomeDetailsFragment"
+            app:destination="@id/tyreHomeDetailsFragment" />
+    </fragment>
+    <navigation android:id="@+id/vehicleGraph"
+        app:startDestination="@id/vehiclesListFragment">
+        <fragment
+            android:id="@+id/vehiclesListFragment"
+            android:name="com.pet001kambala.namopsfleetmanager.ui.vehicles.VehiclesListFragment"
+            android:label="@string/vehicle_list"
+            tools:layout="@layout/vehicles_fragment">
+            <action
+                android:id="@+id/action_vehiclesFragment_to_vehicleRegistrationFragment"
+                app:destination="@id/vehicleRegistrationFragment" />
+            <action
+                android:id="@+id/action_vehiclesListFragment_to_vehicleHomeDetailsFragment"
+                app:destination="@id/vehicleHomeDetailsFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/vehicleRegistrationFragment"
+            android:name="com.pet001kambala.namopsfleetmanager.ui.vehicles.VehicleRegistrationDetailsFragment"
+            android:label="Register Vehicle"
+            tools:layout="@layout/fragment_vehicle_registration">
+            <action
+                android:id="@+id/action_vehicleRegistrationFragment_to_extendedVehicleRegistrationFragment"
+                app:destination="@id/extendedVehicleRegistrationFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/extendedVehicleRegistrationFragment"
+            android:name="com.pet001kambala.namopsfleetmanager.ui.vehicles.ExtendedVehicleRegistrationDetailsFragment"
+            android:label="Register Vehicle"
+            tools:layout="@layout/fragment_extended_vehicle_registration" />
+        <fragment
+            android:id="@+id/extendedVehicleHomeDetailsFragment"
+            android:name="com.pet001kambala.namopsfleetmanager.ui.vehicles.ExtendedVehicleHomeDetailsFragment"
+            android:label="Vehicle Details"
+            tools:layout="@layout/fragment_extended_vehicle_registration"
+            />
+        <fragment
+            android:id="@+id/vehicleHomeDetailsFragment"
+            android:name="com.pet001kambala.namopsfleetmanager.ui.vehicles.VehicleHomeDetailsFragment"
+            android:label="Vehicle Details"
+            tools:layout="@layout/fragment_vehicle_registration"
+            >
+            <action
+                android:id="@+id/action_vehicleHomeDetailsFragment_to_extendedVehicleHomeDetailsFragment"
+                app:destination="@id/extendedVehicleHomeDetailsFragment" />
+        </fragment>
+    </navigation>
+    <action android:id="@+id/action_global_vehicleGraph" app:destination="@id/vehicleGraph" />
+    <navigation android:id="@+id/authentication"
+        app:startDestination="@id/selectSignUpModeFragment">
+        <fragment
+            android:id="@+id/selectSignUpModeFragment"
+            android:name="com.pet001kambala.namopsfleetmanager.ui.account.auth.SelectSignUpModeFragment"
+            android:label="Sign up mode"
+            tools:layout="@layout/fragment_select_sign_up_mode" >
+            <action
+                android:id="@+id/action_selectSignUpModeFragment_to_emailRegistrationFragment"
+                app:destination="@id/emailRegistrationFragment" />
+            <action
+                android:id="@+id/action_selectSignUpModeFragment_to_verifyEmailFragment"
+                app:destination="@id/verifyEmailFragment" />
+            <action
+                android:id="@+id/action_selectSignUpModeFragment_to_selectLoginModeFragment"
+                app:destination="@id/selectLoginModeFragment" />
+            <action
+                android:id="@+id/action_selectSignUpModeFragment_to_phoneRegistrationFragment"
+                app:destination="@id/phoneRegistrationFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/emailRegistrationFragment"
+            android:name="com.pet001kambala.namopsfleetmanager.ui.account.auth.EmailRegistrationFragment"
+            android:label="Sign up"
+            tools:layout="@layout/fragment_email_registration" />
+        <fragment
+            android:id="@+id/verifyEmailFragment"
+            android:name="com.pet001kambala.namopsfleetmanager.ui.account.auth.VerifyEmailFragment"
+            android:label="Verify email"
+            tools:layout="@layout/fragment_verify_email" />
+        <fragment
+            android:id="@+id/selectLoginModeFragment"
+            android:name="com.pet001kambala.namopsfleetmanager.ui.account.auth.SelectLoginModeFragment"
+            android:label="Sign In mode"
+            tools:layout="@layout/fragment_select_sign_up_mode" >
+            <action
+                android:id="@+id/action_selectLoginModeFragment_to_emailAuthFragment"
+                app:destination="@id/emailAuthFragment" />
+            <action
+                android:id="@+id/action_selectLoginModeFragment_to_phoneAuthFragment"
+                app:destination="@id/phoneAuthFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/emailAuthFragment"
+            android:name="com.pet001kambala.namopsfleetmanager.ui.account.auth.EmailAuthFragment"
+            android:label="Log in"
+            tools:layout="@layout/fragment_email_auth" >
+            <action
+                android:id="@+id/action_emailAuthFragment_to_resetEmailPasswordFragment"
+                app:destination="@id/resetEmailPasswordFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/resetEmailPasswordFragment"
+            android:name="com.pet001kambala.namopsfleetmanager.ui.account.auth.ResetEmailPasswordFragment"
+            android:label="Reset password"
+            tools:layout="@layout/fragment_reset_email_password" />
+        <fragment
+            android:id="@+id/phoneAuthFragment"
+            android:name="com.pet001kambala.namopsfleetmanager.ui.account.auth.PhoneAuthFragment"
+            android:label="Log in"
+            tools:layout="@layout/fragment_phone_auth" >
+            <action
+                android:id="@+id/action_phoneAuthFragment_to_verifyPhoneFragment"
+                app:destination="@id/verifyPhoneFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/phoneRegistrationFragment"
+            android:name="com.pet001kambala.namopsfleetmanager.ui.account.auth.PhoneRegistrationFragment"
+            android:label="Sign up"
+            tools:layout="@layout/fragment_email_registration" >
+            <action
+                android:id="@+id/action_phoneRegistrationFragment_to_verifyPhoneFragment"
+                app:destination="@id/verifyPhoneFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/verifyPhoneFragment"
+            android:name="com.pet001kambala.namopsfleetmanager.ui.account.auth.VerifyPhoneFragment"
+            android:label="Verify phone number"
+            tools:layout="@layout/fragment_verify_phone" />
+    </navigation><action android:id="@+id/action_global_authentication" app:destination="@id/authentication"/>
+    <navigation android:id="@+id/accountGraph"
+        app:startDestination="@id/myProfileFragment">
+        <fragment
+            android:id="@+id/myProfileFragment"
+            android:name="com.pet001kambala.namopsfleetmanager.ui.account.MyProfileFragment"
+            android:label="My profile"
+            tools:layout="@layout/fragment_my_profile" >
+            <action
+                android:id="@+id/action_myProfileFragment_to_updateProfileFragment"
+                app:destination="@id/updateProfileFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/updateProfileFragment"
+            android:name="com.pet001kambala.namopsfleetmanager.ui.account.UpdateProfileFragment"
+            android:label="Update profile"
+            tools:layout="@layout/fragment_email_registration" />
+    </navigation><action android:id="@+id/action_global_accountGraph" app:destination="@id/accountGraph"/>
+    <navigation android:id="@+id/trailerGraph"
+        app:startDestination="@id/trailerListFragment">
+        <fragment
+            android:id="@+id/trailerListFragment"
+            android:name="com.pet001kambala.namopsfleetmanager.ui.trailer.TrailerListFragment"
+            android:label="Trailers"
+            tools:layout="@layout/fragment_trailer_list" >
+            <action
+                android:id="@+id/action_trailerListFragment_to_trailerRegistrationDetailsFragment"
+                app:destination="@id/trailerRegistrationDetailsFragment" />
+            <action
+                android:id="@+id/action_trailerListFragment_to_trailerHomeDetailsFragment"
+                app:destination="@id/trailerHomeDetailsFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/trailerRegistrationDetailsFragment"
+            android:name="com.pet001kambala.namopsfleetmanager.ui.trailer.TrailerRegistrationDetailsFragment"
+            android:label="Trailer Registration"
+            tools:layout="@layout/fragment_trailer_registration_details" />
+        <fragment
+            android:id="@+id/trailerHomeDetailsFragment"
+            android:name="com.pet001kambala.namopsfleetmanager.ui.trailer.TrailerHomeDetailsFragment"
+            android:label="Trailer"
+            tools:layout="@layout/fragment_trailer_registration_details" />
+    </navigation>
+    <action android:id="@+id/action_global_trailerGraph" app:destination="@id/trailerGraph" />
+</navigation>

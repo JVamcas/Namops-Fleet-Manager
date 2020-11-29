@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            tools:context=".ui.vehicles.VehicleRegistrationDetailsFragment">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/vendor_name_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/vendor_nam"
+                    errorMsg="@{`Invalid name.`}"
+                    editContent="@{vendor.name}"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/vendor_name"
+                    android:inputType="text"
+                    android:paddingBottom="9dp"
+                    android:singleLine="true"
+                    android:text="@={vendor.name}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.skydoves.powerspinner.PowerSpinnerView
+                android:id="@+id/vendor_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/textview_border"
+                android:gravity="start"
+                android:hint="@string/vendor_type"
+                android:padding="10dp"
+                android:text="@={vendor.type}"
+                app:spinner_item_array="@array/vendor_type"
+                android:textColor="@color/hint_color"
+                android:textColorHint="@color/emphasis_color"
+                android:textSize="14.5sp"
+                app:layout_constraintTop_toBottomOf="@id/vendor_name_layout"
+                app:spinner_arrow_gravity="end"
+                app:spinner_arrow_padding="8dp"
+                app:spinner_arrow_tint="@color/emphasis_color"
+                app:spinner_divider_color="@color/white"
+                app:spinner_divider_show="true"
+                app:spinner_divider_size="0.4dp"
+                app:spinner_popup_animation="dropdown"
+                app:spinner_popup_background="@color/shimmer_background"
+                app:spinner_popup_elevation="14dp" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/phone_1_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vendor_type"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    errorMsg="@{`Invalid phone number.`}"
+                    editContent="@{vendor.phone_1}"
+                    android:id="@+id/phone_1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/phone_1"
+                    android:inputType="phone"
+                    android:paddingBottom="9dp"
+                    android:singleLine="true"
+                    android:text="@={vendor.phone_1}" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/phone_2_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/phone_1_layout"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phone_2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/phone_2"
+                    android:inputType="phone"
+                    android:paddingBottom="9dp"
+                    android:singleLine="true"
+                    android:text="@={vendor.phone_2}" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/vendor_fax_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/phone_2_layout"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/vendor_fax"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/vendor_fax"
+                    android:inputType="phone"
+                    android:paddingBottom="9dp"
+                    android:singleLine="true"
+                    android:text="@={vendor.fax}" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/vendor_email_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vendor_fax_layout"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/vendor_email"
+                    email_address="@{vendor.email}"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/vendor_email"
+                    android:inputType="textEmailAddress"
+                    android:paddingBottom="9dp"
+                    android:singleLine="true"
+                    android:text="@={vendor.email}" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/vendor_contact_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vendor_email_layout"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/vendor_contact"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/vendor_contact"
+                    android:inputType="text"
+                    android:paddingBottom="9dp"
+                    android:singleLine="true"
+                    android:text="@={vendor.contact}" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/vendor_address_1_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vendor_contact_layout"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    errorMsg="@{`Invalid address.`}"
+                    editContent="@{vendor.address_1}"
+                    android:id="@+id/vendor_address_1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/vendor_address_1"
+                    android:inputType="text"
+                    android:paddingBottom="9dp"
+                    android:singleLine="true"
+                    android:text="@={vendor.address_1}" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/vendor_address_2_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vendor_address_1_layout"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/vendor_address_2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/vendor_address_2"
+                    android:inputType="text"
+                    android:paddingBottom="9dp"
+                    android:singleLine="true"
+                    android:text="@={vendor.address_2}" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/vendor_city_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vendor_address_2_layout"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/vendor_city"
+                    errorMsg="@{`Invalid address.`}"
+                    editContent="@{vendor.city}"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/vendor_city"
+                    android:inputType="text"
+                    android:paddingBottom="9dp"
+                    android:singleLine="true"
+                    android:text="@={vendor.city}" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/vendor_country_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vendor_city_layout"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/vendor_country"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/vendor_country"
+                    android:inputType="text"
+                    android:paddingBottom="9dp"
+                    android:singleLine="true"
+                    android:text="@={vendor.country}" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/vendor_register"
+                style="@style/save_btn_outlined"
+                vendor_name="@{vendor.name}"
+                vendor_phone_1="@{vendor.phone_1}"
+                vendor_address_1="@{vendor.address_1}"
+                vendor_city="@{vendor.city}"
+                vendor_email="@{vendor.email}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textAllCaps="false"
+                android:enabled="false"
+                android:text="@string/register"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/vendor_country_layout" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <data>
+        <variable
+            name="vendor"
+            type="com.pet001kambala.namopsfleetmanager.model.TyreVendor" />
+    </data>
+</layout>
+

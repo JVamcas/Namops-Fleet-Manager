@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group>
+        <item
+            android:id="@+id/tyre_repair"
+            android:title="@string/send_tyre_for_repair"
+            >
+            <menu>
+                <item android:id="@+id/send_tyre_for_repair"
+                    android:title="@string/send"
+                    />
+                <item android:id="@+id/receive_tyre_from_repair"
+                    android:title="@string/receive"
+                    />
+            </menu>
+        </item>
+        <item android:id="@+id/tyre_records"
+            android:title="@string/records"
+            >
+            <menu>
+                <item
+                    android:id="@+id/mount_record"
+                    android:title="@string/mount_record"
+                    app:showAsAction="never"
+                    />
+                <item
+                    android:id="@+id/survey_record"
+                    android:title="@string/survey_record"
+                    app:showAsAction="never"
+                    />
+                <item
+                    android:id="@+id/repair_record"
+                    android:title="@string/repair_record"
+                    app:showAsAction="never"
+                    />
+            </menu>
+        </item>
+        <item
+            android:id="@+id/export_to_excel"
+            android:title="@string/export_to_excel"
+            app:showAsAction="never"
+            />
+    </group>
+</menu>

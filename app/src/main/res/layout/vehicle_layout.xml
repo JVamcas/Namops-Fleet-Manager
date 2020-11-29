@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+        app:strokeColor="@color/emphasis_color"
+        app:strokeWidth="0.5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/user_avatar"
+                app:default_icon="@{R.drawable.default_user_icon}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:photoUrl="@{vehicle.photoUrl}"
+                app:size="@{100}"
+                app:viewId="@{vehicle.id}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/user_avatar"
+                android:padding="2dp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/vehicle_to_string"
+                app:layout_constraintStart_toEndOf="@id/user_avatar"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="2dp"
+                android:paddingBottom="5dp"
+                android:text="@{vehicle.toString()}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/vehicle_plate_number"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/vehicle_to_string"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:paddingBottom="5dp"
+                android:text="@{`Plate Number:`+ vehicle.plate}" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <data>
+        <import type="com.pet001kambala.namopsfleetmanager.R"/>
+        <variable
+            name="vehicle"
+            type="com.pet001kambala.namopsfleetmanager.model.Vehicle" />
+    </data>
+</layout>

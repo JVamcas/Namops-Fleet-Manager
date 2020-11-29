@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            tools:context=".ui.vehicles.VehicleRegistrationDetailsFragment">
+
+            <include
+                android:id="@+id/vehicle_image"
+                layout="@layout/user_icon_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                bind:cameraVisible="@{true}"
+                bind:model="@{vehicle}"
+                bind:size="@{300}" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/unit_number_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vehicle_image">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/unit_number"
+                    unit_number="@{vehicle.unitNumber}"
+                    errorMsg="@{`Invalid unit number.`}"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/unit_number"
+                    android:inputType="text"
+                    android:paddingBottom="9dp"
+                    android:singleLine="true"
+                    android:text="@={vehicle.unitNumber}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/vin_number_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/unit_number_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/vin_number"
+                    editContent="@{vehicle.vinNo}"
+                    errorMsg="@{`Field cannot be empty.`}"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/vin_number"
+                    android:inputType="text"
+                    android:paddingBottom="9dp"
+                    android:singleLine="true"
+                    android:text="@={vehicle.vinNo}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.skydoves.powerspinner.PowerSpinnerView
+                android:id="@+id/vehicle_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/textview_border"
+                android:gravity="start"
+                android:hint="@string/select_vehicle_type"
+                android:padding="10dp"
+                android:text="@={vehicle.type}"
+                android:textColor="@color/hint_color"
+                app:spinner_popup_background="@color/shimmer_background"
+                android:textColorHint="@color/emphasis_color"
+                android:textSize="14.5sp"
+                app:layout_constraintTop_toBottomOf="@id/vin_number_layout"
+                app:spinner_arrow_gravity="end"
+                app:spinner_arrow_padding="8dp"
+                app:spinner_arrow_tint="@color/emphasis_color"
+                app:spinner_divider_color="@color/white"
+                app:spinner_divider_show="true"
+                app:spinner_divider_size="0.4dp"
+                app:spinner_item_array="@array/Vehicle_Types"
+                app:spinner_popup_animation="dropdown"
+                app:spinner_popup_elevation="14dp" />
+
+            <com.skydoves.powerspinner.PowerSpinnerView
+                android:id="@+id/vehicle_model"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/textview_border"
+                android:gravity="start"
+                android:hint="@string/select_vehicle_model"
+                android:padding="10dp"
+                android:text="@={vehicle.model}"
+                android:textColor="@color/hint_color"
+                app:spinner_popup_background="@color/shimmer_background"
+                android:textColorHint="@color/emphasis_color"
+                android:textSize="14.5sp"
+                app:layout_constraintTop_toBottomOf="@id/vehicle_type"
+                app:spinner_arrow_gravity="end"
+                app:spinner_arrow_padding="8dp"
+                app:spinner_arrow_tint="@color/emphasis_color"
+                app:spinner_divider_color="@color/white"
+                app:spinner_divider_show="true"
+                app:spinner_divider_size="0.4dp"
+                app:spinner_item_array="@array/Vehicle_models"
+                app:spinner_popup_animation="dropdown"
+                app:spinner_popup_elevation="14dp" />
+
+
+            <com.skydoves.powerspinner.PowerSpinnerView
+                android:id="@+id/vehicle_make"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/textview_border"
+                android:gravity="start"
+                android:hint="@string/select_vehicle_make"
+                android:padding="10dp"
+                android:text="@={vehicle.make}"
+                android:textColor="@color/hint_color"
+                app:spinner_popup_background="@color/shimmer_background"
+                android:textColorHint="@color/emphasis_color"
+                android:textSize="14.5sp"
+                app:layout_constraintTop_toBottomOf="@id/vehicle_model"
+                app:spinner_arrow_gravity="end"
+                app:spinner_arrow_padding="8dp"
+                app:spinner_arrow_tint="@color/emphasis_color"
+                app:spinner_divider_color="@color/white"
+                app:spinner_divider_show="true"
+                app:spinner_divider_size="0.4dp"
+                app:spinner_item_array="@array/Vehicle_make"
+                app:spinner_popup_animation="dropdown"
+                app:spinner_popup_elevation="14dp" />
+
+            <com.skydoves.powerspinner.PowerSpinnerView
+                android:id="@+id/year_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/textview_border"
+                android:gravity="start"
+                android:hint="@string/Year"
+                android:padding="10dp"
+                android:text="@={vehicle.year}"
+                android:textColor="@color/hint_color"
+                app:spinner_popup_background="@color/shimmer_background"
+                android:textColorHint="@color/emphasis_color"
+                android:textSize="14.5sp"
+                app:layout_constraintTop_toBottomOf="@id/vehicle_make"
+                app:spinner_arrow_gravity="end"
+                app:spinner_arrow_padding="8dp"
+                app:spinner_arrow_tint="@color/emphasis_color"
+                app:spinner_divider_color="@color/white"
+                app:spinner_divider_show="true"
+                app:spinner_divider_size="0.4dp"
+                app:spinner_popup_animation="dropdown"
+                app:spinner_popup_elevation="14dp" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/vehicle_reg_continue"
+                style="@style/save_btn_outlined"
+                unitNo="@{vehicle.unitNumber}"
+                vehicleMake="@{vehicle.make}"
+                vehicleModel="@{vehicle.model}"
+                vehicleType="@{vehicle.type}"
+                vinNo="@{vehicle.vinNo}"
+                year="@{vehicle.year}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textAllCaps="false"
+                android:enabled="false"
+                android:text="@string/continue_vehicle_reg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/year_layout" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+
+    <data>
+
+        <import type="com.pet001kambala.namopsfleetmanager.utils.BindingUtil" />
+
+        <variable
+            name="vehicle"
+            type="com.pet001kambala.namopsfleetmanager.model.Vehicle" />
+    </data>
+</layout>

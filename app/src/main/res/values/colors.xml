@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/app_splash</color>
+    <color name="colorPrimaryDark">@color/app_splash_lite</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="input_login">#222222</color>
+    <color name="input_login_hint">#E9E5E5</color>
+    <color name="white">#ffffff</color>
+    <color name="splash_screen">@color/app_splash_lite</color>
+    <color name="app_color">@color/app_splash_lite</color>
+    <color name="app_bar">#0B68B1</color>
+    <color name="btn_ripple_color">#6AB8CF</color>
+    <color name="active_toggle_btn">#2196F3</color>
+    <color name="emphasis_color">#747477</color>
+    <color name="shimmer_background">#CACECE</color>
+    <color name="color_dark_light">#555450</color>
+    <color name="hint_color">#E91E63</color>
+    <color name="my_acc_background">#CACFCF</color>
+    <color name="app_background">#77B1F1F1</color>
+    <color name="black">#000</color>
+    <color name="app_splash">#2E687D</color>
+    <color name="app_splash_lite">#4F97B1</color>
+
+
+    <!--    Table colors-->
+
+    <color name="cell_background_color">#ffffff</color>
+    <color name="header_line_color">#0a0a0a</color>
+    <color name="table_view_default_text_color">#0a0a0a</color>
+    <color name="selected_background_color">#E91E63</color>
+    <color name="shadow_background_color">@color/white</color>
+    <color name="unselected_background_color">@color/shimmer_background</color>
+    <color name="cell_layout_clr">#023364</color>
+</resources>
