@@ -26,8 +26,12 @@ enum class AccessType(var value: String) {
     UPDATE_TYRE("Update tyre details"),
     VIEW_TYRE("View tyre details."),
     MOUNT_TYRE_OR_UNMOUNT_TYRE("Mount or unMount tyre."),
-    INSPECT_TYRE("Do tyre inspection."),
+    INSPECT_TYRE("Carry out tyre inspections."),
     SEND_OR_RECEIVE_TYRE_FROM_VENDOR("Send or receive tyre from tyre vendor."),
 
-    ADMIN("Make admin on this app.")
+    ADMIN("Make an admin on this app.");
+
+    override fun toString(): String {
+        return value
+    }
 }

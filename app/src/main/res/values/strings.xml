@@ -130,6 +130,10 @@
     <string name="trailer_number">Trailer Number</string>
     <string name="horse_number">Horse Number e.g. H01</string>
     <string name="select_trailer_type">Trailer type</string>
+    <string name="block_user">Block this account?</string>
+    <string name="email_or_cell">User email or cellphone</string>
+    <string name="find_account">Find account</string>
+    <string name="find_btn">Find</string>
 
     <!--    String constants-->
     <string-array name="trailer_type">
@@ -301,7 +305,7 @@
         <item>Supplier</item>
     </string-array>
 
-<!--    User's permission in this app -->
+    <!--    User's permission in this app -->
     <string-array name="permission_group">
         <item>Vehicles</item>
         <item>Trailers</item>
