@@ -2,14 +2,12 @@ package com.pet001kambala.namopsfleetmanager.ui.trailer
 
 import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewModelScope
 import com.pet001kambala.namopsfleetmanager.R
 import com.pet001kambala.namopsfleetmanager.model.Trailer
-import com.pet001kambala.namopsfleetmanager.model.Vehicle
 import com.pet001kambala.namopsfleetmanager.repository.TrailerRepo
-import com.pet001kambala.namopsfleetmanager.repository.VehicleRepo
 import com.pet001kambala.namopsfleetmanager.utils.Const
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.toJson
 import com.pet001kambala.namopsfleetmanager.utils.Results
 import kotlinx.android.synthetic.main.fragment_extended_vehicle_registration.*
@@ -45,6 +43,8 @@ class TrailerHomeDetailsFragment : TrailerRegistrationDetailsFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         register.text = getString(R.string.update)
+        year_layout.setItems(ParseUtil.yearOfMake())
+
         unit_number_layout.isEnabled = false
         register.setOnClickListener {
             trailerModel.viewModelScope.launch {

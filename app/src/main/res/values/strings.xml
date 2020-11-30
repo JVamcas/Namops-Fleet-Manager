@@ -26,7 +26,7 @@
     <string name="Year">Year</string>
     <string name="import_from_excel">Import from excel</string>
     <string name="continue_vehicle_reg">Next</string>
-    <string name="plate_number">Plate Number</string>
+    <string name="plate_number">Plate Number e.g N234W</string>
     <string name="vehicle_color">Color</string>
     <string name="select_vehicle_color">Color</string>
     <string name="engine_number">Engine number</string>
@@ -120,7 +120,7 @@
     <string name="about_developer">About developer</string>
     <string name="update_account">Update account</string>
     <string name="menu_trailer">Trailers</string>
-    <string name="select_trailer_type">Manufacturer</string>
+    <string name="select_trailer_make">Manufacturer</string>
     <string name="onto_horse">Mount onto Horse</string>
     <string name="onto_trailer">Mount onto Trailer</string>
     <string name="find_trailer">Find trailer</string>
@@ -129,8 +129,17 @@
     <string name="vehicle_number">Unit number e.g. H01</string>
     <string name="trailer_number">Trailer Number</string>
     <string name="horse_number">Horse Number e.g. H01</string>
+    <string name="select_trailer_type">Trailer type</string>
 
     <!--    String constants-->
+    <string-array name="trailer_type">
+        <item>Select trailer type</item>
+        <item>Side Loader</item>
+        <item>Skeletal</item>
+        <item>Flat Deck</item>
+        <item>Super Link</item>
+    </string-array>
+
     <string-array name="Tyre_brand">
         <item>Select brand…</item>
         <item>GoodYear</item>
@@ -232,6 +241,7 @@
     </string-array>
     <string-array name="Vehicle_make">
         <item>Select make…</item>
+        <item>Home - Built</item>
         <item>Toyota</item>
         <item>Kalmar</item>
         <item>Nissan</item>
@@ -289,5 +299,14 @@
         <item>Retailer</item>
         <item>Depot</item>
         <item>Supplier</item>
+    </string-array>
+
+<!--    User's permission in this app -->
+    <string-array name="permission_group">
+        <item>Vehicles</item>
+        <item>Trailers</item>
+        <item>Tyres</item>
+        <item>Tyre Vendors</item>
+        <item>Fuel</item>
     </string-array>
 </resources>

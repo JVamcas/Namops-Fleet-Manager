@@ -12,20 +12,12 @@ class DateUtil {
         var ICON_PATH_PATTERN = ".*(\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}).*"
         val INCUBATION_TIME = 86400000 * 14
 
-        fun today(): Timestamp {
-            val cal = Calendar.getInstance()
-            val yr = cal.get(Calendar.YEAR)
-            val month = cal.get(Calendar.MONTH)
-            val day = cal.get(Calendar.DATE)
-            val hr = cal.get(Calendar.HOUR)
-            val min = cal.get(Calendar.MINUTE)
-            cal.set(yr,month,day,hr,min)
-            return Timestamp(cal.time)
+        fun today(): Date {
+           return Date()
         }
 
-        //TODO need to mod this function to return a 24 hr format time
-        fun Timestamp._24(): String{
-            return SimpleDateFormat(DATE_FORMAT, Locale.UK).format(this.toDate())
+        fun Date._24(): String{
+            return SimpleDateFormat(DATE_FORMAT, Locale.US).format(this)
         }
 
         fun parseDate(date: String?): Date? {

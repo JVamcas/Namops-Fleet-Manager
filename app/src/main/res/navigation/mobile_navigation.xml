@@ -47,7 +47,7 @@
     <fragment
         android:id="@+id/tyreSurveyFragment"
         android:name="com.pet001kambala.namopsfleetmanager.ui.tyres.details.TyreSurveyDetailsFragment"
-        android:label="Record Tyre Survey"
+        android:label="Tyre inspection"
         tools:layout="@layout/fragment_tyre_survey" />
     <fragment
         android:id="@+id/tyreHomeDetailsFragment"
@@ -88,7 +88,7 @@
     <fragment
         android:id="@+id/tyreSurveyRecordsFragment"
         android:name="com.pet001kambala.namopsfleetmanager.ui.tyres.records.TyreSurveyRecordsFragment"
-        android:label="Tyre survey records"
+        android:label="Tyre inspection records"
         tools:layout="@layout/tyres_list_fragment" />
     <fragment
         android:id="@+id/tyreRepairFragment"

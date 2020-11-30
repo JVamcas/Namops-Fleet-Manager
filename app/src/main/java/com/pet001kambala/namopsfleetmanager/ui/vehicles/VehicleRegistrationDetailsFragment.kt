@@ -8,9 +8,9 @@ import com.pet001kambala.namopsfleetmanager.R
 import com.pet001kambala.namopsfleetmanager.databinding.FragmentVehicleRegistrationBinding
 import com.pet001kambala.namopsfleetmanager.utils.Const
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.toJson
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.yearOfMake
 import kotlinx.android.synthetic.main.fragment_vehicle_registration.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import java.util.*
 
 
 open class VehicleRegistrationDetailsFragment : AbstractVehicleDetailsFragment() {
@@ -32,10 +32,7 @@ open class VehicleRegistrationDetailsFragment : AbstractVehicleDetailsFragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val calendar = Calendar.getInstance()
-        calendar.time = Date()
-        val year = calendar.get(Calendar.YEAR)
-        year_layout.setItems((year downTo 2000).map { it.toString() })
+        year_layout.setItems(yearOfMake())
 
         vehicle_reg_continue.setOnClickListener {
             val bundle = Bundle()

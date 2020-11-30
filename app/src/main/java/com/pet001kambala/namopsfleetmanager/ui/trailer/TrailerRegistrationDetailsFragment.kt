@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.pet001kambala.namopsfleetmanager.R
 import com.pet001kambala.namopsfleetmanager.databinding.FragmentTrailerRegistrationDetailsBinding
 import com.pet001kambala.namopsfleetmanager.repository.TrailerRepo
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.yearOfMake
 import com.pet001kambala.namopsfleetmanager.utils.Results
 import kotlinx.android.synthetic.main.fragment_trailer_registration_details.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -30,6 +31,8 @@ open class TrailerRegistrationDetailsFragment : AbstractTrailerDetailsFragment()
     @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        year_layout.setItems(yearOfMake())
 
         register.setOnClickListener {
             trailerModel.viewModelScope.launch {

@@ -5,12 +5,13 @@ import android.text.TextUtils
 import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
 import com.pet001kambala.namopsfleetmanager.model.AbstractModel
-import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isValidUnitNo
+import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion._24
 import com.squareup.picasso.Picasso
 import jxl.write.Label
 import jxl.write.WritableWorkbook
 import java.io.File
 import java.text.DecimalFormat
+import java.util.*
 import java.util.regex.Pattern
 
 class ParseUtil {
@@ -33,12 +34,17 @@ class ParseUtil {
         }
 
         fun String?.isValidVehicleNo() :Boolean{
-            val pattern = Pattern.compile("^[H]\\d+")
+            val pattern = Pattern.compile("^[HL]\\d{2,}$")
             return !this.isNullOrEmpty() && pattern.matcher(this).matches()
         }
 
         fun String?.isValidTrailerNo() :Boolean{
-            val pattern = Pattern.compile("^[T]\\d+")
+            val pattern = Pattern.compile("^[T]\\d{2,}$")
+            return !this.isNullOrEmpty() && pattern.matcher(this).matches()
+        }
+
+        fun String?.isValidPlateNo(): Boolean{
+            val pattern  = Pattern.compile("^N\\d+[A-Z]+$")
             return !this.isNullOrEmpty() && pattern.matcher(this).matches()
         }
 
@@ -62,6 +68,13 @@ class ParseUtil {
         fun findFilePath(mContext: Context, filePath: String): String? {
             val file = File(mContext.getExternalFilesDir(null), filePath)
             return if (file.exists()) "file:" + file.absolutePath else null
+        }
+
+        fun yearOfMake(): List<String>{
+            val calendar = Calendar.getInstance()
+            calendar.time = Date()
+            val year = calendar.get(Calendar.YEAR)
+            return (year downTo 1990).map { it.toString() }
         }
 
         /***
@@ -166,8 +179,8 @@ class ParseUtil {
          * Get the prefix of tyre serial number
          */
         fun getSNPrefix(): String {
-            val dat = DateUtil.fromTimeStamp(DateUtil.today())
-            val match = dat?.let { Regex("(\\d{2})(\\d{2})-(\\d{2})").find(it) }!!
+            val dat = DateUtil.today()._24()
+            val match = dat.let { Regex("(\\d{2})(\\d{2})-(\\d{2})").find(it) }!!
             val (_, year, month) = match.destructured
             return "$year$month" + "NOL"
         }

@@ -15,6 +15,7 @@ import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.getSNPrefi
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isMoney
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isValidEmail
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isValidMobile
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isValidPlateNo
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isValidTrailerNo
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isValidTyreSN
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isValidUnitNo
@@ -31,6 +32,12 @@ class BindingUtil {
         fun emptyEdit(mEditText: EditText, errorMsg: String?, value: String?) {
             mEditText.error = if (value.isNullOrEmpty()) errorMsg
             else null
+        }
+
+        @JvmStatic
+        @BindingAdapter(value = ["errorMsg", "plateNumber"])
+        fun validatePlateNumber(mEditText: EditText, errorMsg: String?, plateNumber: String?) {
+            mEditText.error = if (plateNumber.isValidPlateNo()) null else errorMsg
         }
 
         @JvmStatic
@@ -159,21 +166,29 @@ class BindingUtil {
 
 
         @JvmStatic
-        @BindingAdapter(value = ["unitNo", "trailerMake", "trailerPlate", "trailerDepartment"])
+        @BindingAdapter(value = ["unitNo", "trailerMake", "trailerPlate", "trailerDepartment","trailerColor","trailerYear","trailerVIN","trailerType"])
         fun validateTrailerRegistration(
             mButton: MaterialButton,
             unitNo: String?,
             trailerMake: String?,
             trailerPlate: String?,
-            trailerDepartment: String?
+            trailerDepartment: String?,
+            trailerColor: String?,
+            trailerYear: String?,
+            trailerVIN: String?,
+            trailerType: String?
         ) {
             mButton.isEnabled = isValidSelection(
                 arrayListOf(
                     trailerDepartment,
                     trailerMake,
-                    trailerPlate
+                    trailerColor,
+                    trailerYear,
+                    trailerVIN,
+                    trailerType
                 )
             ) && unitNo.isValidTrailerNo()
+                    && trailerPlate.isValidPlateNo()
         }
 
         @JvmStatic

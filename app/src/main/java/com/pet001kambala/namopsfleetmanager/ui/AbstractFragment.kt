@@ -23,8 +23,10 @@ import com.pet001kambala.namopsfleetmanager.R
 import com.pet001kambala.namopsfleetmanager.databinding.ProgressbarBinding
 import com.pet001kambala.namopsfleetmanager.databinding.WarningDialogBinding
 import com.pet001kambala.namopsfleetmanager.model.AbstractModel
-import com.pet001kambala.namopsfleetmanager.ui.account.auth.AbstractAuthFragment
+import com.pet001kambala.namopsfleetmanager.model.Account
 import com.pet001kambala.namopsfleetmanager.ui.account.AccountViewModel
+import com.pet001kambala.namopsfleetmanager.ui.account.auth.AbstractAuthFragment
+import com.pet001kambala.namopsfleetmanager.utils.AccessType
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil
 import com.pet001kambala.namopsfleetmanager.utils.Results
@@ -44,6 +46,8 @@ abstract class AbstractFragment : Fragment() {
     private lateinit var mProgressbarBinding: ProgressbarBinding
     private val accountModel: AccountViewModel by activityViewModels()
 
+    private lateinit var currentAccount: Account
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,14 +59,25 @@ abstract class AbstractFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         handleBackClicks()
 
+        accountModel.currentAccount.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            currentAccount = it
+        })
+
         accountModel.authState.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it?.let {
                 if (it != AccountViewModel.AuthState.AUTHENTICATED
-                    && this@AbstractFragment !is AbstractAuthFragment)
+                    && this@AbstractFragment !is AbstractAuthFragment
+                )
                     navController.navigate(R.id.action_global_authentication)
-                println("Was here ${it}")
             }
         })
+    }
+
+
+    fun validateOp(accessType: AccessType): Boolean {
+        val permissionList = currentAccount.permissionList
+        return permissionList.contains(accessType.name) || // have permission
+                permissionList.contains(AccessType.ADMIN.name) // or isAdmin
     }
 
     fun isStoragePermissionGranted(): Boolean {
@@ -224,7 +239,7 @@ abstract class AbstractFragment : Fragment() {
                 DUPLICATE_ACCOUNT -> showToast("Err: Account already exist.")
                 INCORRECT_EMAIL_PASSWORD_COMBO -> showToast("Err: Incorrect email or password.")
                 INVALID_AUTH_CODE -> showToast("Err: Incorrect authentication code.")
-                PHONE_VERIFICATION_CODE_EXPIRED ->showToast("Err: Verification code expired.")
+                PHONE_VERIFICATION_CODE_EXPIRED -> showToast("Err: Verification code expired.")
                 else -> showToast("Err: Unknown error!")
             }
         }

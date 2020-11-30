@@ -5,6 +5,7 @@ import android.view.View
 import com.pet001kambala.namopsfleetmanager.R
 import com.pet001kambala.namopsfleetmanager.model.Vehicle
 import com.pet001kambala.namopsfleetmanager.utils.Const
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.toJson
 import com.pet001kambala.namopsfleetmanager.utils.Results
 import kotlinx.android.synthetic.main.fragment_vehicle_registration.*
@@ -29,6 +30,8 @@ class VehicleHomeDetailsFragment : VehicleRegistrationDetailsFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         unit_number_layout.isEnabled = false
+
+        year_layout.setItems(ParseUtil.yearOfMake())
 
         vehicle_reg_continue.setOnClickListener {
             val json = vehicle.toJson()
