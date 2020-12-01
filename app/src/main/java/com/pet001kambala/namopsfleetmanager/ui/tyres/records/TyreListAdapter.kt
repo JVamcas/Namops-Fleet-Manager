@@ -3,7 +3,6 @@ package com.pet001kambala.namopsfleetmanager.ui.tyres.records
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.pet001kambala.namopsfleetmanager.databinding.TyreLayoutBinding
@@ -25,10 +24,6 @@ class TyreListAdapter(
         return ViewHolder(
             binding.root
         )
-    }
-
-    override fun getFilter(): Filter? {
-        return null
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".UsersListFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:context=".ui.fragment.business.EmployeesFragment">
 
-</FrameLayout>
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_users_yet"
+            android:textColor="@color/hint_color"
+            android:textAlignment="center"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:id="@+id/no_users_yet"
+            android:visibility="@{usersCount > 0? View.GONE: View.VISIBLE}"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/accounts_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{usersCount > 0? View.VISIBLE: View.GONE}"
+            tools:listitem="@layout/user_view" />
+    </FrameLayout>
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="usersCount"
+            type="Integer" />
+    </data>
+</layout>

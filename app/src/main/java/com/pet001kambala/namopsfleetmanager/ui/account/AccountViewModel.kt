@@ -33,6 +33,19 @@ class AccountViewModel : ViewModel() {
     }
 
     @ExperimentalCoroutinesApi
+    val accountList = liveData {
+        emit(Results.loading())
+        try {
+            accountRepo.accountsChangeListener().collect{
+                emit(it)
+            }
+        }
+        catch (e: Exception){
+            emit(Results.Error(e))
+        }
+    }
+
+    @ExperimentalCoroutinesApi
     val authState = liveData {
         val userTask = Firebase.auth
         userTask.currentUser?.reload()?.await() //reload currently logged in user

@@ -7,16 +7,16 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.pet001kambala.namopsfleetmanager.R
 import com.pet001kambala.namopsfleetmanager.databinding.FragmentMyProfileBinding
+import com.pet001kambala.namopsfleetmanager.model.Account
 import com.pet001kambala.namopsfleetmanager.ui.AbstractFragment
 import com.pet001kambala.namopsfleetmanager.ui.account.PermissionListAdapter.PermissionItem
 import com.pet001kambala.namopsfleetmanager.utils.AccessType.*
 import kotlinx.android.synthetic.main.fragment_my_profile.*
-import kotlinx.android.synthetic.main.text_separator_line.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-class MyProfileFragment : AbstractFragment() {
+open class MyProfileFragment : AbstractFragment() {
     val accountModel: AccountViewModel by activityViewModels()
-    private lateinit var binding: FragmentMyProfileBinding
+    lateinit var binding: FragmentMyProfileBinding
     lateinit var permissionMap: LinkedHashMap<String, List<PermissionItem>>
     private lateinit var mAdapter: PermissionListAdapter
 
@@ -81,21 +81,15 @@ class MyProfileFragment : AbstractFragment() {
         accountModel.currentAccount.observe(viewLifecycleOwner, Observer { account ->
             binding.account = account
             account?.let {
-                permissionMap.toList().forEach {
-                    it.second.forEach { permission ->
-                        permission.state = permission.accessType.name in account.permissionList
-                    }
-                }
+                permissionMap.setUserPermissionItem(account)
             }
         })
-        binding.permissionList.setAdapter(mAdapter)
-
-
         binding.permissionList.setAdapter(mAdapter)
 
         return binding.root
     }
 
+    @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -116,5 +110,16 @@ class MyProfileFragment : AbstractFragment() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    /**
+     * Convert user permissions <Strings> to PermissionItem
+     */
+    fun LinkedHashMap<String, List<PermissionItem>>.setUserPermissionItem(account: Account){
+        this.toList().forEach {
+            it.second.forEach { permission ->
+                permission.state = permission.accessType.name in account.permissionList
+            }
+        }
     }
 }

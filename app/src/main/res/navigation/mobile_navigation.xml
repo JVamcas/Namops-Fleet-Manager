@@ -6,7 +6,7 @@
     app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.pet001kambala.namopsfleetmanager.ui.HomeFragment"
+        android:name="com.pet001kambala.namopsfleetmanager.ui.home.HomeFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_home" >
         <action
@@ -333,16 +333,16 @@
     <action android:id="@+id/action_global_trailerGraph" app:destination="@id/trailerGraph" />
     <fragment
         android:id="@+id/editUserPermissionFragment2"
-        android:name="com.pet001kambala.namopsfleetmanager.EditUserPermissionFragment"
-        android:label="fragment_edit_user_permission"
-        tools:layout="@layout/fragment_edit_user_permission" />
+        android:name="com.pet001kambala.namopsfleetmanager.ui.home.EditUserPermissionFragment"
+        android:label="Edit permissions"
+        tools:layout="@layout/fragment_my_profile" />
     <fragment
         android:id="@+id/usersListFragment"
-        android:name="com.pet001kambala.namopsfleetmanager.UsersListFragment"
-        android:label="fragment_users_list"
+        android:name="com.pet001kambala.namopsfleetmanager.ui.home.UsersListFragment"
+        android:label="Accounts"
         tools:layout="@layout/fragment_users_list" >
         <action
-            android:id="@+id/action_usersListFragment_to_editUserPermissionFragment2"
+            android:id="@+id/action_usersListFragment_to_editUserPermissionFragment"
             app:destination="@id/editUserPermissionFragment2" />
     </fragment>
 </navigation>

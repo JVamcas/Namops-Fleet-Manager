@@ -16,6 +16,8 @@ abstract class AbstractListFragment<K: AbstractModel, T: RecyclerView.ViewHolder
         initAdapter()
     }
 
+    abstract fun initAdapter()
+
     fun handleRecycleView(recyclerView: RecyclerView, mListener: AbstractAdapter.ModelViewClickListener<K>) {
 
         recyclerView.adapter = mAdapter
@@ -25,5 +27,4 @@ abstract class AbstractListFragment<K: AbstractModel, T: RecyclerView.ViewHolder
         val touchHelper = ItemTouchHelper(swipeCallback)
         touchHelper.attachToRecyclerView(recyclerView)
     }
-    abstract fun initAdapter()
 }

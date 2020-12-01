@@ -225,4 +225,54 @@ class AccountRepo {
             Results.Error(e)
         }
     }
+    @ExperimentalCoroutinesApi
+    fun accountsChangeListener(): Flow<Results> = callbackFlow {
+        val collection = DB.collection(Docs.ACCOUNTS.name)
+        //1. first load the TyreSurveyItem data
+        offer(loadAccounts())
+        //2.  then listen for document changes on the [TyreSurveyItem] collection
+        val subscription = collection.addSnapshotListener { shot, error ->
+            error?.let {
+                offer(Results.Error(error))
+            }
+            shot?.apply {
+                val data =
+                    if (!this.isEmpty)
+                        ArrayList(shot.documents.mapNotNull { it.toObject(Account::class.java) })
+                    else null
+
+                val results = Results.Success(
+                    data = data,
+                    code = Results.Success.CODE.LOAD_SUCCESS
+                )
+                offer(results)
+            }
+        }
+        awaitClose { subscription.remove() }
+    }
+
+    private suspend fun loadAccounts(): Results {
+        val collection = DB.collection(Docs.ACCOUNTS.name)
+        return try {
+            val shot = collection.get().await()
+            val data = shot.documents.mapNotNull { it.toObject(Account::class.java) }
+            Results.Success<Account>(
+                data = ArrayList(data),
+                code = Results.Success.CODE.LOAD_SUCCESS
+            )
+        } catch (e: Exception) {
+            Results.Error(e)
+        }
+    }
+
+    suspend fun updateUserPermissions(account: Account): Results {
+
+        return try {
+            DB.collection(Docs.ACCOUNTS.name).document(account.id).update(account.toMap()).await()
+            Results.Success<Account>(code = Results.Success.CODE.UPDATE_SUCCESS)
+        }
+        catch (e: java.lang.Exception){
+            Results.Error(e)
+        }
+    }
 }

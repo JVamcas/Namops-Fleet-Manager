@@ -134,6 +134,8 @@
     <string name="email_or_cell">User email or cellphone</string>
     <string name="find_account">Find account</string>
     <string name="find_btn">Find</string>
+    <string name="no_users_yet">No users yet.</string>
+    <string name="accounts">Accounts</string>
 
     <!--    String constants-->
     <string-array name="trailer_type">
@@ -267,6 +269,7 @@
         <item>Afrit</item>
     </string-array>
     <string-array name="company_name">
+        <item>Select company name…</item>
         <item>NamOps Logistics Pty Ltd</item>
         <item>SeaNam</item>
     </string-array>
@@ -303,14 +306,5 @@
         <item>Retailer</item>
         <item>Depot</item>
         <item>Supplier</item>
-    </string-array>
-
-    <!--    User's permission in this app -->
-    <string-array name="permission_group">
-        <item>Vehicles</item>
-        <item>Trailers</item>
-        <item>Tyres</item>
-        <item>Tyre Vendors</item>
-        <item>Fuel</item>
     </string-array>
 </resources>

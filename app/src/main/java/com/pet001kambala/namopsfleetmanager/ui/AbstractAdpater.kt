@@ -1,13 +1,12 @@
 package com.pet001kambala.namopsfleetmanager.ui
 
-import android.widget.Filterable
 import androidx.annotation.UiThread
 import androidx.recyclerview.widget.RecyclerView
 import com.pet001kambala.namopsfleetmanager.model.AbstractModel
 
 abstract class AbstractAdapter<K : AbstractModel, T : RecyclerView.ViewHolder>(
     var mListener: ModelViewClickListener<K>
-) : RecyclerView.Adapter<T>(), Filterable {
+) : RecyclerView.Adapter<T>() {
     var modelList: ArrayList<K> = ArrayList()
         @UiThread
         set(value) {

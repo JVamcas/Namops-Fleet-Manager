@@ -3,7 +3,6 @@ package com.pet001kambala.namopsfleetmanager.ui.vehicles
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.pet001kambala.namopsfleetmanager.databinding.VehicleLayoutBinding
@@ -25,10 +24,6 @@ class VehicleListAdapter(
         return ViewHolder(
             binding.root
         )
-    }
-
-    override fun getFilter(): Filter? {
-        return null
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
