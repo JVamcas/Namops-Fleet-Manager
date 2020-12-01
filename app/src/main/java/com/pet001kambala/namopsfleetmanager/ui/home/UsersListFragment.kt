@@ -42,10 +42,12 @@ class UsersListFragment : AbstractListFragment<Account, UsersListAdapter.ViewHol
 
         accountModel.accountList.observe(viewLifecycleOwner, Observer {
             when (it) {
-                Results.loading() -> showProgressBar("Loading users...")
+                Results.loading() -> showProgressBar("Loading accounts...")
                 is Results.Success<*> -> {
                     endProgressBar()
-                    mAdapter.modelList = it.data as ArrayList<Account>
+                    val currentAccount = accountModel.currentAccount.value
+                    // cannot issue yourself permission
+                    mAdapter.modelList = (it.data?.filterNot { it as Account == currentAccount }) as ArrayList<Account>
                     binding.usersCount = mAdapter.itemCount
                 }
                 else -> {
@@ -57,6 +59,7 @@ class UsersListFragment : AbstractListFragment<Account, UsersListAdapter.ViewHol
     }
 
     override fun onEditModel(model: Account, pos: Int) {
+
 
         val bundle = Bundle().apply { putString(Const.ACCOUNT, model.toJson()) }
         navController.navigate(R.id.action_usersListFragment_to_editUserPermissionFragment, bundle)

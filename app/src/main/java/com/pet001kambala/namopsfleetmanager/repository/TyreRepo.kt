@@ -53,7 +53,8 @@ class TyreRepo {
         val collection = DB.collection(Docs.TYRES.name)
         try {//1. first load the tyre data
             val shot = collection.get().await()
-            val data = shot.documents.mapNotNull { it.toObject(Tyre::class.java) }
+            val data = shot.documents.mapNotNull { it.toObject(Tyre::class.java) }.sorted()
+
             offer(
                 Results.Success<Tyre>(
                     data = ArrayList(data),
@@ -71,11 +72,11 @@ class TyreRepo {
             shot?.apply {
                 val data =
                     if (!this.isEmpty)
-                        ArrayList(shot.documents.mapNotNull { it.toObject(Tyre::class.java) })
-                    else null
+                        shot.documents.mapNotNull { it.toObject(Tyre::class.java) }.sorted().reversed()
+                    else arrayListOf()
 
                 val results = Results.Success(
-                    data = data,
+                    data = ArrayList(data),
                     code = Results.Success.CODE.LOAD_SUCCESS
                 )
                 offer(results)

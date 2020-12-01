@@ -7,8 +7,9 @@ import com.pet001kambala.namopsfleetmanager.BR
 import com.pet001kambala.namopsfleetmanager.utils.Const
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.extractDigit
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.moneyFormat
+
 @Keep
-data class Tyre(
+class Tyre(
     var location: String = Const.defaultLocation,
     var mounted: Boolean = false,
     var horseNo: String? = null,
@@ -16,8 +17,10 @@ data class Tyre(
     var distanceCovered: Double = 0.0,
     var reference_vehicle_km: String? = null,
     var accumulatedCost: String? = null
-) : AbstractModel() {
-    @get:Exclude @Transient override var id: String = ""
+) : AbstractModel(), Comparable<Tyre> {
+    @get:Exclude
+    @Transient
+    override var id: String = ""
 
     override fun data() = arrayListOf(
         Pair("Serial Number", serialNumber),
@@ -25,24 +28,28 @@ data class Tyre(
         Pair("Size", size),
         Pair("Recommended Pressure", recommendedPressure),
         Pair("Purchase Price", moneyFormat("NAD", extractDigit(purchasePrice).toDouble())),
-        Pair("Accumulated Cost", moneyFormat("NAD",extractDigit(accumulatedCost).toDouble())),
+        Pair("Accumulated Cost", moneyFormat("NAD", extractDigit(accumulatedCost).toDouble())),
         Pair("Date Purchased", purchaseDate),
         Pair("Current Condition", currentCondition),
-        Pair("Location",location),
+        Pair("Location", location),
         Pair("Condition at Purchase", purchaseCondition),
         Pair("Mounted?", if (mounted) "Yes" else "No"),
         Pair("Mount Position", mountPosition),
-        Pair("Mounted On", trailerNo?: horseNo),
+        Pair("Mounted On", trailerNo ?: horseNo),
         Pair("Purchase Tread Type", purchaseThreadType),
         Pair("Current Tread Type", currentThreadType),
         Pair("Distance Covered", "$distanceCovered KM"),
         Pair("Purchase Tread Depth", "$purchaseThreadDepth mm"),
-        Pair("Current Tread Depth", if(currentThreadDepth.isNullOrEmpty()) " - " else "$currentThreadDepth mm"),
+        Pair(
+            "Current Tread Depth",
+            if (currentThreadDepth.isNullOrEmpty()) " - " else "$currentThreadDepth mm"
+        ),
         Pair(
             "Cost Per KM",
             moneyFormat("NAD", extractDigit(accumulatedCost).toDouble() / distanceCovered)
         )
     )
+
     @Bindable
     var recommendedPressure: String? = null
         set(value) {
@@ -51,6 +58,7 @@ data class Tyre(
                 notifyPropertyChanged(BR.recommendedPressure)
             }
         }
+
     @Bindable
     var brand: String? = null
         set(value) {
@@ -59,6 +67,7 @@ data class Tyre(
                 notifyPropertyChanged(BR.brand)
             }
         }
+
     @Bindable
     var purchaseThreadType: String? = null
         set(value) {
@@ -67,6 +76,7 @@ data class Tyre(
                 notifyPropertyChanged(BR.purchaseThreadType)
             }
         }
+
     @Bindable
     var currentCondition: String? = null
         set(value) {
@@ -75,6 +85,7 @@ data class Tyre(
                 notifyPropertyChanged(BR.currentCondition)
             }
         }
+
     @Bindable
     var mountPosition: String? = null
         set(value) {
@@ -83,6 +94,7 @@ data class Tyre(
                 notifyPropertyChanged(BR.mountPosition)
             }
         }
+
     @Bindable
     var currentThreadType: String? = null
         set(value) {
@@ -91,6 +103,7 @@ data class Tyre(
                 notifyPropertyChanged(BR.purchaseThreadType)
             }
         }
+
     @Bindable
     var purchaseCondition: String? = null
         set(value) {
@@ -99,6 +112,7 @@ data class Tyre(
                 notifyPropertyChanged(BR.purchaseCondition)
             }
         }
+
     @Bindable
     var currentThreadDepth: String? = null
         set(value) {
@@ -107,6 +121,7 @@ data class Tyre(
                 notifyPropertyChanged(BR.currentThreadDepth)
             }
         }
+
     @Bindable
     var purchaseThreadDepth: String? = null
         set(value) {
@@ -115,6 +130,7 @@ data class Tyre(
                 notifyPropertyChanged(BR.purchaseThreadDepth)
             }
         }
+
     @Bindable
     var serialNumber: String? = null
         set(value) {
@@ -123,6 +139,7 @@ data class Tyre(
                 notifyPropertyChanged(BR.serialNumber)
             }
         }
+
     @Bindable
     var size: String? = null
         set(value) {
@@ -131,6 +148,7 @@ data class Tyre(
                 notifyPropertyChanged(BR.size)
             }
         }
+
     @Bindable
     var purchaseDate: String? = null
         set(value) {
@@ -139,6 +157,7 @@ data class Tyre(
                 notifyPropertyChanged(BR.purchaseDate)
             }
         }
+
     @Bindable
     var purchasePrice: String? = null
         set(value) {
@@ -147,4 +166,18 @@ data class Tyre(
                 notifyPropertyChanged(BR.purchasePrice)
             }
         }
+
+    override fun compareTo(other: Tyre): Int {
+        val matchSNOther = Regex("(\\d{4})NOL(\\d+)").find(other.serialNumber!!)
+        val (prefixOther, tyreIndexOther) = matchSNOther!!.destructured
+
+        val match = Regex("(\\d{4})NOL(\\d+)").find(serialNumber!!)
+        val (prefix, tyreIndex) = match!!.destructured
+
+        return when {
+            prefix.toInt() != prefixOther.toInt() -> compareValues(prefix.toInt(), prefixOther.toInt())
+            tyreIndex.toInt() != tyreIndexOther.toInt() -> compareValues(tyreIndex.toInt(), tyreIndexOther.toInt())
+            else -> 0
+        }
+    }
 }

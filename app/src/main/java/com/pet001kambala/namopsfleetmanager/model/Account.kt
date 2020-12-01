@@ -63,6 +63,12 @@ class Account
             }
         }
 
+    override fun equals(other: Any?): Boolean {
+        if(other == null || other !is Account)
+            return false
+        return other.id == id
+    }
+
     override fun toString(): String {
         return "$name - $companyName"
     }

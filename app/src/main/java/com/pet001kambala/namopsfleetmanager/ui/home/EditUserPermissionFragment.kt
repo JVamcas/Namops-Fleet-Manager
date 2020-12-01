@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.pet001kambala.namopsfleetmanager.model.Account
 import com.pet001kambala.namopsfleetmanager.repository.AccountRepo
 import com.pet001kambala.namopsfleetmanager.ui.account.MyProfileFragment
+import com.pet001kambala.namopsfleetmanager.ui.account.PermissionListAdapter
 import com.pet001kambala.namopsfleetmanager.utils.Const
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.convert
 import com.pet001kambala.namopsfleetmanager.utils.Results
@@ -27,7 +28,6 @@ class EditUserPermissionFragment : MyProfileFragment() {
             val json = it.getString(Const.ACCOUNT)
             json?.let {
                 account = json.convert()
-                permissionMap.setUserPermissionItem(account)
             }
         }
     }
@@ -40,6 +40,9 @@ class EditUserPermissionFragment : MyProfileFragment() {
         // Inflate the layout for this fragment
         super.onCreateView(inflater, container, savedInstanceState)
         setHasOptionsMenu(false)
+
+        initPermission()
+        permissionMap.setUserPermissionItem(account)
 
         return binding.root
     }
@@ -61,5 +64,13 @@ class EditUserPermissionFragment : MyProfileFragment() {
                 parseRepoResults(updateResults)
             }
         }
+    }
+
+    override fun onToggle(permission: PermissionListAdapter.PermissionItem) {
+        super.onToggle(permission)
+
+        if(permission.state)
+            account.permissionList.add(permission.accessType.name)
+        else account.permissionList.remove(permission.accessType.name)
     }
 }

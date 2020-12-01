@@ -2,9 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,12 +19,11 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tyre_sn_number"
-                    tyre="@{tyre}"
                     tyre_sn="@{tyre.serialNumber}"
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/tyre_sn_number"
-                    android:inputType="number"
+                    android:inputType="text"
                     android:paddingBottom="9dp"
                     android:singleLine="true"
                     android:text="@={tyre.serialNumber}" />
@@ -239,7 +235,7 @@
                     android:text="@={tyre.recommendedPressure}" />
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+
 
     <data>
 

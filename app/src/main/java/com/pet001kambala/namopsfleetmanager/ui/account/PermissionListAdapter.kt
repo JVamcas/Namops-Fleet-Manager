@@ -9,10 +9,10 @@ import com.google.android.material.switchmaterial.SwitchMaterial
 import com.pet001kambala.namopsfleetmanager.databinding.PermissionGroupViewBinding
 import com.pet001kambala.namopsfleetmanager.databinding.PermissionListItemBinding
 import com.pet001kambala.namopsfleetmanager.utils.AccessType
-import kotlin.collections.LinkedHashMap
-
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class PermissionListAdapter(
+    private val onPermissionToggleListener: OnPermissionToggleListener? = null,
     private val permissionMap: LinkedHashMap<String, List<PermissionItem>>
 ) : BaseExpandableListAdapter() {
     override fun getGroupCount(): Int {
@@ -62,6 +62,7 @@ class PermissionListAdapter(
         return binding.root
     }
 
+    @ExperimentalCoroutinesApi
     override fun getChildView(
         groupPos: Int,
         permissionPos: Int,
@@ -76,13 +77,14 @@ class PermissionListAdapter(
                 false
             ) else DataBindingUtil.getBinding(view)!!
 
-        val permission = getChild(groupPos,permissionPos)
+        val permission = getChild(groupPos, permissionPos)
         val mSwitch: SwitchMaterial = listItemBinding.permission
         mSwitch.isChecked = permission.state
 
         listItemBinding.setPermission(permission.accessType.toString())
-        listItemBinding.permission.setOnClickListener{
+        listItemBinding.permission.setOnClickListener {
             permission.state = mSwitch.isChecked
+            onPermissionToggleListener?.onToggle(permission)
         }
         return listItemBinding.root
     }
@@ -93,5 +95,9 @@ class PermissionListAdapter(
 
     class PermissionItem(var accessType: AccessType) {
         var state = false
+    }
+
+    interface OnPermissionToggleListener{
+        fun onToggle(permission: PermissionItem)
     }
 }

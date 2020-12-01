@@ -3,8 +3,6 @@ package com.pet001kambala.namopsfleetmanager.repository
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pet001kambala.namopsfleetmanager.model.Trailer
 import com.pet001kambala.namopsfleetmanager.model.TrailerMountItem
-import com.pet001kambala.namopsfleetmanager.model.TyreRepairItem
-import com.pet001kambala.namopsfleetmanager.model.Vehicle
 import com.pet001kambala.namopsfleetmanager.utils.Const
 import com.pet001kambala.namopsfleetmanager.utils.Docs
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.toMap
