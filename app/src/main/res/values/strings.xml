@@ -149,6 +149,7 @@
     <string-array name="Tyre_brand">
         <item>Select brand…</item>
         <item>Firestone</item>
+        <item>Gargo</item>
         <item>Golden Crown</item>
         <item>GoodYear</item>
         <item>Mirage</item>
@@ -156,9 +157,12 @@
         <item>Yokohama</item>
         <item>TechKing</item>
         <item>TaiTong</item>
+        <item>Gallant</item>
         <item>Terraking</item>
         <item>Sumitomo</item>
         <item>Double Star</item>
+        <item>Power Truck</item>
+        <item>Boto</item>
         <item>GOL</item>
         <item>GAL</item>
         <item>SUN</item>

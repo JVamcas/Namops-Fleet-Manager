@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.*
 import android.view.View.GONE
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import com.pet001kambala.namopsfleetmanager.R
 import com.pet001kambala.namopsfleetmanager.databinding.FragmentMyProfileBinding
 import com.pet001kambala.namopsfleetmanager.model.Account
@@ -31,12 +30,10 @@ open class MyProfileFragment : AbstractFragment(), PermissionListAdapter.OnPermi
         initPermission()
         binding = FragmentMyProfileBinding.inflate(inflater, container, false)
 
-        accountModel.currentAccount.observe(viewLifecycleOwner, Observer { account ->
-            binding.account = account
-            account?.let {
-                permissionMap.setUserPermissionItem(account)
-            }
-        })
+        val account = accountModel.currentAccount.value
+        binding.account = account
+        permissionMap.setUserPermissionItem(account!!)
+
         binding.permissionList.setAdapter(mAdapter)
 
         return binding.root

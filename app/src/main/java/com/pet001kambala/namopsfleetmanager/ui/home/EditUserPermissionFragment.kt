@@ -44,6 +44,7 @@ class EditUserPermissionFragment : MyProfileFragment() {
         initPermission()
         permissionMap.setUserPermissionItem(account)
 
+        binding.account = account
         return binding.root
     }
 
