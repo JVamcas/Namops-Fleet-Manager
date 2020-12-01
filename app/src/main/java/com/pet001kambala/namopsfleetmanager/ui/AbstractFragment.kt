@@ -29,6 +29,7 @@ import com.pet001kambala.namopsfleetmanager.ui.account.auth.AbstractAuthFragment
 import com.pet001kambala.namopsfleetmanager.utils.AccessType
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isAuthorized
 import com.pet001kambala.namopsfleetmanager.utils.Results
 import com.pet001kambala.namopsfleetmanager.utils.Results.Error.CODE.*
 import com.pet001kambala.namopsfleetmanager.utils.Results.Success.CODE.*
@@ -45,13 +46,16 @@ abstract class AbstractFragment : Fragment() {
     lateinit var navController: NavController
     private lateinit var mProgressbarBinding: ProgressbarBinding
     private val accountModel: AccountViewModel by activityViewModels()
+    val ERR_NO_AUTH: String = "Err: Not authorized to "
 
-    private lateinit var currentAccount: Account
+    var currentAccount: Account? = null
 
 
+    @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+        currentAccount = accountModel.currentAccount.value
     }
 
     @ExperimentalCoroutinesApi
@@ -59,9 +63,6 @@ abstract class AbstractFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         handleBackClicks()
 
-        accountModel.currentAccount.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            currentAccount = it
-        })
 
         accountModel.authState.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it?.let {
@@ -74,10 +75,8 @@ abstract class AbstractFragment : Fragment() {
     }
 
 
-    fun validateOp(accessType: AccessType): Boolean {
-        val permissionList = currentAccount.permissionList
-        return permissionList.contains(accessType.name) || // have permission
-                permissionList.contains(AccessType.ADMIN.name) // or isAdmin
+    fun isAuthorized(accessType: AccessType): Boolean {
+        return currentAccount.isAuthorized(accessType)
     }
 
     fun isStoragePermissionGranted(): Boolean {

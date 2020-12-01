@@ -3,8 +3,10 @@ package com.pet001kambala.namopsfleetmanager.utils
 import android.content.Context
 import android.text.TextUtils
 import com.google.common.reflect.TypeToken
+import com.google.firebase.firestore.Exclude
 import com.google.gson.Gson
 import com.pet001kambala.namopsfleetmanager.model.AbstractModel
+import com.pet001kambala.namopsfleetmanager.model.Account
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion._24
 import com.squareup.picasso.Picasso
 import jxl.write.Label
@@ -29,36 +31,37 @@ class ParseUtil {
             val json = this.toJson()
             return json.convert()
         }
-        fun String?.isValidUnitNo() :Boolean{
+
+        fun String?.isValidUnitNo(): Boolean {
             return this.isValidTrailerNo() || this.isValidVehicleNo()
         }
 
-        fun String?.isValidVehicleNo() :Boolean{
+        fun String?.isValidVehicleNo(): Boolean {
             val pattern = Pattern.compile("^[HL]\\d{2,}$")
             return !this.isNullOrEmpty() && pattern.matcher(this).matches()
         }
 
-        fun String?.isValidTrailerNo() :Boolean{
+        fun String?.isValidTrailerNo(): Boolean {
             val pattern = Pattern.compile("^[T]\\d{2,}$")
             return !this.isNullOrEmpty() && pattern.matcher(this).matches()
         }
 
-        fun String?.isValidPlateNo(): Boolean{
-            val pattern  = Pattern.compile("^N\\d+[A-Z]+$")
+        fun String?.isValidPlateNo(): Boolean {
+            val pattern = Pattern.compile("^N\\d+[A-Z]+$")
             return !this.isNullOrEmpty() && pattern.matcher(this).matches()
         }
 
-        fun <T> T.toMap(): Map<String,Any>{
+        fun <T> T.toMap(): Map<String, Any> {
             return convert()
         }
 
-        inline fun <I,reified O> I.convert(): O{
+        inline fun <I, reified O> I.convert(): O {
             val json = this.toJson()
-            return Gson().fromJson(json,object : TypeToken<O>(){}.type)
+            return Gson().fromJson(json, object : TypeToken<O>() {}.type)
         }
 
-        inline fun <reified  O> String.convert(): O{
-            return Gson().fromJson(this,object : TypeToken<O>(){}.type)
+        inline fun <reified O> String.convert(): O {
+            return Gson().fromJson(this, object : TypeToken<O>() {}.type)
         }
 
         fun <K> K.toJson(): String {
@@ -70,14 +73,17 @@ class ParseUtil {
             return if (file.exists()) "file:" + file.absolutePath else null
         }
 
-        fun yearOfMake(): List<String>{
+        fun yearOfMake(): List<String> {
             val calendar = Calendar.getInstance()
             calendar.time = Date()
             val year = calendar.get(Calendar.YEAR)
             return (year downTo 1990).map { it.toString() }
         }
 
-
+        @Exclude
+        fun Account?.isAuthorized(accessType: AccessType) =
+            this != null && (permissionList.contains(accessType.name) || //is authorised
+                    permissionList.contains(AccessType.ADMIN.name)) //or is admin
 
         /***
          * Write data to sheet in the given workbook
@@ -95,7 +101,7 @@ class ParseUtil {
 
                 sheetList.withIndex().forEach {
                     val sheetData = it.value //
-                    if(sheetData.isNotEmpty()) {
+                    if (sheetData.isNotEmpty()) {
                         wkb.createSheet(sheetNameList[it.index], it.index).apply {
                             var colIndex = 0
                             var rowIndex = 0
@@ -211,6 +217,7 @@ class ParseUtil {
                 phone1
             )
         }
+
         @JvmStatic
         fun String._toPhone(): String {
 

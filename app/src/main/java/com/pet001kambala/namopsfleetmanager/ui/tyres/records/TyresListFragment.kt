@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import com.pet001kambala.namopsfleetmanager.R
 import com.pet001kambala.namopsfleetmanager.model.Cell
 import com.pet001kambala.namopsfleetmanager.model.Tyre
+import com.pet001kambala.namopsfleetmanager.utils.AccessType
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion._24
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion.today
 import com.pet001kambala.namopsfleetmanager.utils.Results
@@ -33,6 +34,10 @@ open class TyresListFragment : AbstractTyreRecord() {
             navController.navigate(R.id.action_tyresListFragment_to_tyreRegistrationFragment)
         }
 
+        if(!isAuthorized(AccessType.REG_TYRE)){
+            showToast("$ERR_NO_AUTH register tyres.")
+            return
+        }
         tyreModel.tyresList.observe(viewLifecycleOwner, Observer {
             it?.let { results ->
                 when (results) {

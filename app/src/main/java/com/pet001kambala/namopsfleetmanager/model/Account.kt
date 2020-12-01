@@ -2,7 +2,9 @@ package com.pet001kambala.namopsfleetmanager.model
 
 import androidx.annotation.Keep
 import androidx.databinding.Bindable
+import com.google.firebase.firestore.Exclude
 import com.pet001kambala.namopsfleetmanager.BR
+import com.pet001kambala.namopsfleetmanager.utils.AccessType
 
 @Keep
 enum class AuthType {
@@ -72,4 +74,5 @@ class Account
     override fun toString(): String {
         return "$name - $companyName"
     }
+
 }
