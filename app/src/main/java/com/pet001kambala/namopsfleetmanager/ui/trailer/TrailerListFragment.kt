@@ -2,6 +2,7 @@ package com.pet001kambala.namopsfleetmanager.ui.trailer
 
 import android.os.Bundle
 import android.view.*
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -11,6 +12,7 @@ import com.pet001kambala.namopsfleetmanager.model.Cell
 import com.pet001kambala.namopsfleetmanager.model.Trailer
 import com.pet001kambala.namopsfleetmanager.model.Vehicle
 import com.pet001kambala.namopsfleetmanager.ui.AbstractTableFragment
+import com.pet001kambala.namopsfleetmanager.utils.AccessType
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion._24
 import com.pet001kambala.namopsfleetmanager.utils.Results
@@ -38,46 +40,56 @@ class TrailerListFragment : AbstractTableFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        register_trailer.isVisible = isAuthorized(AccessType.REG_TRAILER)
         register_trailer.setOnClickListener {
             navController.navigate(R.id.action_trailerListFragment_to_trailerRegistrationDetailsFragment)
         }
-        trailerModel.trailersList.observe(viewLifecycleOwner, Observer {
-            it?.let { results ->
-                when (results) {
-                    Results.Loading -> showProgressBar("Loading trailers...")
-                    is Results.Success<*> -> {
-                        endProgressBar()
-                        binding.trailerCount = results.data?.size?: 0
 
-                        if (!results.data.isNullOrEmpty()) {
-                            val headers = results.data[0].data().map { it.first }//col headers text
-                            val colHeader = headers.map { Cell(it) } as ArrayList
-                            val rows = results.data.map { it.data().map { Cell(it.second) } as ArrayList }
-                            val rowHeader =
-                                results.data.withIndex()
-                                    .map { Cell((it.index + 1).toString()) } as ArrayList
-                            initTable(colHeader, rows, rowHeader, trailer_table,
-                                R.id.action_trailerListFragment_to_trailerHomeDetailsFragment)
+        if(isAuthorized(AccessType.VIEW_TRAILER)) {
+            trailerModel.trailersList.observe(viewLifecycleOwner, Observer {
+                it?.let { results ->
+                    when (results) {
+                        Results.Loading -> showProgressBar("Loading trailers...")
+                        is Results.Success<*> -> {
+                            endProgressBar()
+                            binding.trailerCount = results.data?.size ?: 0
+
+                            if (!results.data.isNullOrEmpty()) {
+                                val headers =
+                                    results.data[0].data().map { it.first }//col headers text
+                                val colHeader = headers.map { Cell(it) } as ArrayList
+                                val rows =
+                                    results.data.map {
+                                        it.data().map { Cell(it.second) } as ArrayList
+                                    }
+                                val rowHeader =
+                                    results.data.withIndex()
+                                        .map { Cell((it.index + 1).toString()) } as ArrayList
+                                initTable(
+                                    colHeader, rows, rowHeader, trailer_table,
+                                    R.id.action_trailerListFragment_to_trailerHomeDetailsFragment
+                                )
+                            }
+                        }
+                        else -> {
+                            endProgressBar()
+                            parseRepoResults(results)
                         }
                     }
-                    else -> {
-                        endProgressBar()
-                        parseRepoResults(results)
-                    }
                 }
-            }
-        })
+            })
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.trailer_list_menu,menu)
+        inflater.inflate(R.menu.trailer_list_menu, menu)
     }
 
     @ExperimentalCoroutinesApi
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.export_all_history ->{
+        when (item.itemId) {
+            R.id.export_all_history -> {
                 if (isStoragePermissionGranted()) {//permission must have been granted
                     trailerModel.trailersList.value?.apply {
                         val today = DateUtil.today()._24()

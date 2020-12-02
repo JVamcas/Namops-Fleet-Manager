@@ -1,6 +1,7 @@
 package com.pet001kambala.namopsfleetmanager.ui
 
 import android.Manifest
+import android.app.ActionBar
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
@@ -8,7 +9,10 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
+import android.view.Window
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
@@ -55,6 +59,7 @@ abstract class AbstractFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+        currentAccount = accountModel.currentAccount.value
     }
 
     @ExperimentalCoroutinesApi
@@ -109,12 +114,17 @@ abstract class AbstractFragment : Fragment() {
     }
 
     protected open fun showProgressBar(message: String) {
-        val builder = AlertDialog.Builder(requireContext())
         mProgressbarBinding = ProgressbarBinding.inflate(layoutInflater, null, false)
         mProgressbarBinding.progressMsg.text = message
-        builder.setView(mProgressbarBinding.root)
 
-        mDialog = builder.create().apply {
+        mDialog = Dialog(requireContext(),android.R.style.Theme_Black)
+        mDialog?.apply {
+
+            window?.setGravity(Gravity.CENTER_VERTICAL)
+            window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            window?.setBackgroundDrawableResource(R.color.transparent)
+            setContentView(mProgressbarBinding.root)
             setCancelable(false)
             show()
         }

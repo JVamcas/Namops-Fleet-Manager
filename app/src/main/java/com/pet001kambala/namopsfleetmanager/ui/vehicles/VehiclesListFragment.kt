@@ -44,7 +44,10 @@ class VehiclesListFragment : AbstractTableFragment() {
             vehicleModel.vehiclesList.observe(viewLifecycleOwner, Observer {
                 it?.let { results ->
                     when (results) {
-                        Results.Loading -> showProgressBar("Loading vehicles...")
+                        Results.Loading -> {
+                            binding.vehiclesCount = 1
+                            showProgressBar("Loading vehicles...")
+                        }
                         is Results.Success<*> -> {
                             endProgressBar()
                             binding.vehiclesCount = results.data?.size ?: 0

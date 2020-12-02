@@ -28,9 +28,6 @@
         <action
             android:id="@+id/action_tyresListFragment_to_tyreVendors"
             app:destination="@id/tyreVendors" />
-        <action
-            android:id="@+id/action_tyresListFragment_to_findTyreDetailsFragment"
-            app:destination="@id/findTyreDetailsFragment" />
     </fragment>
     <action android:id="@+id/action_global_tyresListFragment" app:destination="@id/tyresListFragment" />
     <fragment
@@ -352,5 +349,5 @@
         <action
             android:id="@+id/action_tyreDetailsFragment_to_tyreHomeDetailsFragment"
             app:destination="@id/tyreHomeDetailsFragment" />
-    </fragment>
+    </fragment><action android:id="@+id/action_global_findTyreDetailsFragment" app:destination="@id/findTyreDetailsFragment"/>
 </navigation>

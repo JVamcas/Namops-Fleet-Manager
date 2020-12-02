@@ -32,8 +32,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var navController: NavController
     private lateinit var accountModel: AccountViewModel
     var navigationIcon: Drawable? = null
-    val ERR_NO_AUTH: String = "Err: Permission denied!"
-
 
     @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,22 +69,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         drawer_layout.closeDrawer(GravityCompat.START)
         val curDest = navController.currentDestination?.id
-        val account = accountModel.currentAccount.value
 
         when (item.itemId) {
             R.id.nav_vehicles -> {
-                if (!account.isAuthorized(AccessType.VIEW_VEHICLES)) {
-                    showToast(ERR_NO_AUTH)
-                    return true
-                }
                 if (curDest != R.id.vehiclesListFragment)
                     navController.navigate(R.id.action_global_vehicleGraph)
             }
             R.id.nav_tyre -> {
-                if (!account.isAuthorized(AccessType.VIEW_TYRE)) {
-                    showToast(ERR_NO_AUTH)
-                    return true
-                }
                 if (curDest != R.id.tyresListFragment)
                     navController.navigate(R.id.action_global_tyresListFragment)
             }
@@ -95,10 +84,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     navController.navigate(R.id.action_global_accountGraph)
             }
             R.id.nav_trailer -> {
-                if (!account.isAuthorized(AccessType.VIEW_TRAILER)) {
-                    showToast(ERR_NO_AUTH)
-                    return true
-                }
+
                 if (curDest != R.id.trailerListFragment)
                     navController.navigate(R.id.action_global_trailerGraph)
 

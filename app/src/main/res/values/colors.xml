@@ -8,6 +8,7 @@
     <color name="white">#ffffff</color>
     <color name="splash_screen">@color/app_splash_lite</color>
     <color name="app_color">@color/app_splash_lite</color>
+    <color name="transparent">#80FFFFFF</color>
     <color name="app_bar">#0B68B1</color>
     <color name="btn_ripple_color">#6AB8CF</color>
     <color name="active_toggle_btn">#2196F3</color>

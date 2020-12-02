@@ -2,6 +2,7 @@ package com.pet001kambala.namopsfleetmanager.ui.tyres.records
 
 import android.os.Bundle
 import android.view.*
+import android.view.View.GONE
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.pet001kambala.namopsfleetmanager.R
@@ -41,7 +42,10 @@ open class TyresListFragment : AbstractTyreRecord() {
             tyreModel.tyresList.observe(viewLifecycleOwner, Observer {
                 it?.let { results ->
                     when (results) {
-                        Results.Loading -> showProgressBar("Loading tyres...")
+                        Results.Loading -> {
+                            binding.tyresCount = 1
+                            showProgressBar("Loading tyres...")
+                        }
                         is Results.Success<*> -> {
                             endProgressBar()
 
@@ -83,7 +87,7 @@ open class TyresListFragment : AbstractTyreRecord() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.find_tyre ->{
-                navController.navigate(R.id.action_tyresListFragment_to_findTyreDetailsFragment)
+                navController.navigate(R.id.action_global_findTyreDetailsFragment)
             }
             R.id.tyre_vendors -> {
                 navController.navigate(R.id.action_tyresListFragment_to_tyreVendors)

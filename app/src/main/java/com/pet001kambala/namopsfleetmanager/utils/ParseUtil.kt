@@ -58,8 +58,8 @@ class ParseUtil {
         @JvmStatic
         fun Tyre.mountDetails(): String{
             return if(mounted)
-                "Mounted on: ${trailerNo?:horseNo}"
-            else "Not mounted"
+                "[Mounted on: ${trailerNo?:horseNo}] [Pos = $mountPosition]"
+            else "Location = $location"
         }
 
         fun tyreMountDetails(tyre: Tyre): String{
