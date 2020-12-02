@@ -2,6 +2,7 @@ package com.pet001kambala.namopsfleetmanager.ui.tyres.details
 
 import android.os.Bundle
 import android.view.*
+import androidx.core.view.isVisible
 import androidx.lifecycle.viewModelScope
 import com.pet001kambala.namopsfleetmanager.R
 import com.pet001kambala.namopsfleetmanager.model.Tyre
@@ -9,6 +10,7 @@ import com.pet001kambala.namopsfleetmanager.model.TyreMountItem
 import com.pet001kambala.namopsfleetmanager.model.TyreRepairItem
 import com.pet001kambala.namopsfleetmanager.model.TyreSurveyItem
 import com.pet001kambala.namopsfleetmanager.repository.TyreRepo
+import com.pet001kambala.namopsfleetmanager.utils.AccessType
 import com.pet001kambala.namopsfleetmanager.utils.Const
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion._24
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion.today
@@ -52,6 +54,7 @@ class TyreHomeDetailsFragment : TyreRegistrationDetailsFragment() {
     @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        register_tyre.isVisible = isAuthorized(AccessType.UPDATE_TYRE)
 
         register_tyre.setOnClickListener {
             tyreModel.viewModelScope.launch {

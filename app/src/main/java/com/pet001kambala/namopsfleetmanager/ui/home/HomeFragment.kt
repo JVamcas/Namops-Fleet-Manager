@@ -12,6 +12,7 @@ import com.pet001kambala.namopsfleetmanager.databinding.FragmentHomeBinding
 import com.pet001kambala.namopsfleetmanager.ui.AbstractFragment
 import com.pet001kambala.namopsfleetmanager.ui.MainActivity
 import com.pet001kambala.namopsfleetmanager.ui.account.AccountViewModel
+import com.pet001kambala.namopsfleetmanager.utils.AccessType
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -25,8 +26,8 @@ class HomeFragment : AbstractFragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-
-        setHasOptionsMenu(true)
+        if (isAuthorized(AccessType.ADMIN))
+            setHasOptionsMenu(true)
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -61,7 +62,7 @@ class HomeFragment : AbstractFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        when(item.itemId){
+        when (item.itemId) {
             R.id.accounts -> {
                 navController.navigate(R.id.action_homeFragment_to_usersListFragment)
             }

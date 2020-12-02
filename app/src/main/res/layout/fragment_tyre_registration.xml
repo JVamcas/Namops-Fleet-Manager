@@ -105,6 +105,17 @@
                 app:spinner_popup_animation="dropdown"
                 app:spinner_popup_elevation="14dp" />
 
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/hint_color"
+                android:textStyle="bold|italic"
+                app:layout_constraintTop_toTopOf="@id/register_tyre"
+                app:layout_constraintBottom_toBottomOf="@id/register_tyre"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@{ParseUtil.mountDetails(tyre)}"
+                />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/register_tyre"
                 style="@style/save_btn_outlined"

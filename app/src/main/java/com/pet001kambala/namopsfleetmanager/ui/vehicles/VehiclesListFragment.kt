@@ -2,6 +2,7 @@ package com.pet001kambala.namopsfleetmanager.ui.vehicles
 
 import android.os.Bundle
 import android.view.*
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.pet001kambala.namopsfleetmanager.R
@@ -9,6 +10,7 @@ import com.pet001kambala.namopsfleetmanager.databinding.VehiclesFragmentBinding
 import com.pet001kambala.namopsfleetmanager.model.Cell
 import com.pet001kambala.namopsfleetmanager.model.Vehicle
 import com.pet001kambala.namopsfleetmanager.ui.AbstractTableFragment
+import com.pet001kambala.namopsfleetmanager.utils.AccessType
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion._24
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion.today
 import com.pet001kambala.namopsfleetmanager.utils.Results
@@ -18,7 +20,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 class VehiclesListFragment : AbstractTableFragment() {
 
     private lateinit var binding: VehiclesFragmentBinding
-    val vehicleModel: VehiclesViewModel by activityViewModels()
+    private val vehicleModel: VehiclesViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,35 +35,44 @@ class VehiclesListFragment : AbstractTableFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        register_vehicle.isVisible = isAuthorized(AccessType.REG_VEHICLE)
+
         register_vehicle.setOnClickListener {
             navController.navigate(R.id.action_vehiclesFragment_to_vehicleRegistrationFragment)
         }
-        vehicleModel.vehiclesList.observe(viewLifecycleOwner, Observer {
-            it?.let { results ->
-                when (results) {
-                    Results.Loading -> showProgressBar("Loading vehicles...")
-                    is Results.Success<*> -> {
-                        endProgressBar()
-                        binding.vehiclesCount = results.data?.size?: 0
+        if (isAuthorized(AccessType.VIEW_VEHICLES)) {
+            vehicleModel.vehiclesList.observe(viewLifecycleOwner, Observer {
+                it?.let { results ->
+                    when (results) {
+                        Results.Loading -> showProgressBar("Loading vehicles...")
+                        is Results.Success<*> -> {
+                            endProgressBar()
+                            binding.vehiclesCount = results.data?.size ?: 0
 
-                        if (!results.data.isNullOrEmpty()) {
-                            val headers = results.data[0].data().map { it.first }//col headers text
-                            val colHeader = headers.map { Cell(it) } as ArrayList
-                            val rows = results.data.map { it.data().map { Cell(it.second) } as ArrayList }
-                            val rowHeader =
-                                results.data.withIndex()
-                                    .map { Cell((it.index + 1).toString()) } as ArrayList
-                            initTable(colHeader, rows, rowHeader, vehicle_table,
-                            R.id.action_vehiclesListFragment_to_vehicleHomeDetailsFragment)
+                            if (!results.data.isNullOrEmpty()) {
+                                val headers =
+                                    results.data[0].data().map { it.first }//col headers text
+                                val colHeader = headers.map { Cell(it) } as ArrayList
+                                val rows = results.data.map {
+                                    it.data().map { Cell(it.second) } as ArrayList
+                                }
+                                val rowHeader =
+                                    results.data.withIndex()
+                                        .map { Cell((it.index + 1).toString()) } as ArrayList
+                                initTable(
+                                    colHeader, rows, rowHeader, vehicle_table,
+                                    R.id.action_vehiclesListFragment_to_vehicleHomeDetailsFragment
+                                )
+                            }
+                        }
+                        else -> {
+                            endProgressBar()
+                            parseRepoResults(results)
                         }
                     }
-                    else -> {
-                        endProgressBar()
-                        parseRepoResults(results)
-                    }
                 }
-            }
-        })
+            })
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

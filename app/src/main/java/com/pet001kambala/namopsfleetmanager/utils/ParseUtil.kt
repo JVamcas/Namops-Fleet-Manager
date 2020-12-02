@@ -64,7 +64,7 @@ class ParseUtil {
 
         fun tyreMountDetails(tyre: Tyre): String{
             return if(tyre.mounted)
-                "Mounted on: ${tyre.trailerNo?:tyre.horseNo}"
+                "Mounted on: ${tyre.trailerNo?:tyre.horseNo} [at = ${tyre.mountPosition}]"
             else "Not mounted"
         }
 

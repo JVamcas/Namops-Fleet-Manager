@@ -21,7 +21,7 @@ class DataTableAdapter(
     private val navController: NavController,
     private val destination: Int? = null,
     private val model: AbstractModel? = null
-    ):
+) :
     AbstractTableAdapter<Cell, Cell, Cell>() {
     class CellViewHolder(
         var view: View,
@@ -117,10 +117,11 @@ class DataTableAdapter(
         val data = cellItemModel?.data
         binding?.apply { cellData.text = data }
         binding?.root?.setOnClickListener {
-            destination?.let{
+            destination?.let {
                 val bundle = Bundle()
-                bundle.putString(Const.ROW_POS, rowPosition.toString())
-                bundle.putString(Const.TYRE,model.toJson())
+                if (model == null)
+                    bundle.putString(Const.ROW_POS, rowPosition.toString())
+                else bundle.putString(Const.TYRE, model.toJson())
                 navController.navigate(destination, bundle)
             }
         }

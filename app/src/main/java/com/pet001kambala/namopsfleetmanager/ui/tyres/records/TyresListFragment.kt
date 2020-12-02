@@ -2,8 +2,7 @@ package com.pet001kambala.namopsfleetmanager.ui.tyres.records
 
 import android.os.Bundle
 import android.view.*
-import android.view.View.GONE
-import android.view.View.VISIBLE
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.pet001kambala.namopsfleetmanager.R
 import com.pet001kambala.namopsfleetmanager.model.Cell
@@ -32,40 +31,47 @@ open class TyresListFragment : AbstractTyreRecord() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        register_tyre.visibility = if(isAuthorized(AccessType.REG_TYRE)) VISIBLE else GONE
+        register_tyre.isVisible = isAuthorized(AccessType.REG_TYRE)
 
         register_tyre.setOnClickListener {
             navController.navigate(R.id.action_tyresListFragment_to_tyreRegistrationFragment)
         }
 
-        tyreModel.tyresList.observe(viewLifecycleOwner, Observer {
-            it?.let { results ->
-                when (results) {
-                    Results.Loading -> showProgressBar("Loading tyres...")
-                    is Results.Success<*> -> {
-                        endProgressBar()
+        if(isAuthorized(AccessType.VIEW_TYRE)) {// if authorized to view tyres here
+            tyreModel.tyresList.observe(viewLifecycleOwner, Observer {
+                it?.let { results ->
+                    when (results) {
+                        Results.Loading -> showProgressBar("Loading tyres...")
+                        is Results.Success<*> -> {
+                            endProgressBar()
 
-                        binding.tyresCount = results.data?.size?: 0
+                            binding.tyresCount = results.data?.size ?: 0
 
-                        if (!results.data.isNullOrEmpty()) {
+                            if (!results.data.isNullOrEmpty()) {
 
-                            val headers = results.data[0].data().map { it.first }//col headers text
-                            val colHeader = headers.map { Cell(it) } as ArrayList
-                            val rows = results.data.map { it.data().map { Cell(it.second) } as ArrayList }
-                            val rowHeader =
-                                results.data.withIndex()
-                                    .map { Cell((it.index + 1).toString()) } as ArrayList
-                            initTable(colHeader, rows, rowHeader, tyres_table,
-                                R.id.action_tyresListFragment_to_tyreHomeDetailsFragment)
+                                val headers =
+                                    results.data[0].data().map { it.first }//col headers text
+                                val colHeader = headers.map { Cell(it) } as ArrayList
+                                val rows = results.data.map {
+                                    it.data().map { Cell(it.second) } as ArrayList
+                                }
+                                val rowHeader =
+                                    results.data.withIndex()
+                                        .map { Cell((it.index + 1).toString()) } as ArrayList
+                                initTable(
+                                    colHeader, rows, rowHeader, tyres_table,
+                                    R.id.action_tyresListFragment_to_tyreHomeDetailsFragment
+                                )
+                            }
+                        }
+                        else -> {
+                            endProgressBar()
+                            parseRepoResults(results)
                         }
                     }
-                    else -> {
-                        endProgressBar()
-                        parseRepoResults(results)
-                    }
                 }
-            }
-        })
+            })
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
