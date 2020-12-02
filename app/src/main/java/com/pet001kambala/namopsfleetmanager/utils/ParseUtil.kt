@@ -7,6 +7,7 @@ import com.google.firebase.firestore.Exclude
 import com.google.gson.Gson
 import com.pet001kambala.namopsfleetmanager.model.AbstractModel
 import com.pet001kambala.namopsfleetmanager.model.Account
+import com.pet001kambala.namopsfleetmanager.model.Tyre
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion._24
 import com.squareup.picasso.Picasso
 import jxl.write.Label
@@ -42,7 +43,7 @@ class ParseUtil {
         }
 
         fun String?.isValidTrailerNo(): Boolean {
-            val pattern = Pattern.compile("^[T]\\d{2,}$")
+            val pattern = Pattern.compile("^[TL]\\d{2,}$")
             return !this.isNullOrEmpty() && pattern.matcher(this).matches()
         }
 
@@ -53,6 +54,18 @@ class ParseUtil {
 
         fun <T> T.toMap(): Map<String, Any> {
             return convert()
+        }
+        @JvmStatic
+        fun Tyre.mountDetails(): String{
+            return if(mounted)
+                "Mounted on: ${trailerNo?:horseNo}"
+            else "Not mounted"
+        }
+
+        fun tyreMountDetails(tyre: Tyre): String{
+            return if(tyre.mounted)
+                "Mounted on: ${tyre.trailerNo?:tyre.horseNo}"
+            else "Not mounted"
         }
 
         inline fun <I, reified O> I.convert(): O {

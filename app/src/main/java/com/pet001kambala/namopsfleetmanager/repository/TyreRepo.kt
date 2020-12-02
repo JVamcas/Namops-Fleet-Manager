@@ -53,7 +53,11 @@ class TyreRepo {
         val collection = DB.collection(Docs.TYRES.name)
         try {//1. first load the tyre data
             val shot = collection.get().await()
-            val data = shot.documents.mapNotNull { it.toObject(Tyre::class.java) }.sorted()
+            val data = shot.documents.mapNotNull { it.toObject(Tyre::class.java) }
+                .sorted()
+                .reversed()
+                .take(Const.MAX_TYRE)
+
 
             offer(
                 Results.Success<Tyre>(
@@ -72,7 +76,10 @@ class TyreRepo {
             shot?.apply {
                 val data =
                     if (!this.isEmpty)
-                        shot.documents.mapNotNull { it.toObject(Tyre::class.java) }.sorted().reversed()
+                        shot.documents.mapNotNull { it.toObject(Tyre::class.java) }
+                            .sorted()
+                            .reversed()
+                            .take(Const.MAX_TYRE)
                     else arrayListOf()
 
                 val results = Results.Success(
@@ -101,7 +108,7 @@ class TyreRepo {
         val tyreRef = DB.collection(Docs.TYRES.name).document(tyre.serialNumber!!)
         val usageRef = DB.collection(Docs.TYRE_MOUNT.name).document()
         mountItem.id = usageRef.id
-        if (mountItem.isHorse()) {
+        if (mountItem.isHorseOrLiftingMount()) {
             return try {
                 DB.batch().apply {
                     update(
@@ -162,7 +169,7 @@ class TyreRepo {
     suspend fun unMountTyre(tyre: Tyre, mountItem: TyreMountItem): Results {
         val tyreRef = DB.collection(Docs.TYRES.name).document(tyre.serialNumber!!)
         val mountRef = DB.collection(Docs.TYRE_MOUNT.name).document(mountItem.id)
-        if (mountItem.isHorse()) {
+        if (mountItem.isHorseOrLiftingMount()) {
             return try {
                 DB.batch().apply {
                     update(

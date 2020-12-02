@@ -12,12 +12,16 @@ import com.pet001kambala.namopsfleetmanager.R
 import com.pet001kambala.namopsfleetmanager.databinding.TableViewCellLayoutBinding
 import com.pet001kambala.namopsfleetmanager.databinding.TableViewColumnHeaderLayoutBinding
 import com.pet001kambala.namopsfleetmanager.databinding.TableViewRowHeaderLayoutBinding
+import com.pet001kambala.namopsfleetmanager.model.AbstractModel
 import com.pet001kambala.namopsfleetmanager.model.Cell
 import com.pet001kambala.namopsfleetmanager.utils.Const
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.toJson
 
 class DataTableAdapter(
     private val navController: NavController,
-    private val destination: Int? = null):
+    private val destination: Int? = null,
+    private val model: AbstractModel? = null
+    ):
     AbstractTableAdapter<Cell, Cell, Cell>() {
     class CellViewHolder(
         var view: View,
@@ -116,6 +120,7 @@ class DataTableAdapter(
             destination?.let{
                 val bundle = Bundle()
                 bundle.putString(Const.ROW_POS, rowPosition.toString())
+                bundle.putString(Const.TYRE,model.toJson())
                 navController.navigate(destination, bundle)
             }
         }

@@ -62,7 +62,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/vin_number"
-                    android:inputType="text"
+                    android:inputType="textAutoComplete"
                     android:paddingBottom="9dp"
                     android:singleLine="true"
                     android:text="@={trailer.vinNo}" />
@@ -223,6 +223,7 @@
                 app:spinner_item_array="@array/Departments"
                 app:spinner_popup_animation="bounce"
                 app:spinner_popup_elevation="14dp" />
+
 
 
             <com.google.android.material.button.MaterialButton

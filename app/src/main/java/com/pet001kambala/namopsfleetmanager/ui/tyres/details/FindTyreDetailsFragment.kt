@@ -48,7 +48,7 @@ class FindTyreDetailsFragment : AbstractTyreDetailsFragment() {
 
                     val bundle = Bundle().also { it.putString(Const.TYRE, tyre.toJson()) }
                     navController.navigate(
-                        R.id.action_findTyreDetailsFragment_to_tyreHomeDetailsFragment,
+                        R.id.action_findTyreDetailsFragment_to_tyreDetailsFragment,
                         bundle
                     )
                     return@launch

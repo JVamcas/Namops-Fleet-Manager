@@ -42,7 +42,7 @@
     <string name="select_tyre_purchase_condition">Condition when purchased</string>
     <string name="tyre_cost">Purchase Price</string>
     <string name="select_purchase_tread_type">Tread type when purchased</string>
-    <string name="survey_tyre">Surveys</string>
+    <string name="survey_tyre">Inspection</string>
     <string name="no_place">No record found.</string>
     <string name="tyre_tread_depth">Tread depth when purchased</string>
     <string name="no_tyres_recorded">No record found.</string>
@@ -58,7 +58,7 @@
     <string name="record">Record</string>
     <string name="current_condition">Tyre condition</string>
     <string name="mount_record">Mount Records</string>
-    <string name="survey_record">Survey Records</string>
+    <string name="survey_record">Inspection Records</string>
     <string name="update">Update</string>
     <string name="recommended_pressure">Recommended pressure</string>
     <string name="un_mount_reason">Reason for unmounting tyre</string>
@@ -161,6 +161,8 @@
         <item>Terraking</item>
         <item>Sumitomo</item>
         <item>Double Star</item>
+        <item>Cargo Force</item>
+        <item>Road Shane</item>
         <item>Power Truck</item>
         <item>Boto</item>
         <item>GOL</item>
@@ -178,6 +180,8 @@
         <item>TRE</item>
         <item>BridgeStone</item>
         <item>Kapsen</item>
+        <item>Onyx</item>
+        <item>Green</item>
         <item>Tree</item>
         <item>CAR</item>
         <item>B.S</item>

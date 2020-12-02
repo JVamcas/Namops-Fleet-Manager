@@ -4,6 +4,8 @@ import androidx.annotation.Keep
 import androidx.databinding.Bindable
 import com.google.firebase.firestore.Exclude
 import com.pet001kambala.namopsfleetmanager.BR
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isValidVehicleNo
+
 @Keep
 data class TyreMountItem(
     var mountDate: String? = null,
@@ -11,8 +13,8 @@ data class TyreMountItem(
 
 ) : AbstractModel() {
     @Exclude
-    fun isHorse() =
-        !this.vehicleNo.isNullOrEmpty() && this.vehicleNo?.first()?.toLowerCase() == 'h'
+    fun isHorseOrLiftingMount() =
+        vehicleNo.isValidVehicleNo()
 
     override fun data() = arrayListOf(
         Pair("Dated Mounted", mountDate),

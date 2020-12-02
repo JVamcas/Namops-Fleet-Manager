@@ -60,7 +60,7 @@ open class MountTyreDetailsFragment : AbstractTyreDetailsFragment() {
                 var trailer: Trailer? = null
 
                 showProgressBar("Validating mount...")
-                if (tyreMount.isHorse()) {
+                if (tyreMount.isHorseOrLiftingMount()) {
                     val horseSearch = VehicleRepo().findVehicle(tyreMount.vehicleNo!!)
                     if (horseSearch is Results.Success<*>) {
                         if (horseSearch.data.isNullOrEmpty()) {
@@ -93,7 +93,7 @@ open class MountTyreDetailsFragment : AbstractTyreDetailsFragment() {
                 val availableResults = tyreRepo.isMountPositionAvailable(
                     tyreMount.vehicleNo!!,
                     tyreMount.mountPosition!!,
-                    tyreMount.isHorse()
+                    tyreMount.isHorseOrLiftingMount()
                 )
                 if (!availableResults) {
                     endProgressBar()

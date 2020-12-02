@@ -17,7 +17,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
 /**
- * This class allow admin user to issue or remove permission to users
+ * This class allow admin users to issue or remove permission to users
  */
 class EditUserPermissionFragment : MyProfileFragment() {
 

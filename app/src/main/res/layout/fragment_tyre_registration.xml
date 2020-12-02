@@ -242,6 +242,7 @@
         <import type="android.view.View" />
 
         <import type="com.pet001kambala.namopsfleetmanager.utils.ParseUtil" />
+        <import type="com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion"/>
         <variable
             name="tyre"
             type="com.pet001kambala.namopsfleetmanager.model.Tyre" />

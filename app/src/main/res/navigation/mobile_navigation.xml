@@ -142,8 +142,8 @@
         android:label="Find Tyre"
         tools:layout="@layout/fragment_find_tyre_details" >
         <action
-            android:id="@+id/action_findTyreDetailsFragment_to_tyreHomeDetailsFragment"
-            app:destination="@id/tyreHomeDetailsFragment" />
+            android:id="@+id/action_findTyreDetailsFragment_to_tyreDetailsFragment"
+            app:destination="@id/tyreDetailsFragment" />
     </fragment>
     <navigation android:id="@+id/vehicleGraph"
         app:startDestination="@id/vehiclesListFragment">
@@ -344,5 +344,13 @@
         <action
             android:id="@+id/action_usersListFragment_to_editUserPermissionFragment"
             app:destination="@id/editUserPermissionFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/tyreDetailsFragment"
+        android:name="com.pet001kambala.namopsfleetmanager.ui.tyres.records.TyreDetailsFragment"
+        android:label="Tyre Details" >
+        <action
+            android:id="@+id/action_tyreDetailsFragment_to_tyreHomeDetailsFragment"
+            app:destination="@id/tyreHomeDetailsFragment" />
     </fragment>
 </navigation>
