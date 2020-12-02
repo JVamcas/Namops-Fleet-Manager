@@ -21,33 +21,6 @@ import kotlinx.coroutines.launch
  */
 class EditUserPermissionFragment : MyProfileFragment() {
 
-    private lateinit var account: Account
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            val json = it.getString(Const.ACCOUNT)
-            json?.let {
-                account = json.convert()
-            }
-        }
-    }
-
-    @ExperimentalCoroutinesApi
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment
-        super.onCreateView(inflater, container, savedInstanceState)
-        setHasOptionsMenu(false)
-
-        initPermission()
-        permissionMap.setUserPermissionItem(account)
-
-        binding.account = account
-        return binding.root
-    }
-
     @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 

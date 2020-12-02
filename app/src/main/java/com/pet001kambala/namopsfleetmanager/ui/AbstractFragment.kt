@@ -55,14 +55,12 @@ abstract class AbstractFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
-        currentAccount = accountModel.currentAccount.value
     }
 
     @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         handleBackClicks()
-
 
         accountModel.authState.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it?.let {

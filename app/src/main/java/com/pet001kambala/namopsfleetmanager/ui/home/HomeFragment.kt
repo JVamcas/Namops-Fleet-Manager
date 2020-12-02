@@ -26,8 +26,7 @@ class HomeFragment : AbstractFragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        if (isAuthorized(AccessType.ADMIN))
-            setHasOptionsMenu(true)
+        setHasOptionsMenu(true)
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -39,17 +38,17 @@ class HomeFragment : AbstractFragment() {
 
         accountModel.currentAccount.observe(viewLifecycleOwner, Observer {
             progress_bar.visibility = VISIBLE
+            requireActivity().drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+
             it?.let {
+                currentAccount = it
+                requireActivity().invalidateOptionsMenu()
+                requireActivity().drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
                 progress_bar.visibility = GONE
             }
         })
     }
 
-    override fun onResume() {
-        super.onResume()
-        val activity = (activity as MainActivity)
-        activity.drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-    }
 
     override fun onBackClick() {
         requireActivity().finish()
@@ -57,7 +56,8 @@ class HomeFragment : AbstractFragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.home_menu, menu)
+        if (isAuthorized(AccessType.ADMIN))
+            inflater.inflate(R.menu.home_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

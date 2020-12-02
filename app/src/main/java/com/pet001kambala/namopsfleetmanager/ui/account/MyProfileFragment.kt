@@ -10,6 +10,8 @@ import com.pet001kambala.namopsfleetmanager.model.Account
 import com.pet001kambala.namopsfleetmanager.ui.AbstractFragment
 import com.pet001kambala.namopsfleetmanager.ui.account.PermissionListAdapter.PermissionItem
 import com.pet001kambala.namopsfleetmanager.utils.AccessType.*
+import com.pet001kambala.namopsfleetmanager.utils.Const
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.convert
 import kotlinx.android.synthetic.main.fragment_my_profile.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -18,6 +20,20 @@ open class MyProfileFragment : AbstractFragment(), PermissionListAdapter.OnPermi
     lateinit var binding: FragmentMyProfileBinding
     lateinit var permissionMap: LinkedHashMap<String, List<PermissionItem>>
     private lateinit var mAdapter: PermissionListAdapter
+
+
+    lateinit var account: Account
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        account = accountModel.currentAccount.value!!
+        arguments?.let {
+            val json = it.getString(Const.ACCOUNT)
+            json?.let {
+                account = json.convert()
+            }
+        }
+    }
 
 
     @ExperimentalCoroutinesApi
@@ -29,11 +45,8 @@ open class MyProfileFragment : AbstractFragment(), PermissionListAdapter.OnPermi
         setHasOptionsMenu(true)
         initPermission()
         binding = FragmentMyProfileBinding.inflate(inflater, container, false)
-
-        val account = accountModel.currentAccount.value
         binding.account = account
-        permissionMap.setUserPermissionItem(account!!)
-
+        permissionMap.setUserPermissionItem(account)
         binding.permissionList.setAdapter(mAdapter)
 
         return binding.root

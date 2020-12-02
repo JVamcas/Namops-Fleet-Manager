@@ -59,8 +59,6 @@ class UsersListFragment : AbstractListFragment<Account, UsersListAdapter.ViewHol
     }
 
     override fun onEditModel(model: Account, pos: Int) {
-
-
         val bundle = Bundle().apply { putString(Const.ACCOUNT, model.toJson()) }
         navController.navigate(R.id.action_usersListFragment_to_editUserPermissionFragment, bundle)
     }
