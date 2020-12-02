@@ -2,6 +2,8 @@ package com.pet001kambala.namopsfleetmanager.ui.tyres.records
 
 import android.os.Bundle
 import android.view.*
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.lifecycle.Observer
 import com.pet001kambala.namopsfleetmanager.R
 import com.pet001kambala.namopsfleetmanager.model.Cell
@@ -30,14 +32,12 @@ open class TyresListFragment : AbstractTyreRecord() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        register_tyre.visibility = if(isAuthorized(AccessType.REG_TYRE)) VISIBLE else GONE
+
         register_tyre.setOnClickListener {
             navController.navigate(R.id.action_tyresListFragment_to_tyreRegistrationFragment)
         }
 
-        if(!isAuthorized(AccessType.REG_TYRE)){
-            showToast("$ERR_NO_AUTH register tyres.")
-            return
-        }
         tyreModel.tyresList.observe(viewLifecycleOwner, Observer {
             it?.let { results ->
                 when (results) {

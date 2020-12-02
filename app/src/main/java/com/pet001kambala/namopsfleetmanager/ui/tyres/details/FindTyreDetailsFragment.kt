@@ -57,4 +57,8 @@ class FindTyreDetailsFragment : AbstractTyreDetailsFragment() {
             }
         }
     }
+
+    override fun onBackClick() {
+        navController.popBackStack(R.id.tyresListFragment,false)
+    }
 }
