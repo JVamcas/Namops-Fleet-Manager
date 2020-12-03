@@ -14,6 +14,7 @@ enum class AccessType(var value: String) {
     VIEW_TRAILER("View trailer details."),
     REG_TRAILER("Register new trailer."),
     UPDATE_TRAILER("Update trailer details."),
+    MOUNT_UNMOUNT_TRAILER("Mount or unMount trailer from horse."),
     EXPORT_TRAILER("Export data of all trailers to excel."),
 
 

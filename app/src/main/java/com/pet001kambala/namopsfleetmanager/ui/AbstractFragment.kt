@@ -17,7 +17,6 @@ import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.app.ActivityCompat
-import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
@@ -201,7 +200,9 @@ abstract class AbstractFragment : Fragment() {
     }
 
     fun showToast(msg: String?) {
-        Toast.makeText(requireActivity(), msg, Toast.LENGTH_LONG).show()
+        context?.let {
+            Toast.makeText(it, msg, Toast.LENGTH_LONG).show()
+        }
     }
 
     protected fun showWarningDialog(warningTxt: String?, mListener: WarningDialogListener) {

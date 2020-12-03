@@ -2,22 +2,18 @@ package com.pet001kambala.namopsfleetmanager.ui.trailer
 
 import android.os.Bundle
 import android.view.*
-import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.pet001kambala.namopsfleetmanager.R
 import com.pet001kambala.namopsfleetmanager.databinding.FragmentTrailerListBinding
 import com.pet001kambala.namopsfleetmanager.model.Cell
 import com.pet001kambala.namopsfleetmanager.model.Trailer
-import com.pet001kambala.namopsfleetmanager.model.Vehicle
 import com.pet001kambala.namopsfleetmanager.ui.AbstractTableFragment
 import com.pet001kambala.namopsfleetmanager.utils.AccessType
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion._24
 import com.pet001kambala.namopsfleetmanager.utils.Results
 import kotlinx.android.synthetic.main.fragment_trailer_list.*
-import kotlinx.android.synthetic.main.vehicles_fragment.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class TrailerListFragment : AbstractTableFragment() {
@@ -40,7 +36,8 @@ class TrailerListFragment : AbstractTableFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        register_trailer.isVisible = isAuthorized(AccessType.REG_TRAILER)
+        register_trailer.isEnabled = isAuthorized(AccessType.REG_TRAILER)
+
         register_trailer.setOnClickListener {
             navController.navigate(R.id.action_trailerListFragment_to_trailerRegistrationDetailsFragment)
         }
@@ -49,7 +46,10 @@ class TrailerListFragment : AbstractTableFragment() {
             trailerModel.trailersList.observe(viewLifecycleOwner, Observer {
                 it?.let { results ->
                     when (results) {
-                        Results.Loading -> showProgressBar("Loading trailers...")
+                        Results.Loading -> {
+                            binding.trailerCount = 1
+                            showProgressBar("Loading trailers...")
+                        }
                         is Results.Success<*> -> {
                             endProgressBar()
                             binding.trailerCount = results.data?.size ?: 0
@@ -84,6 +84,7 @@ class TrailerListFragment : AbstractTableFragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.trailer_list_menu, menu)
+        menu.findItem(R.id.export_all_history).isEnabled = isAuthorized(AccessType.EXPORT_TRAILER)
     }
 
     @ExperimentalCoroutinesApi
