@@ -4,7 +4,7 @@ enum class Docs(private val value: String) {
     ACCOUNTS("Accounts"),
     VEHICLES("Vehicles"),
     TYRES("Tyres"),
-    TYRE_SURVEY("Tyre Survey"),
+    TYRE_INSPECTION("Tyre Inspection"),
     TYRE_REPAIR("Tyre Repair"),
     TYRE_MOUNT("Tyre Mount"),
     TRAILER("Trailer"),

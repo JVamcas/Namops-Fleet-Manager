@@ -29,9 +29,10 @@ enum class AccessType(var value: String) {
     REG_TYRE("Register new tyre."),
     UPDATE_TYRE("Update tyre details"),
     VIEW_TYRE("View tyre details."),
-    MOUNT_TYRE_OR_UNMOUNT_TYRE("Mount or unMount tyre."),
+    VIEW_TYRE_RECORDS("View tyre records."),
+    MOUNT_OR_UNMOUNT_TYRE("Mount or unMount tyre."),
     INSPECT_TYRE("Carry out tyre inspections."),
-    SEND_OR_RECEIVE_TYRE_FROM_VENDOR("Send or receive tyre from tyre vendor."),
+    SEND_OR_RECEIVE_TYRE_FROM_VENDOR("Send or receive tyre from repair."),
     EXPORT_TYRE("Export data of all tyres to excel."),
 
     ADMIN("Make an admin on this app.");

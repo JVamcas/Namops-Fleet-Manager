@@ -2,8 +2,6 @@ package com.pet001kambala.namopsfleetmanager.ui.home
 
 import android.os.Bundle
 import android.view.*
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -13,7 +11,6 @@ import com.pet001kambala.namopsfleetmanager.ui.AbstractFragment
 import com.pet001kambala.namopsfleetmanager.ui.account.AccountViewModel
 import com.pet001kambala.namopsfleetmanager.utils.AccessType
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class HomeFragment : AbstractFragment() {
@@ -36,14 +33,13 @@ class HomeFragment : AbstractFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         accountModel.currentAccount.observe(viewLifecycleOwner, Observer {
-            progress_bar.visibility = VISIBLE
+            showProgressBar("")
             requireActivity().drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
             it?.let {
                 currentAccount = it
-                requireActivity().invalidateOptionsMenu()
                 requireActivity().drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-                progress_bar.visibility = GONE
+                endProgressBar()
             }
         })
     }

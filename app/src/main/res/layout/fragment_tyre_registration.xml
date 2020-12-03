@@ -118,10 +118,12 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/hint_color"
                 android:textStyle="bold|italic"
-                app:layout_constraintTop_toTopOf="@id/register_tyre"
-                app:layout_constraintBottom_toBottomOf="@id/register_tyre"
+                app:layout_constraintTop_toBottomOf="@id/recommended_pressure_layout"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="@{ParseUtil.mountDetails(tyre)}"
+                android:layout_marginTop="20dp"
+
                 />
 
             <com.google.android.material.button.MaterialButton

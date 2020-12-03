@@ -182,12 +182,12 @@
                 android:textColor="@color/hint_color"
                 android:shadowColor="@color/shimmer_background"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/survey_tyre"
-                app:layout_constraintTop_toTopOf="@id/survey_tyre"
+                app:layout_constraintBottom_toBottomOf="@id/inspect_tyre"
+                app:layout_constraintTop_toTopOf="@id/inspect_tyre"
                 />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/survey_tyre"
+                android:id="@+id/inspect_tyre"
                 style="@style/save_btn_outlined"
                 currentCondition="@{tyreSurvey.currentCondition}"
                 serialNo="@{tyre.serialNumber}"

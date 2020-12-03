@@ -38,7 +38,7 @@ class TyreSurveyDetailsFragment : AbstractTyreDetailsFragment() {
         binding.tyre = tyre
         tyre_sn_layout.isEnabled = false
 
-        survey_tyre.setOnClickListener {
+        inspect_tyre.setOnClickListener {
             val tyreRepo = TyreRepo()
             survey.apply {
                 tyre = super.tyre

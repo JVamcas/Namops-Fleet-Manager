@@ -15,17 +15,5 @@
             android:src="@drawable/seanam_logo"
             />
 
-        <ProgressBar
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:id="@+id/progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="5dp"
-            />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

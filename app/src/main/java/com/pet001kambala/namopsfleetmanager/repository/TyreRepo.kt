@@ -255,7 +255,7 @@ class TyreRepo {
 
     suspend fun recordTyreSurvey(tyre: Tyre, survey: TyreSurveyItem): Results {
         return try {
-            val docRef = DB.collection(Docs.TYRE_SURVEY.name).document()
+            val docRef = DB.collection(Docs.TYRE_INSPECTION.name).document()
             survey.id = docRef.id
             val tyreRef = DB.collection(Docs.TYRES.name).document(tyre.serialNumber!!)
             DB.batch().apply {
@@ -323,7 +323,7 @@ class TyreRepo {
      */
     @ExperimentalCoroutinesApi
     fun surveyChangeListener(sn: String): Flow<Results> = callbackFlow {
-        val collection = DB.collection(Docs.TYRE_SURVEY.name).whereEqualTo("tyreSN", sn)
+        val collection = DB.collection(Docs.TYRE_INSPECTION.name).whereEqualTo("tyreSN", sn)
         //1. first load the TyreSurveyItem data
         offer(loadTyreSurveyRecords(sn))
         //2.  then listen for document changes on the [TyreSurveyItem] collection
@@ -348,7 +348,7 @@ class TyreRepo {
     }
 
     suspend fun loadTyreSurveyRecords(sn: String): Results {
-        val collection = DB.collection(Docs.TYRE_SURVEY.name).whereEqualTo("tyreSN", sn)
+        val collection = DB.collection(Docs.TYRE_INSPECTION.name).whereEqualTo("tyreSN", sn)
         return try {
             val shot = collection.get().await()
             val data = shot.documents.mapNotNull { it.toObject(TyreSurveyItem::class.java) }

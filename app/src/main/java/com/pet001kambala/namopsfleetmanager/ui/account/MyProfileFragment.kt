@@ -126,6 +126,7 @@ open class MyProfileFragment : AbstractFragment(), PermissionListAdapter.OnPermi
                      PermissionItem(REG_TYRE),
                      PermissionItem(UPDATE_TYRE),
                      PermissionItem(INSPECT_TYRE),
+                     PermissionItem(VIEW_TYRE_RECORDS),
                      PermissionItem(MOUNT_TYRE_OR_UNMOUNT_TYRE),
                      PermissionItem(SEND_OR_RECEIVE_TYRE_FROM_VENDOR),
                      PermissionItem(EXPORT_TYRE)
