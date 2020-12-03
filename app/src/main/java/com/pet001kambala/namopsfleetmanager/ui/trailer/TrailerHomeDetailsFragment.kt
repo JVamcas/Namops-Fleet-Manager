@@ -2,10 +2,12 @@ package com.pet001kambala.namopsfleetmanager.ui.trailer
 
 import android.os.Bundle
 import android.view.*
+import androidx.core.view.isVisible
 import androidx.lifecycle.viewModelScope
 import com.pet001kambala.namopsfleetmanager.R
 import com.pet001kambala.namopsfleetmanager.model.Trailer
 import com.pet001kambala.namopsfleetmanager.repository.TrailerRepo
+import com.pet001kambala.namopsfleetmanager.utils.AccessType
 import com.pet001kambala.namopsfleetmanager.utils.Const
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.toJson
@@ -45,6 +47,8 @@ class TrailerHomeDetailsFragment : TrailerRegistrationDetailsFragment() {
         register.text = getString(R.string.update)
         year_layout.setItems(ParseUtil.yearOfMake())
 
+        register.isVisible = isAuthorized(AccessType.UPDATE_TRAILER)
+
         unit_number_layout.isEnabled = false
         register.setOnClickListener {
             trailerModel.viewModelScope.launch {
@@ -62,8 +66,11 @@ class TrailerHomeDetailsFragment : TrailerRegistrationDetailsFragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-
         inflater.inflate(R.menu.trailer_menu, menu)
+
+        menu.findItem(R.id.mount_trailer).isEnabled = isAuthorized(AccessType.MOUNT_UNMOUNT_TRAILER)
+        menu.findItem(R.id.un_mount_trailer).isEnabled = isAuthorized(AccessType.MOUNT_UNMOUNT_TRAILER)
+        menu.findItem(R.id.export_all_history).isEnabled = isAuthorized(AccessType.EXPORT_TRAILER)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

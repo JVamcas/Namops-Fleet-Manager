@@ -42,7 +42,10 @@ class UsersListFragment : AbstractListFragment<Account, UsersListAdapter.ViewHol
 
         accountModel.accountList.observe(viewLifecycleOwner, Observer {
             when (it) {
-                Results.loading() -> showProgressBar("Loading accounts...")
+                Results.loading() -> {
+                    binding.usersCount = 1
+                    showProgressBar("Loading accounts...")
+                }
                 is Results.Success<*> -> {
                     endProgressBar()
                     val currentAccount = accountModel.currentAccount.value

@@ -78,7 +78,7 @@ open class MyProfileFragment : AbstractFragment(), PermissionListAdapter.OnPermi
     /**
      * Convert user permissions <Strings> to PermissionItem
      */
-    fun LinkedHashMap<String, List<PermissionItem>>.setUserPermissionItem(account: Account){
+    private fun LinkedHashMap<String, List<PermissionItem>>.setUserPermissionItem(account: Account){
         this.toList().forEach {
             it.second.forEach { permission ->
                 permission.state = permission.accessType.name in account.permissionList
@@ -96,7 +96,8 @@ open class MyProfileFragment : AbstractFragment(), PermissionListAdapter.OnPermi
                  permissionGroup[0], listOf(
                      PermissionItem(VIEW_VEHICLES),
                      PermissionItem(REG_VEHICLE),
-                     PermissionItem(UPDATE_VEHICLE)
+                     PermissionItem(UPDATE_VEHICLE),
+                     PermissionItem(EXPORT_VEHICLE)
                  )
              )
              put(
@@ -104,7 +105,9 @@ open class MyProfileFragment : AbstractFragment(), PermissionListAdapter.OnPermi
                  listOf(
                      PermissionItem(VIEW_TRAILER),
                      PermissionItem(REG_TRAILER),
-                     PermissionItem(UPDATE_TRAILER)
+                     PermissionItem(UPDATE_TRAILER),
+                     PermissionItem(MOUNT_UNMOUNT_TRAILER),
+                     PermissionItem(EXPORT_TRAILER)
                  )
              )
              put(
@@ -112,7 +115,8 @@ open class MyProfileFragment : AbstractFragment(), PermissionListAdapter.OnPermi
                  listOf(
                      PermissionItem(VIEW_TYRE_VENDOR),
                      PermissionItem(REG_TYRE_VENDOR),
-                     PermissionItem(UPDATE_TYRE_VENDOR)
+                     PermissionItem(UPDATE_TYRE_VENDOR),
+                     PermissionItem(EXPORT_VENDOR)
                  )
              )
              put(
@@ -123,7 +127,8 @@ open class MyProfileFragment : AbstractFragment(), PermissionListAdapter.OnPermi
                      PermissionItem(UPDATE_TYRE),
                      PermissionItem(INSPECT_TYRE),
                      PermissionItem(MOUNT_TYRE_OR_UNMOUNT_TYRE),
-                     PermissionItem(SEND_OR_RECEIVE_TYRE_FROM_VENDOR)
+                     PermissionItem(SEND_OR_RECEIVE_TYRE_FROM_VENDOR),
+                     PermissionItem(EXPORT_TYRE)
                  )
              )
              put(

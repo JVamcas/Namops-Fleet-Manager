@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import com.pet001kambala.namopsfleetmanager.R
 import com.pet001kambala.namopsfleetmanager.databinding.FragmentHomeBinding
 import com.pet001kambala.namopsfleetmanager.ui.AbstractFragment
-import com.pet001kambala.namopsfleetmanager.ui.MainActivity
 import com.pet001kambala.namopsfleetmanager.ui.account.AccountViewModel
 import com.pet001kambala.namopsfleetmanager.utils.AccessType
 import kotlinx.android.synthetic.main.activity_main.*
@@ -56,8 +55,8 @@ class HomeFragment : AbstractFragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        if (isAuthorized(AccessType.ADMIN))
-            inflater.inflate(R.menu.home_menu, menu)
+        inflater.inflate(R.menu.home_menu, menu)
+        menu.findItem(R.id.accounts).isEnabled = isAuthorized(AccessType.ADMIN)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
