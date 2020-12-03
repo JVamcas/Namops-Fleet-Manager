@@ -2,7 +2,6 @@ package com.pet001kambala.namopsfleetmanager.ui.tyres.records
 
 import android.os.Bundle
 import android.view.*
-import android.view.View.GONE
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.pet001kambala.namopsfleetmanager.R
@@ -38,7 +37,7 @@ open class TyresListFragment : AbstractTyreRecord() {
             navController.navigate(R.id.action_tyresListFragment_to_tyreRegistrationFragment)
         }
 
-        if(isAuthorized(AccessType.VIEW_TYRE)) {// if authorized to view tyres here
+        if (isAuthorized(AccessType.VIEW_TYRE)) {// if authorized to view tyres here
             tyreModel.tyresList.observe(viewLifecycleOwner, Observer {
                 it?.let { results ->
                     when (results) {
@@ -80,13 +79,14 @@ open class TyresListFragment : AbstractTyreRecord() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.tyres_list_menu, menu)
+        if (isAuthorized(AccessType.VIEW_TYRE))
+            inflater.inflate(R.menu.tyres_list_menu, menu)
     }
 
     @ExperimentalCoroutinesApi
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.find_tyre ->{
+            R.id.find_tyre -> {
                 navController.navigate(R.id.action_global_findTyreDetailsFragment)
             }
             R.id.tyre_vendors -> {

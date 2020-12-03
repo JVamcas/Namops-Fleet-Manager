@@ -2,7 +2,6 @@ package com.pet001kambala.namopsfleetmanager.ui.vehicles
 
 import android.os.Bundle
 import android.view.*
-import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.pet001kambala.namopsfleetmanager.R
@@ -35,7 +34,8 @@ class VehiclesListFragment : AbstractTableFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        register_vehicle.isVisible = isAuthorized(AccessType.REG_VEHICLE)
+        register_vehicle.isEnabled = isAuthorized(AccessType.REG_VEHICLE)
+
 
         register_vehicle.setOnClickListener {
             navController.navigate(R.id.action_vehiclesFragment_to_vehicleRegistrationFragment)
@@ -80,7 +80,11 @@ class VehiclesListFragment : AbstractTableFragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.vehicles_list_menu, menu)
+        if (isAuthorized(AccessType.VIEW_VEHICLES))
+            inflater.inflate(R.menu.vehicles_list_menu, menu)
+
+        menu.findItem(R.id.export_to_excel).isEnabled = isAuthorized(AccessType.EXPORT_VEHICLE)
+        menu.findItem(R.id.import_from_excel).isEnabled = isAuthorized(AccessType.REG_VEHICLE)
     }
 
     @ExperimentalCoroutinesApi

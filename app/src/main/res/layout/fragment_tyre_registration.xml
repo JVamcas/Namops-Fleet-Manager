@@ -29,25 +29,33 @@
                     android:text="@={tyre.serialNumber}" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <com.skydoves.powerspinner.PowerSpinnerView
                 android:id="@+id/tyre_size_layout"
+                editContent="@{tyre.size}"
+                errorMsg="@{`Select tyre size.`}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/sn_number_layout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tyre_size"
-                    editContent="@{tyre.size}"
-                    errorMsg="@{`Field cannot be empty.`}"
-                    android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
-                    android:hint="@string/tyre_size"
-                    android:inputType="text"
-                    android:paddingBottom="9dp"
-                    android:singleLine="true"
-                    android:text="@={tyre.size}" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/textview_border"
+                android:gravity="start"
+                android:hint="@string/select_tyre_size"
+                android:padding="10dp"
+                android:text="@={tyre.size}"
+                android:textColorHint="@color/emphasis_color"
+                android:textSize="14.5sp"
+                app:layout_constraintTop_toBottomOf="@id/sn_number_layout"
+                app:spinner_arrow_gravity="end"
+                app:spinner_arrow_padding="8dp"
+                app:spinner_arrow_tint="@color/emphasis_color"
+                app:spinner_divider_color="@color/white"
+                app:spinner_divider_show="true"
+                app:spinner_divider_size="0.4dp"
+                app:spinner_item_array="@array/tyre_size"
+                app:spinner_popup_animation="normal"
+                android:textColor="@color/hint_color"
+                app:spinner_popup_background="@color/shimmer_background"
+                app:spinner_popup_elevation="14dp" />
 
             <com.skydoves.powerspinner.PowerSpinnerView
                 android:id="@+id/tyre_brand_layout"

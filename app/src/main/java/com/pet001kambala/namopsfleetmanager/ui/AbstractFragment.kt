@@ -1,7 +1,6 @@
 package com.pet001kambala.namopsfleetmanager.ui
 
 import android.Manifest
-import android.app.ActionBar
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
@@ -18,6 +17,7 @@ import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.app.ActivityCompat
+import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController

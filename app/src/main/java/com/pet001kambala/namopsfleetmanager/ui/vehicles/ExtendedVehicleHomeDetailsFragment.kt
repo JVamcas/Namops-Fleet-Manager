@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.lifecycle.viewModelScope
 import com.pet001kambala.namopsfleetmanager.R
 import com.pet001kambala.namopsfleetmanager.repository.VehicleRepo
-import com.pet001kambala.namopsfleetmanager.utils.AccessType
 import com.pet001kambala.namopsfleetmanager.utils.Results
 import kotlinx.android.synthetic.main.fragment_extended_vehicle_registration.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -30,8 +28,6 @@ class ExtendedVehicleHomeDetailsFragment : ExtendedVehicleRegistrationDetailsFra
     @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        register.isVisible = isAuthorized(AccessType.UPDATE_VEHICLE)
 
         register.setOnClickListener {
             vehicleModel.viewModelScope.launch {

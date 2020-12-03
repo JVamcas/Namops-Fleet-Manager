@@ -136,6 +136,7 @@
     <string name="find_btn">Find</string>
     <string name="no_users_yet">No users yet.</string>
     <string name="accounts">Accounts</string>
+    <string name="select_tyre_size">Size</string>
 
     <!--    String constants-->
     <string-array name="trailer_type">
@@ -145,6 +146,16 @@
         <item>Flat Deck</item>
         <item>Super Link</item>
     </string-array>
+
+    <string-array name="tyre_size">
+        <item>Select tyre size…</item>
+        <item>385/65R225</item>
+        <item>315/80R225</item>
+    </string-array>
+
+
+
+
 
     <string-array name="Tyre_brand">
         <item>Select brand…</item>
