@@ -1,6 +1,7 @@
 package com.pet001kambala.namopsfleetmanager.ui.account
 
 import androidx.lifecycle.*
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.pet001kambala.namopsfleetmanager.model.Account
@@ -36,27 +37,32 @@ class AccountViewModel : ViewModel() {
     val accountList = liveData {
         emit(Results.loading())
         try {
-            accountRepo.accountsChangeListener().collect{
+            accountRepo.accountsChangeListener().collect {
                 emit(it)
             }
-        }
-        catch (e: Exception){
+        } catch (e: Exception) {
             emit(Results.Error(e))
         }
     }
 
     @ExperimentalCoroutinesApi
     val authState = liveData {
-        val userTask = Firebase.auth
-        userTask.currentUser?.reload()?.await() //reload currently logged in user
-        userTask.currentUser?.apply {
+        val auth = Firebase.auth
+
+        auth.currentUser?.apply {
+            try {
+                reload().await() //reload currently logged in user
+            } catch (e: FirebaseAuthInvalidUserException) {
+                //
+            }
+
             if (isEmailVerified)
-                userId.postValue(userTask.currentUser!!.uid)//trigger data load via transformation switchMap
+                userId.postValue(auth.currentUser!!.uid)//trigger data load via transformation switchMap
         }
         accountRepo.listenForAuthChange().collect {
             when (it) {
                 is Results.Success<*> -> {
-                    userId.postValue(userTask.currentUser!!.uid)//trigger data load via transformation switchMap
+                    userId.postValue(auth.currentUser!!.uid)//trigger data load via transformation switchMap
                     emit(AuthState.AUTHENTICATED)
                 }
                 else -> {
@@ -69,11 +75,11 @@ class AccountViewModel : ViewModel() {
         }
     }
 
-    fun getAuthType():String?{
+    fun getAuthType(): String? {
         return Firebase.auth.currentUser?.providerData?.get(1)?.providerId
     }
 
-    fun signOut(){
+    fun signOut() {
         Firebase.auth.signOut()
     }
 }

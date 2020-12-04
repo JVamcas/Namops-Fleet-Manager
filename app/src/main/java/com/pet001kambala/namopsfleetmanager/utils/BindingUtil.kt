@@ -8,7 +8,6 @@ import androidx.annotation.IdRes
 import androidx.databinding.BindingAdapter
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
-import com.pet001kambala.namopsfleetmanager.model.AuthType
 import com.pet001kambala.namopsfleetmanager.model.Tyre
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.extractDigit
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.getSNPrefix
@@ -39,6 +38,51 @@ class BindingUtil {
         fun validatePlateNumber(mEditText: EditText, errorMsg: String?, plateNumber: String?) {
             mEditText.error = if (plateNumber.isValidPlateNo()) null else errorMsg
         }
+
+        @JvmStatic
+        @BindingAdapter(value = ["accountName", "companyName", "companyNumber", "cellphone"])
+        fun validatePhoneRegistration(
+            mButton: MaterialButton,
+            accountName: String?,
+            companyName: String?,
+            companyNumber: String?,
+            cellphone: String?
+        ) {
+            mButton.isEnabled =
+                isValidSelection(arrayListOf(accountName, companyName, companyNumber))
+                        && isValidMobile(cellphone)
+        }
+
+        @JvmStatic
+        @BindingAdapter(value = ["errorMsg", "emailAddressUpdate"])
+        fun validateEmailUpdate(mEditText: EditText, errorMsg: String?, emailAddress: String?) {
+            mEditText.error =
+                if (isValidEmail(emailAddress) || emailAddress.isNullOrEmpty()) null else errorMsg
+        }
+
+        @JvmStatic
+        @BindingAdapter(value = ["errorMsg", "cellphoneUpdate"])
+        fun validateCellUpdate(mEditText: EditText,errorMsg: String?, cellphone: String?) {
+            mEditText.error =
+                if (isValidMobile(cellphone) || cellphone.isNullOrEmpty()) null else errorMsg
+        }
+
+        @JvmStatic
+        @BindingAdapter(value = ["accountName", "companyName", "companyNumber", "cellphone", "email_address"])
+        fun validateProfileUpdate(
+            mButton: MaterialButton,
+            accountName: String?,
+            companyName: String?,
+            companyNumber: String?,
+            cellphone: String?,
+            email_address: String?
+        ) {
+            mButton.isEnabled =
+                isValidSelection(arrayListOf(accountName, companyName, companyNumber))
+                        && (email_address.isNullOrEmpty() || isValidEmail(email_address))
+                        && (cellphone.isNullOrEmpty() || isValidMobile(cellphone))
+        }
+
 
         @JvmStatic
         @BindingAdapter(value = ["errorMsg", "idMailCell"])
@@ -81,30 +125,15 @@ class BindingUtil {
         }
 
         @JvmStatic
-        @BindingAdapter(value = ["accountName", "emailAddress", "cellphone", "password", "confirmPassword", "authType", "companyName"])
+        @BindingAdapter(value = ["emailAddress", "password", "confirmPassword"])
         fun validateEmailRegistration(
             mButton: MaterialButton,
-            accountName: String?,
             emailAddress: String?,
-            cellphone: String?,
             password: String?,
-            confirmPassword: String?,
-            authType: String?,
-            companyName: String?
+            confirmPassword: String?
         ) {
-            mButton.isEnabled = isValidSelection(
-                arrayListOf(
-                    accountName,
-                    authType,
-                    companyName
-                )
-            ) && ((isValidMobile(cellphone) && authType == AuthType.PHONE.name) && (emailAddress.isNullOrEmpty() || isValidEmail(
-                emailAddress
-            ))
-                    || (isValidEmail(emailAddress) && authType == AuthType.EMAIL.name) && (cellphone.isNullOrEmpty() || isValidMobile(
-                cellphone
-            )))
-                    && (authType == AuthType.PHONE.name || password?.length ?: 0 >= 8 && confirmPassword == password)
+            mButton.isEnabled = isValidEmail(emailAddress)
+                    || (isValidEmail(emailAddress) && password?.length ?: 0 >= 8 && confirmPassword == password)
 
         }
 
@@ -166,7 +195,7 @@ class BindingUtil {
 
 
         @JvmStatic
-        @BindingAdapter(value = ["unitNo", "trailerMake", "trailerPlate", "trailerDepartment","trailerColor","trailerYear","trailerVIN","trailerType"])
+        @BindingAdapter(value = ["unitNo", "trailerMake", "trailerPlate", "trailerDepartment", "trailerColor", "trailerYear", "trailerVIN", "trailerType"])
         fun validateTrailerRegistration(
             mButton: MaterialButton,
             unitNo: String?,

@@ -199,9 +199,6 @@
                 android:id="@+id/action_selectSignUpModeFragment_to_emailRegistrationFragment"
                 app:destination="@id/emailRegistrationFragment" />
             <action
-                android:id="@+id/action_selectSignUpModeFragment_to_verifyEmailFragment"
-                app:destination="@id/verifyEmailFragment" />
-            <action
                 android:id="@+id/action_selectSignUpModeFragment_to_selectLoginModeFragment"
                 app:destination="@id/selectLoginModeFragment" />
             <action
@@ -229,6 +226,9 @@
             <action
                 android:id="@+id/action_selectLoginModeFragment_to_phoneAuthFragment"
                 app:destination="@id/phoneAuthFragment" />
+            <action
+                android:id="@+id/action_selectLoginModeFragment_to_verifyEmailFragment"
+                app:destination="@id/verifyEmailFragment" />
         </fragment>
         <fragment
             android:id="@+id/emailAuthFragment"
@@ -284,7 +284,8 @@
             android:name="com.pet001kambala.namopsfleetmanager.ui.account.UpdateProfileFragment"
             android:label="Update profile"
             tools:layout="@layout/fragment_email_registration" />
-    </navigation><action android:id="@+id/action_global_accountGraph" app:destination="@id/accountGraph"/>
+    </navigation>
+    <action android:id="@+id/action_global_accountGraph" app:destination="@id/accountGraph"/>
     <navigation android:id="@+id/trailerGraph"
         app:startDestination="@id/trailerListFragment">
         <fragment

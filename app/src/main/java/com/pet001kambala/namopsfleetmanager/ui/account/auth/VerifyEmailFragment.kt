@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 
 class VerifyEmailFragment : AbstractAuthFragment() {
 
-
     private lateinit var binding: FragmentVerifyEmailBinding
 
     override fun onCreateView(
@@ -29,6 +28,9 @@ class VerifyEmailFragment : AbstractAuthFragment() {
                 val sendResult = accountRepo.sendVerificationEmail()
                 endProgressBar()
                 parseRepoResults(sendResult)
+
+                accountModel.signOut()
+                navController.popBackStack()
             }
         }
         return binding.root

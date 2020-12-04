@@ -55,17 +55,12 @@ class ParseUtil {
         fun <T> T.toMap(): Map<String, Any> {
             return convert()
         }
-        @JvmStatic
-        fun Tyre.mountDetails(): String{
-            return if(mounted)
-                "[Mounted on: ${trailerNo?:horseNo}] [Pos = $mountPosition]"
-            else "Location = $location"
-        }
 
-        fun tyreMountDetails(tyre: Tyre): String{
-            return if(tyre.mounted)
-                "Mounted on: ${tyre.trailerNo?:tyre.horseNo} [at = ${tyre.mountPosition}]"
-            else "Not mounted"
+        @JvmStatic
+        fun Tyre.mountDetails(): String {
+            return if (mounted)
+                "[Mounted on: ${trailerNo ?: horseNo}] [Pos = $mountPosition]"
+            else "Location = $location"
         }
 
         inline fun <I, reified O> I.convert(): O {
@@ -159,12 +154,6 @@ class ParseUtil {
                 .toString()
         }
 
-        fun parseEnum(str: String?): String {
-            return if (str.isNullOrEmpty()) " - "
-            else (str.split("_")
-                .joinToString(separator = "") { (it.toLowerCase()).capitalize() })
-        }
-
         /***
          * Test whether a given string is money
          * @param moneyString the string
@@ -206,6 +195,16 @@ class ParseUtil {
             return "$year$month" + "NOL"
         }
 
+        fun String?.stripCountryCode(): String?{
+            return if(this == null)
+                null
+            else {
+                val match = Regex("^(\\+264)?(\\d+)$").find(this)
+                val (_,cell) = match!!.destructured
+                "0$cell"
+            }
+        }
+
         @JvmStatic
         fun String?.isValidTyreSN(): Boolean {
 
@@ -232,21 +231,15 @@ class ParseUtil {
         }
 
         @JvmStatic
-        fun String._toPhone(): String {
+        fun String?.toPhone(): String {
 
-            return "+264${this.trimStart { it == '0' }}"
+            return "+264${this?.trimStart { it == '0' }}"
         }
 
-        fun isValidNationalID(value: String?): Boolean {
-            return !value.isNullOrEmpty()
-                    && Pattern.matches("^\\d{11}(\\d{2})?$", value)
-        }
-
-        fun isValidTemperature(value: String?): Boolean {
-            return value.isNullOrEmpty()
-                    || Pattern.matches("[2-4]\\d(.\\d)?$", value)
-
-        }
+        fun Account.isIncompleteAccount() =
+            name.isNullOrEmpty()
+                    || companyName.isNullOrEmpty()
+                    || companyNumber.isNullOrEmpty()
 
         fun isValidAuthCode(code: String?): Boolean {
             return code?.length ?: 0 == 6

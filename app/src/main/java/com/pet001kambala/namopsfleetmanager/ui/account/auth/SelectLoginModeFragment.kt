@@ -32,6 +32,9 @@ class SelectLoginModeFragment : SelectSignUpModeFragment() {
         accountModel.authState.observe(viewLifecycleOwner, Observer {
             if(it == AccountViewModel.AuthState.AUTHENTICATED)
                 navController.popBackStack(R.id.selectSignUpModeFragment,false)
+
+            else if (it == AccountViewModel.AuthState.EMAIL_NOT_VERIFIED)
+                navController.navigate(R.id.action_selectLoginModeFragment_to_verifyEmailFragment)
         })
     }
 }

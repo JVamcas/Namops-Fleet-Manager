@@ -58,8 +58,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val navBinding: NavHeaderMainBinding = NavHeaderMainBinding.bind(nav_view.getHeaderView(0))
         accountModel.currentAccount.observe(this, Observer {
             navBinding.user = it
+            account = it
+            it?.let {
+                refreshMainActivity()
+            }
         })
+        refreshMainActivity()
+    }
 
+    private fun refreshMainActivity(){
         //enable/disable menu items if access given or not
         val navMenu = nav_view.menu
         navMenu.findItem(R.id.nav_vehicles).isEnabled = account.isAuthorized(AccessType.VIEW_VEHICLES)

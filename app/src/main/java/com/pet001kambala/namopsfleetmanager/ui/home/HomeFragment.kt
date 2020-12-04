@@ -10,6 +10,7 @@ import com.pet001kambala.namopsfleetmanager.databinding.FragmentHomeBinding
 import com.pet001kambala.namopsfleetmanager.ui.AbstractFragment
 import com.pet001kambala.namopsfleetmanager.ui.account.AccountViewModel
 import com.pet001kambala.namopsfleetmanager.utils.AccessType
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isIncompleteAccount
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -32,15 +33,21 @@ class HomeFragment : AbstractFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        accountModel.currentAccount.observe(viewLifecycleOwner, Observer {
-            showProgressBar("")
-            requireActivity().drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        if (accountModel.authState.value == AccountViewModel.AuthState.AUTHENTICATED)
+            showProgressBar("Loading your profile...")
 
+        accountModel.currentAccount.observe(viewLifecycleOwner, Observer {
+
+            requireActivity().drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             it?.let {
-                requireActivity().invalidateOptionsMenu() //force refresh app home_menu
-                currentAccount = it
-                requireActivity().drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
                 endProgressBar()
+                if (it.isIncompleteAccount())
+                    navController.navigate(R.id.action_global_accountGraph)
+                else {
+                    requireActivity().invalidateOptionsMenu() //force refresh app home_menu
+                    currentAccount = it
+                    requireActivity().drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+                }
             }
         })
     }

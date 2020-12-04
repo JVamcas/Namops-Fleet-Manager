@@ -15,7 +15,6 @@ import com.pet001kambala.namopsfleetmanager.repository.AccountRepo
 import com.pet001kambala.namopsfleetmanager.utils.BindingUtil
 import com.pet001kambala.namopsfleetmanager.utils.Const
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil
-import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.convert
 import com.pet001kambala.namopsfleetmanager.utils.Results
 import kotlinx.android.synthetic.main.fragment_verify_phone.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -26,7 +25,6 @@ class VerifyPhoneFragment : AbstractAuthFragment() {
 
     private lateinit var phoneNumber: String
     private lateinit var binding: FragmentVerifyPhoneBinding
-    private var account: Account? = null
     private lateinit var verificationId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,8 +32,7 @@ class VerifyPhoneFragment : AbstractAuthFragment() {
         arguments?.let {
             val accountJson = it.getString(Const.ACCOUNT)
             accountJson?.let {
-                account = accountJson.convert()
-                phoneNumber = account?.cellphone!!
+                phoneNumber = account.cellphone!!
             }
             val phoneJson = it.getString(Const.PHONE_NUMBER)
             phoneJson?.let {

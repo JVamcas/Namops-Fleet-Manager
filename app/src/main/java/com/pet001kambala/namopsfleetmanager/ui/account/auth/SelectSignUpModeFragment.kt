@@ -32,8 +32,11 @@ open class SelectSignUpModeFragment : AbstractAuthFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         accountModel.authState.observe(viewLifecycleOwner, Observer {
-            if (it == AccountViewModel.AuthState.EMAIL_NOT_VERIFIED)
-                navController.navigate(R.id.action_selectSignUpModeFragment_to_verifyEmailFragment)
+            val curDestId = navController.currentDestination?.id
+
+            if (it == AccountViewModel.AuthState.EMAIL_NOT_VERIFIED
+                && curDestId != R.id.selectLoginModeFragment)
+                navController.navigate(R.id.action_selectSignUpModeFragment_to_selectLoginModeFragment)
 
             else if (it == AccountViewModel.AuthState.AUTHENTICATED) {
                 val activity = (activity as MainActivity)
@@ -53,9 +56,4 @@ open class SelectSignUpModeFragment : AbstractAuthFragment() {
             navController.navigate(R.id.action_selectSignUpModeFragment_to_selectLoginModeFragment)
         }
     }
-
-//    override fun onResume() {
-//        super.onResume()
-//        (activity as MainActivity).toolbar.navigationIcon = null
-//    }
 }

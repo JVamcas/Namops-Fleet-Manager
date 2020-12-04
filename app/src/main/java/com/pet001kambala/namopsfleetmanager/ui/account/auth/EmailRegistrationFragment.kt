@@ -7,11 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.viewModelScope
 import com.pet001kambala.namopsfleetmanager.R
 import com.pet001kambala.namopsfleetmanager.databinding.FragmentEmailRegistrationBinding
-import com.pet001kambala.namopsfleetmanager.model.Account
-import com.pet001kambala.namopsfleetmanager.model.AuthType
 import com.pet001kambala.namopsfleetmanager.repository.AccountRepo
-import com.pet001kambala.namopsfleetmanager.utils.Const
-import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.convert
 import com.pet001kambala.namopsfleetmanager.utils.Results
 import kotlinx.android.synthetic.main.fragment_email_registration.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -21,15 +17,6 @@ import kotlinx.coroutines.launch
 open class EmailRegistrationFragment : AbstractAuthFragment() {
 
     lateinit var binding: FragmentEmailRegistrationBinding
-    lateinit var account: Account
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        account = Account()
-        arguments?.let {
-            val json  = it.getString(Const.ACCOUNT)
-            json?.let { account = json.convert() }
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +26,6 @@ open class EmailRegistrationFragment : AbstractAuthFragment() {
 
         binding = FragmentEmailRegistrationBinding.inflate(inflater,container,false)
         binding.account = account
-        binding.authType = AuthType.EMAIL
         return binding.root
     }
 
@@ -52,7 +38,7 @@ open class EmailRegistrationFragment : AbstractAuthFragment() {
             accountModel.viewModelScope.launch {
                 val accountRepo = AccountRepo()
                 val password = password.text.toString()
-                val createResults = accountRepo.createNewUserWithEmailAndPassword(account,password)
+                val createResults = accountRepo.newUserWithEmailAndPassword(account,password)
                 endProgressBar()
                 if (createResults is Results.Success<*>){
                     showToast("Account creation success.")

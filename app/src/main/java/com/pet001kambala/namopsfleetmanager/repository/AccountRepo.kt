@@ -10,8 +10,8 @@ import com.pet001kambala.namopsfleetmanager.model.AbstractModel
 import com.pet001kambala.namopsfleetmanager.model.Account
 import com.pet001kambala.namopsfleetmanager.model.PhoneAuthCred
 import com.pet001kambala.namopsfleetmanager.utils.Docs
-import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion._toPhone
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.toMap
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.toPhone
 import com.pet001kambala.namopsfleetmanager.utils.Results
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancel
@@ -26,7 +26,7 @@ class AccountRepo {
     private val DB = FirebaseFirestore.getInstance()
     private val AUTH = Firebase.auth
 
-    suspend fun createNewUserWithEmailAndPassword(
+    suspend fun newUserWithEmailAndPassword(
         account: Account,
         password: String
     ): Results {
@@ -34,8 +34,18 @@ class AccountRepo {
             AUTH.createUserWithEmailAndPassword(account.email!!, password).await()
             val accountId = Firebase.auth.currentUser?.uid
             account.id = accountId!!
-            DB.collection(Docs.ACCOUNTS.name).document(account.id).set(account).await()
             Results.Success<Account>(code = Results.Success.CODE.WRITE_SUCCESS)
+        } catch (e: Exception) {
+            Results.Error(e)
+        }
+    }
+
+    suspend fun createUserWithEmailAndPassword(account: Account): Results {
+
+        return try {
+            account.id = Firebase.auth.currentUser!!.uid
+            DB.collection(Docs.ACCOUNTS.name).document(account.id).set(account).await()
+            Results.Success(data = arrayListOf(account), code = Results.Success.CODE.WRITE_SUCCESS)
         } catch (e: Exception) {
             Results.Error(e)
         }
@@ -94,16 +104,33 @@ class AccountRepo {
         val accountRef = DB.collection(Docs.ACCOUNTS.name).document(userId)
         try {//1. first load the account data
             val shot = accountRef.get().await()
-            val data = if (shot.exists())
-                arrayListOf(shot.toObject(Account::class.java)!!)
-            else ArrayList()
-
-            offer(
-                Results.Success<Account>(
-                    data = data,
-                    code = Results.Success.CODE.LOAD_SUCCESS
+            if (shot.exists()) {
+                val data = arrayListOf(shot.toObject(Account::class.java)!!)
+                offer(
+                    Results.Success(data = data,code = Results.Success.CODE.LOAD_SUCCESS)
                 )
-            )
+            }
+            else {
+                //email verified but some details missing
+                val user = Firebase.auth.currentUser
+                val tempAccount = Account().apply {
+                    id = user!!.uid
+                    name = user.displayName
+                    email = user.email
+                }
+                offer(
+                    Results.Success(
+                        data = arrayListOf(tempAccount),
+                        code = Results.Success.CODE.LOAD_SUCCESS)
+                )
+            }
+//
+//            offer(
+//                Results.Success(
+//                    data = data,
+//                    code = Results.Success.CODE.LOAD_SUCCESS
+//                )
+//            )
         } catch (e: Exception) {
             offer(Results.Error(e))
         }
@@ -151,7 +178,7 @@ class AccountRepo {
     suspend fun createUserWithPhone(account: Account): Results {
         account.let {
             it.id = AUTH.currentUser?.uid ?: ""
-            it.cellphone = it.cellphone!!._toPhone()
+            it.cellphone = it.cellphone.toPhone()
         }
 
         return try {
@@ -169,7 +196,7 @@ class AccountRepo {
     ): Flow<Results> = callbackFlow {
         offer(Results.loading())
         val options = PhoneAuthOptions.newBuilder(Firebase.auth)
-            .setPhoneNumber(phone._toPhone())// Phone number to verify
+            .setPhoneNumber(phone.toPhone())// Phone number to verify
             .setTimeout(120L, TimeUnit.SECONDS)// Timeout duration
             .setCallbacks(object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                 override fun onVerificationCompleted(p0: PhoneAuthCredential) {
@@ -187,11 +214,17 @@ class AccountRepo {
                     cancel()
                 }
 
-                override fun onCodeSent(verificationId: String, p1: PhoneAuthProvider.ForceResendingToken) {
+                override fun onCodeSent(
+                    verificationId: String,
+                    p1: PhoneAuthProvider.ForceResendingToken
+                ) {
                     super.onCodeSent(verificationId, p1)
-                    offer(Results.Success(
-                        data = arrayListOf(PhoneAuthCred(verificationId = verificationId )),
-                        code = Results.Success.CODE.PHONE_VERIFY_CODE_SENT))
+                    offer(
+                        Results.Success(
+                            data = arrayListOf(PhoneAuthCred(verificationId = verificationId)),
+                            code = Results.Success.CODE.PHONE_VERIFY_CODE_SENT
+                        )
+                    )
                 }
 
                 // close channel if code expired
@@ -207,7 +240,7 @@ class AccountRepo {
         awaitClose { }
     }
 
-    private fun isEmailAuth(): Boolean {
+    fun isEmailAuth(): Boolean {
         val user = Firebase.auth.currentUser
         return user?.providerData?.get(1)?.providerId == EmailAuthProvider.PROVIDER_ID
     }
@@ -220,11 +253,11 @@ class AccountRepo {
                     account.toMap()
                 )
             Results.Success<Account>(code = Results.Success.CODE.UPDATE_SUCCESS)
-        }
-        catch (e: java.lang.Exception){
+        } catch (e: java.lang.Exception) {
             Results.Error(e)
         }
     }
+
     @ExperimentalCoroutinesApi
     fun accountsChangeListener(): Flow<Results> = callbackFlow {
         val collection = DB.collection(Docs.ACCOUNTS.name)
@@ -270,8 +303,7 @@ class AccountRepo {
         return try {
             DB.collection(Docs.ACCOUNTS.name).document(account.id).update(account.toMap()).await()
             Results.Success<Account>(code = Results.Success.CODE.UPDATE_SUCCESS)
-        }
-        catch (e: java.lang.Exception){
+        } catch (e: java.lang.Exception) {
             Results.Error(e)
         }
     }

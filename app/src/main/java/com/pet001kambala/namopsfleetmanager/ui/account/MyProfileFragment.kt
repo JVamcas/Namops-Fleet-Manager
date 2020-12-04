@@ -12,6 +12,7 @@ import com.pet001kambala.namopsfleetmanager.ui.account.PermissionListAdapter.Per
 import com.pet001kambala.namopsfleetmanager.utils.AccessType.*
 import com.pet001kambala.namopsfleetmanager.utils.Const
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.convert
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isIncompleteAccount
 import kotlinx.android.synthetic.main.fragment_my_profile.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -60,6 +61,9 @@ open class MyProfileFragment : AbstractFragment(), PermissionListAdapter.OnPermi
         save_btn.visibility  = GONE
         bottom_separator_view.visibility = GONE
         block_user_switch.visibility = GONE
+
+        if(account.isIncompleteAccount())
+            navController.navigate(R.id.action_myProfileFragment_to_updateProfileFragment)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -142,5 +146,9 @@ open class MyProfileFragment : AbstractFragment(), PermissionListAdapter.OnPermi
     }
 
     override fun onToggle(permission: PermissionItem) {
+    }
+
+    override fun onBackClick() {
+        navController.popBackStack()
     }
 }

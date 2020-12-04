@@ -1,10 +1,11 @@
 package com.pet001kambala.namopsfleetmanager.model
 
+import androidx.annotation.Keep
 import androidx.databinding.Bindable
 import com.google.firebase.firestore.Exclude
 import com.pet001kambala.namopsfleetmanager.BR
 import com.pet001kambala.namopsfleetmanager.utils.Const
-
+@Keep
 data class Trailer(
     var location: String = Const.defaultLocation,
     var mounted: Boolean = false,
