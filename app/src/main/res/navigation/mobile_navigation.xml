@@ -351,4 +351,11 @@
             android:id="@+id/action_tyreDetailsFragment_to_tyreHomeDetailsFragment"
             app:destination="@id/tyreHomeDetailsFragment" />
     </fragment><action android:id="@+id/action_global_findTyreDetailsFragment" app:destination="@id/findTyreDetailsFragment"/>
+    <fragment
+        android:id="@+id/aboutDeveloperFragment"
+        android:name="com.pet001kambala.namopsfleetmanager.ui.account.AboutDeveloperFragment"
+        android:label="About developer"
+        tools:layout="@layout/fragment_about_developer"
+        />
+    <action android:id="@+id/action_global_aboutDeveloperFragment" app:destination="@id/aboutDeveloperFragment"/>
 </navigation>

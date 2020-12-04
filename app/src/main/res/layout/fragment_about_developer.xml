@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.home.AboutDeveloperFragment">
+
+        <ImageView
+            android:id="@+id/user_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/user_avatar"
+            app:default_icon="@{R.drawable.dev}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:viewId="@{``}"
+            app:size="@{300}"
+            android:layout_marginBottom="10dp"
+            />
+
+        <include
+            android:id="@+id/user_details"
+            layout="@layout/user_detail_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/user_avatar"
+            bind:user="@{account}"
+            bind:title="{`Personal Details`}"
+            />
+
+        <include layout="@layout/text_separator_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            bind:title="@{`Education`}"
+            android:id="@+id/qualification_text"
+            app:layout_constraintTop_toBottomOf="@id/user_details"
+            />
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/qualification_text"
+            android:text="@string/dev_qualification"
+            android:textAlignment="center"
+            android:textColor="@color/app_color"
+            android:id="@+id/qualifications"
+            />
+        <include layout="@layout/text_separator_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            bind:title="@{``}"
+            android:id="@+id/social_media"
+            app:layout_constraintTop_toBottomOf="@id/qualifications"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+        <import type="com.pet001kambala.namopsfleetmanager.R" />
+        <variable
+            name="account"
+            type="com.pet001kambala.namopsfleetmanager.model.Account" />
+    </data>
+</layout>
