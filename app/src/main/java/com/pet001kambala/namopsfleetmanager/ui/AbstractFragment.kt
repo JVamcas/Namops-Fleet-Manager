@@ -119,7 +119,7 @@ abstract class AbstractFragment : Fragment() {
         mDialog = Dialog(requireContext(),android.R.style.Theme_Black)
         mDialog?.apply {
 
-            window?.setGravity(Gravity.CENTER_VERTICAL)
+            window?.setGravity(Gravity.BOTTOM)
             window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
             requestWindowFeature(Window.FEATURE_NO_TITLE)
             window?.setBackgroundDrawableResource(R.color.transparent)

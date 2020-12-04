@@ -55,6 +55,7 @@ class TyreHomeDetailsFragment : TyreRegistrationDetailsFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         register_tyre.isVisible = isAuthorized(AccessType.UPDATE_TYRE)
+        recommended_pressure_layout.isEnabled = false
 
         register_tyre.setOnClickListener {
             tyreModel.viewModelScope.launch {

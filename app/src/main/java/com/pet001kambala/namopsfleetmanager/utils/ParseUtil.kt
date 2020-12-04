@@ -202,8 +202,8 @@ class ParseUtil {
             return if (this == null)
                 null
             else {
-                val match = Regex("^(\\+264)?(\\d+)$").find(this)
-                val (_, cell) = match!!.destructured
+                val match = Regex("^(\\+264)?(\\d+)?(8[1,5]\\d+)$").find(this)
+                val (_, _,cell) = match!!.destructured
                 "0$cell"
             }
         }
