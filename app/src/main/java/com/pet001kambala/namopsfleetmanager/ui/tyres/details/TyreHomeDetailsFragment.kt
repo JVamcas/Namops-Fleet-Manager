@@ -73,8 +73,9 @@ class TyreHomeDetailsFragment : TyreRegistrationDetailsFragment() {
         menu.clear()
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.tyre_menu, menu)
-        menu.findItem(R.id.send_tyre_for_repair).isEnabled = !tyreAtVendor(tyre)
-        menu.findItem(R.id.receive_tyre_from_repair).isEnabled = tyreAtVendor(tyre)
+
+        menu.findItem(R.id.send_tyre_for_repair).isEnabled = !tyreAtVendor(tyre) && isAuthorized(AccessType.SEND_OR_RECEIVE_TYRE_FROM_VENDOR)
+        menu.findItem(R.id.receive_tyre_from_repair).isEnabled = tyreAtVendor(tyre) && isAuthorized(AccessType.SEND_OR_RECEIVE_TYRE_FROM_VENDOR)
 
         menu.findItem(R.id.mount_tyre).isEnabled =
             isAuthorized(AccessType.MOUNT_OR_UNMOUNT_TYRE)
@@ -82,7 +83,6 @@ class TyreHomeDetailsFragment : TyreRegistrationDetailsFragment() {
             isAuthorized(AccessType.MOUNT_OR_UNMOUNT_TYRE)
         menu.findItem(R.id.inspect_tyre).isEnabled = isAuthorized(AccessType.INSPECT_TYRE)
         menu.findItem(R.id.tyre_records).isEnabled = isAuthorized(AccessType.VIEW_TYRE_RECORDS)
-        menu.findItem(R.id.tyre_repair).isEnabled = isAuthorized(AccessType.SEND_OR_RECEIVE_TYRE_FROM_VENDOR)
         menu.findItem(R.id.export_to_excel).isEnabled = isAuthorized(AccessType.EXPORT_TYRE)
     }
 

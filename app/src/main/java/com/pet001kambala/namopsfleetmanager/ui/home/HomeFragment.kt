@@ -37,6 +37,7 @@ class HomeFragment : AbstractFragment() {
             requireActivity().drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
             it?.let {
+                requireActivity().invalidateOptionsMenu() //force refresh app home_menu
                 currentAccount = it
                 requireActivity().drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
                 endProgressBar()

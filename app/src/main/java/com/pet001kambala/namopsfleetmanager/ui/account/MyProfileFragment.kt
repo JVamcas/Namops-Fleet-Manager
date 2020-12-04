@@ -23,10 +23,11 @@ open class MyProfileFragment : AbstractFragment(), PermissionListAdapter.OnPermi
 
 
     lateinit var account: Account
+    @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        account = accountModel.currentAccount.value!!
+        accountModel.currentAccount.value?.let { account = it }
         arguments?.let {
             val json = it.getString(Const.ACCOUNT)
             json?.let {
@@ -127,7 +128,7 @@ open class MyProfileFragment : AbstractFragment(), PermissionListAdapter.OnPermi
                      PermissionItem(UPDATE_TYRE),
                      PermissionItem(INSPECT_TYRE),
                      PermissionItem(VIEW_TYRE_RECORDS),
-                     PermissionItem(MOUNT_TYRE_OR_UNMOUNT_TYRE),
+                     PermissionItem(MOUNT_OR_UNMOUNT_TYRE),
                      PermissionItem(SEND_OR_RECEIVE_TYRE_FROM_VENDOR),
                      PermissionItem(EXPORT_TYRE)
                  )

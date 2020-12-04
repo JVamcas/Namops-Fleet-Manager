@@ -36,7 +36,6 @@ class VehiclesListFragment : AbstractTableFragment() {
 
         register_vehicle.isEnabled = isAuthorized(AccessType.REG_VEHICLE)
 
-
         register_vehicle.setOnClickListener {
             navController.navigate(R.id.action_vehiclesFragment_to_vehicleRegistrationFragment)
         }

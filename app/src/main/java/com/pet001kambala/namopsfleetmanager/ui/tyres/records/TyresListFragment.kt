@@ -80,7 +80,6 @@ open class TyresListFragment : AbstractTyreRecord() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.tyres_list_menu, menu)
-        menu.findItem(R.id.find_tyre).isEnabled = isAuthorized(AccessType.VIEW_TYRE)
         menu.findItem(R.id.tyre_vendors).isEnabled = isAuthorized(AccessType.VIEW_TYRE_VENDOR)
         menu.findItem(R.id.export_all_tyres_history).isEnabled = isAuthorized(AccessType.EXPORT_TYRE)
     }

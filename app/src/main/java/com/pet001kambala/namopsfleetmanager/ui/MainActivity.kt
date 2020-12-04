@@ -16,9 +16,9 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.FirebaseApp
 import com.pet001kambala.namopsfleetmanager.R
 import com.pet001kambala.namopsfleetmanager.databinding.NavHeaderMainBinding
+import com.pet001kambala.namopsfleetmanager.model.Account
 import com.pet001kambala.namopsfleetmanager.ui.account.AccountViewModel
 import com.pet001kambala.namopsfleetmanager.utils.AccessType
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isAuthorized
@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var navController: NavController
     private lateinit var accountModel: AccountViewModel
     var navigationIcon: Drawable? = null
+    private var account: Account? = null
 
     @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,6 +59,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         accountModel.currentAccount.observe(this, Observer {
             navBinding.user = it
         })
+
+        //enable/disable menu items if access given or not
+        val navMenu = nav_view.menu
+        navMenu.findItem(R.id.nav_vehicles).isEnabled = account.isAuthorized(AccessType.VIEW_VEHICLES)
+        navMenu.findItem(R.id.nav_tyre).isEnabled = account.isAuthorized(AccessType.VIEW_TYRE)
+        navMenu.findItem(R.id.nav_trailer).isEnabled = account.isAuthorized(AccessType.VIEW_TRAILER)
+        navMenu.findItem(R.id.nav_fuel).isEnabled = false
     }
 
     override fun onSupportNavigateUp(): Boolean {
