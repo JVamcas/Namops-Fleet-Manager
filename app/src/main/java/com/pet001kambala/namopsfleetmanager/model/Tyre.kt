@@ -5,7 +5,7 @@ import androidx.databinding.Bindable
 import com.google.firebase.firestore.Exclude
 import com.pet001kambala.namopsfleetmanager.BR
 import com.pet001kambala.namopsfleetmanager.utils.Const
-import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.extractDigit
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.extractValueFromMoneyString
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.moneyFormat
 
 @Keep
@@ -17,6 +17,7 @@ class Tyre(
     var distanceCovered: Double = 0.0,
     var reference_vehicle_km: String? = null,
     var accumulatedCost: String? = null
+
 ) : AbstractModel(), Comparable<Tyre> {
     @get:Exclude
     @Transient
@@ -27,8 +28,8 @@ class Tyre(
         Pair("Brand", brand),
         Pair("Size", size),
         Pair("Recommended Pressure", recommendedPressure),
-        Pair("Purchase Price", moneyFormat("NAD", extractDigit(purchasePrice).toDouble())),
-        Pair("Accumulated Cost", moneyFormat("NAD", extractDigit(accumulatedCost).toDouble())),
+        Pair("Purchase Price", moneyFormat("NAD", extractValueFromMoneyString(purchasePrice).toDouble())),
+        Pair("Accumulated Cost", moneyFormat("NAD", extractValueFromMoneyString(accumulatedCost).toDouble())),
         Pair("Date Purchased", purchaseDate),
         Pair("Current Condition", currentCondition),
         Pair("Location", location),
@@ -46,18 +47,16 @@ class Tyre(
         ),
         Pair(
             "Cost Per KM",
-            moneyFormat("NAD", extractDigit(accumulatedCost).toDouble() / distanceCovered)
+            moneyFormat("NAD", extractValueFromMoneyString(accumulatedCost).toDouble() / distanceCovered)
         )
     )
 
     @Bindable
     var recommendedPressure: String? = null
-        set(value) {
-            if (field != value) {
-                field = value
-                notifyPropertyChanged(BR.recommendedPressure)
-            }
-        }
+    set(value) {
+        field = value
+        notifyPropertyChanged(BR.recommendedPressure)
+    }
 
     @Bindable
     var brand: String? = null
@@ -144,6 +143,7 @@ class Tyre(
     var size: String? = null
         set(value) {
             if (field != value) {
+                recommendedPressure = if(value =="385/65R225") "800" else if( value == "315/80R225") "700" else null
                 field = value
                 notifyPropertyChanged(BR.size)
             }
@@ -162,6 +162,14 @@ class Tyre(
     var purchasePrice: String? = null
         set(value) {
             if (field != value) {
+                //when
+                var totalPrice = extractValueFromMoneyString(accumulatedCost).toDouble()
+                val purchasePrice = extractValueFromMoneyString(field).toDouble()
+                println("value is $value")
+                val newPrice = extractValueFromMoneyString(value).toDouble()
+                totalPrice -= purchasePrice + newPrice
+                accumulatedCost = moneyFormat("NAD",totalPrice)
+
                 field = value
                 notifyPropertyChanged(BR.purchasePrice)
             }

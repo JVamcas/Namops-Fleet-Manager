@@ -7,7 +7,7 @@ import com.pet001kambala.namopsfleetmanager.utils.Const
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion._24
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion.today
 import com.pet001kambala.namopsfleetmanager.utils.Docs
-import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.extractDigit
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.extractValueFromMoneyString
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.toMap
 import com.pet001kambala.namopsfleetmanager.utils.Results
 import kotlinx.coroutines.*
@@ -406,8 +406,8 @@ class TyreRepo {
     suspend fun receiveTyreFromRepair(tyre: Tyre, tyreRepair: TyreRepairItem): Results {
         val tyreRef = DB.collection(Docs.TYRES.name).document(tyre.serialNumber!!)
         val repairRef = DB.collection(Docs.TYRE_REPAIR.name).document(tyreRepair.id)
-        var curAccCost = extractDigit(tyre.accumulatedCost).toDouble()
-        curAccCost += extractDigit(tyre.purchasePrice).toDouble()
+        var curAccCost = extractValueFromMoneyString(tyre.accumulatedCost).toDouble()
+        curAccCost += extractValueFromMoneyString(tyre.purchasePrice).toDouble()
         tyre.accumulatedCost = curAccCost.toString()
         return try {
             DB.batch().apply {

@@ -180,9 +180,12 @@ class ParseUtil {
          * @param moneyString string e.g NAD 34.90
          * @return double value of the string representation e.g 34.90 if non-null else 0.00
          */
-        fun extractDigit(moneyString: String?): String {
+        fun extractValueFromMoneyString(moneyString: String?): String {
             return if (moneyString.isNullOrEmpty())
-                "0.00" else moneyString.replace("[^.0123456789]".toRegex(), "")
+                "0.00" else {
+                val value = moneyString.replace("[^.0123456789]".toRegex(), "")
+                if (value.isEmpty()) "0.00" else value
+            }
         }
 
         /***
@@ -195,12 +198,12 @@ class ParseUtil {
             return "$year$month" + "NOL"
         }
 
-        fun String?.stripCountryCode(): String?{
-            return if(this == null)
+        fun String?.stripCountryCode(): String? {
+            return if (this == null)
                 null
             else {
                 val match = Regex("^(\\+264)?(\\d+)$").find(this)
-                val (_,cell) = match!!.destructured
+                val (_, cell) = match!!.destructured
                 "0$cell"
             }
         }

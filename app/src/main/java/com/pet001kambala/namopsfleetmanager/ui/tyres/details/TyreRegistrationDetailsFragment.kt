@@ -33,10 +33,13 @@ open class TyreRegistrationDetailsFragment : AbstractTyreDetailsFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val tyre = binding.tyre!!.apply {
+
+        tyre.apply {
             serialNumber = getSNPrefix()
             purchasePrice = "NAD"
         }
+
+        recommended_pressure_layout.isEnabled = false
 
         register_tyre.setOnClickListener {
             showProgressBar("Just a moment...")

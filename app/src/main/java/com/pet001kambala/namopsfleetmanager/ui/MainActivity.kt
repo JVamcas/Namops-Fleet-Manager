@@ -104,6 +104,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     navController.navigate(R.id.action_global_trailerGraph)
 
             }
+            R.id.about_developer ->{
+                if(curDest != R.id.aboutDeveloperFragment)
+                    navController.navigate(R.id.action_global_aboutDeveloperFragment)
+            }
         }
         return false
     }
