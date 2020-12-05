@@ -247,11 +247,11 @@ class BindingUtil {
         }
 
         /***
-         * Load image from provided url, transform it and set it into the imageview
-         * @param mView the image view
+         * Load image.png from provided url, transform it and set it into the imageview
+         * @param mView the image.png view
          * @param default_icon default icon in case of error or when url is null
          * @param photoUrl the url: a base dir for device images else full url for online
-         * @param size the required size of the image
+         * @param size the required size of the image.png
          */
         @JvmStatic
         @BindingAdapter(value = ["viewId", "default_icon", "photoUrl", "size"])

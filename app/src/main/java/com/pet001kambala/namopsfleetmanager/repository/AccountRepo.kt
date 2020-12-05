@@ -182,6 +182,7 @@ class AccountRepo {
         }
 
         return try {
+
             DB.collection(Docs.ACCOUNTS.name).document(account.id).set(account).await()
             Results.Success<Account>(code = Results.Success.CODE.WRITE_SUCCESS)
         } catch (e: java.lang.Exception) {
@@ -304,6 +305,19 @@ class AccountRepo {
             DB.collection(Docs.ACCOUNTS.name).document(account.id).update(account.toMap()).await()
             Results.Success<Account>(code = Results.Success.CODE.UPDATE_SUCCESS)
         } catch (e: java.lang.Exception) {
+            Results.Error(e)
+        }
+    }
+
+   suspend fun accountExist(account: Account): Results {
+        return try {
+            val id = Firebase.auth.currentUser!!.uid
+            val shot = DB.collection(Docs.ACCOUNTS.name).document(id).get().await()
+            val data = if(shot.exists())
+                arrayListOf(shot.toObject(Account::class.java)!!) else ArrayList()
+            Results.Success(data = data,code = Results.Success.CODE.LOAD_SUCCESS)
+        }
+        catch (e: java.lang.Exception){
             Results.Error(e)
         }
     }

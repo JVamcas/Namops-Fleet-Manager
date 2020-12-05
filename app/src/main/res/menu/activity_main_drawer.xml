@@ -11,12 +11,12 @@
             />
         <item
             android:id="@+id/nav_vehicles"
-            android:icon="@drawable/ic_vehicle"
+            android:icon="@drawable/ic_horse"
             android:title="@string/menu_vehicles" />
 
         <item
             android:id="@+id/nav_trailer"
-            android:icon="@drawable/ic_tyre"
+            android:icon="@drawable/ic_trailer"
             android:title="@string/menu_trailer" />
         <item
             android:id="@+id/nav_tyre"

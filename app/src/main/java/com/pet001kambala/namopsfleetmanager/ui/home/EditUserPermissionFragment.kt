@@ -21,6 +21,17 @@ import kotlinx.coroutines.launch
  */
 class EditUserPermissionFragment : MyProfileFragment() {
 
+
+    @ExperimentalCoroutinesApi
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+         val view = super.onCreateView(inflater, container, savedInstanceState)
+        setHasOptionsMenu(false)
+        return view
+    }
     @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 

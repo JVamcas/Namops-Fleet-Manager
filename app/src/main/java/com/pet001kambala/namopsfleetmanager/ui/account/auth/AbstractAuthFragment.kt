@@ -17,7 +17,7 @@ abstract class AbstractAuthFragment: AbstractFragment() {
 
     val accountModel: AccountViewModel by activityViewModels()
 
-    lateinit var account: Account
+    open lateinit var account: Account
 
     @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {

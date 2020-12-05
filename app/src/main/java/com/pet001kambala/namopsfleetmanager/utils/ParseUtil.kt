@@ -228,7 +228,7 @@ class ParseUtil {
             if (phone.isNullOrEmpty()) return false
             val phone1 = phone.replace("\\s+".toRegex(), "")
             return phone1.isNotEmpty() && Pattern.matches(
-                "^0?8\\d{8}",
+                "^0?8[1,5]\\d{7}",
                 phone1
             )
         }

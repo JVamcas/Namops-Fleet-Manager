@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorPrimary</item>
         <item name="colorSecondary">@color/app_bar</item>
         <item name="colorOnSecondary">@color/white</item>
         <item name="textInputStyle">@style/text_input_layout</item>
@@ -43,6 +43,7 @@
         <item name="rippleColor">@color/hint_color</item>
         <item name="cornerRadius">20dp</item>
     </style>
+
     <style name="save_btn_outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="strokeColor">@color/app_color</item>
         <item name="android:textColor">@color/app_bar</item>
@@ -59,14 +60,10 @@
         <item name="cornerRadius">25dp</item>
     </style>
 
-
-    <style name="FirebaseUI.TextInputLayout.PasswordField." parent="text_input_layout">
-        <item name="android:textColor">@color/app_bar</item>
-    </style>
-
     <style name="text_input_layout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:background">@color/white</item>
         <item name="hintTextColor">@color/hint_color</item>
+        <item name="borderWidth">1dp</item>
     </style>
 
     <style name="dropdown_menu" parent="Widget.AppCompat.EditText">
