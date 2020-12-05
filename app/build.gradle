@@ -56,6 +56,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation "com.github.skydoves:powerspinner:1.1.5"
 
+    implementation 'com.wdullaer:materialdatetimepicker:4.2.3'
+
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
     implementation "org.apache.commons:commons-csv:1.8"
 
