@@ -44,7 +44,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/thread_depth"
-                    editContent="@{tyreSurvey.depth}"
+                    editContent="@{tyreSurvey.currentThreadDepth}"
                     errorMsg="@{`Enter a valid value.`}"
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
@@ -52,7 +52,7 @@
                     android:inputType="number"
                     android:paddingBottom="9dp"
                     android:singleLine="true"
-                    android:text="@={tyreSurvey.depth}" />
+                    android:text="@={tyreSurvey.currentThreadDepth}" />
             </com.google.android.material.textfield.TextInputLayout>
             <com.skydoves.powerspinner.PowerSpinnerView
                 android:id="@+id/tyre_current_thread_type"
@@ -191,7 +191,7 @@
                 style="@style/save_btn_outlined"
                 currentCondition="@{tyreSurvey.currentCondition}"
                 serialNo="@{tyre.serialNumber}"
-                threadDepth="@{tyreSurvey.depth}"
+                threadDepth="@{tyreSurvey.currentThreadDepth}"
                 valve_condition="@{tyreSurvey.valveCondition}"
                 actual_pressure="@{tyreSurvey.actualPressure}"
                 current_thread_type="@{tyreSurvey.currentThreadType}"
@@ -215,6 +215,6 @@
 
         <variable
             name="tyreSurvey"
-            type="com.pet001kambala.namopsfleetmanager.model.TyreSurveyItem" />
+            type="com.pet001kambala.namopsfleetmanager.model.TyreInspectionItem" />
     </data>
 </layout>

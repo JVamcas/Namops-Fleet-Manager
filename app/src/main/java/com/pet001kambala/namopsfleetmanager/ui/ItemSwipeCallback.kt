@@ -30,8 +30,8 @@ abstract class ItemSwipeCallback<K : AbstractModel, T : RecyclerView.ViewHolder>
             c, recyclerView, viewHolder, dX,
             dY, actionState, isCurrentlyActive
         )
-        val deleteBackground = ContextCompat.getDrawable(recyclerView.context,R.drawable.view_edit_drawable)
-        val editBackground = ContextCompat.getDrawable(recyclerView.context,R.drawable.view_delete_drawable)
+        val deleteBackground = ContextCompat.getDrawable(recyclerView.context,R.drawable.view_delete_drawable)
+        val editBackground = ContextCompat.getDrawable(recyclerView.context,R.drawable.view_edit_drawable)
         val deleteIcon = ContextCompat.getDrawable(recyclerView.context,R.drawable.ic_delete)
         val editIcon = ContextCompat.getDrawable(recyclerView.context,R.drawable.ic_edit)
 

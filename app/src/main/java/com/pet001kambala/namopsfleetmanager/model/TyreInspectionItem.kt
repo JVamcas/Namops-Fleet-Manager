@@ -9,7 +9,7 @@ import com.pet001kambala.namopsfleetmanager.BR
  * A survey to record the current depth of the tyre and any other comments
  */
 @Keep
-data class TyreSurveyItem(
+data class TyreInspectionItem(
     var date: String? = null,
     var account: String? = null,
     @Transient @get: Exclude var tyre: Tyre? = null
@@ -17,7 +17,7 @@ data class TyreSurveyItem(
 
     override fun data() = arrayListOf(
         Pair("Date", date),
-        Pair("Current Tread Depth", depth),
+        Pair("Current Tread Depth", currentThreadDepth),
         Pair("Original Tread Type", tyre?.purchaseThreadType),
         Pair("Current Tread Type",currentThreadType),
         Pair("Valve Condition", valveCondition),
@@ -76,11 +76,11 @@ data class TyreSurveyItem(
             }
         }
     @Bindable
-    var depth: String? = null
+    var currentThreadDepth: String? = null
         set(value) {
             if (field != value) {
                 field = value
-                notifyPropertyChanged(BR.depth)
+                notifyPropertyChanged(BR.currentThreadDepth)
             }
         }
     @Bindable

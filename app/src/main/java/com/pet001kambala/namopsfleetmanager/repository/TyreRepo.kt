@@ -245,25 +245,25 @@ class TyreRepo {
         }
     }
 
-    suspend fun recordTyreSurvey(tyre: Tyre, survey: TyreSurveyItem): Results {
+    suspend fun recordTyreInspection(tyre: Tyre, inspection: TyreInspectionItem): Results {
         return try {
             val docRef = DB.collection(Docs.TYRE_INSPECTION.name).document()
-            survey.id = docRef.id
+            inspection.id = docRef.id
             val tyreRef = DB.collection(Docs.TYRES.name).document(tyre.serialNumber!!)
             DB.batch().apply {
-                tyre.currentThreadDepth = survey.depth
-                tyre.currentCondition = survey.currentCondition
+                tyre.currentThreadDepth = inspection.currentThreadDepth
+                tyre.currentCondition = inspection.currentCondition
                 update(
                     tyreRef,
                     mapOf(
-                        "currentThreadDepth" to survey.depth,
-                        "currentCondition" to survey.currentCondition,
-                        "currentThreadType" to survey.currentThreadType
+                        "currentThreadDepth" to inspection.currentThreadDepth,
+                        "currentCondition" to inspection.currentCondition,
+                        "currentThreadType" to inspection.currentThreadType
                     )
                 )
-                set(docRef, survey)
+                set(docRef, inspection)
             }.commit().await()
-            Results.Success<TyreSurveyItem>(code = Results.Success.CODE.WRITE_SUCCESS)
+            Results.Success<TyreInspectionItem>(code = Results.Success.CODE.WRITE_SUCCESS)
         } catch (e: java.lang.Exception) {
             Results.Error(e)
         }
@@ -312,7 +312,7 @@ class TyreRepo {
     }
 
     /***
-     * Listen for the changes to the [TyreSurveyItem] record and emit the changes
+     * Listen for the changes to the [TyreInspectionItem] record and emit the changes
      */
     @ExperimentalCoroutinesApi
     fun surveyChangeListener(sn: String): Flow<Results> = callbackFlow {
@@ -327,7 +327,7 @@ class TyreRepo {
             shot?.apply {
                 val data =
                     if (!this.isEmpty)
-                        ArrayList(shot.documents.mapNotNull { it.toObject(TyreSurveyItem::class.java) })
+                        ArrayList(shot.documents.mapNotNull { it.toObject(TyreInspectionItem::class.java) })
                     else null
 
                 val results = Results.Success(
@@ -344,8 +344,8 @@ class TyreRepo {
         val collection = DB.collection(Docs.TYRE_INSPECTION.name).whereEqualTo("tyreSN", sn)
         return try {
             val shot = collection.get().await()
-            val data = shot.documents.mapNotNull { it.toObject(TyreSurveyItem::class.java) }
-            Results.Success<TyreSurveyItem>(
+            val data = shot.documents.mapNotNull { it.toObject(TyreInspectionItem::class.java) }
+            Results.Success<TyreInspectionItem>(
                 data = ArrayList(data),
                 code = Results.Success.CODE.LOAD_SUCCESS
             )
@@ -557,7 +557,7 @@ class TyreRepo {
     }
 
     /***
-     * Load all the records for this tyre  [TyreSurveyItem] [TyreMountItem] [TyreRepairItem]
+     * Load all the records for this tyre  [TyreInspectionItem] [TyreMountItem] [TyreRepairItem]
      * @param sn serial number for the tyre
      * @return [List] of [Results]
      */

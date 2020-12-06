@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import com.pet001kambala.namopsfleetmanager.model.Cell
-import com.pet001kambala.namopsfleetmanager.model.TyreSurveyItem
+import com.pet001kambala.namopsfleetmanager.model.TyreInspectionItem
 import com.pet001kambala.namopsfleetmanager.utils.Results
 import kotlinx.android.synthetic.main.tyres_list_fragment.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 
-class TyreSurveyRecordsFragment : AbstractTyreRecord<TyreSurveyItem>() {
+class TyreSurveyRecordsFragment : AbstractTyreRecord<TyreInspectionItem>() {
 
     @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -25,7 +25,7 @@ class TyreSurveyRecordsFragment : AbstractTyreRecord<TyreSurveyItem>() {
                         binding.tyresCount = results.data?.size ?: 0
 
                         if (!results.data.isNullOrEmpty()) {
-                            (results.data as ArrayList<TyreSurveyItem>).map { it.tyre = tyre }
+                            (results.data as ArrayList<TyreInspectionItem>).map { it.tyre = tyre }
                             val headers = results.data[0].data().map { it.first }//col headers text
                             val colHeader = headers.map { Cell(it) } as ArrayList
                             val rows =

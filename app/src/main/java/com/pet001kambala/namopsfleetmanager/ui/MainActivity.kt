@@ -11,16 +11,19 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.navArgs
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.messaging.FirebaseMessaging
 import com.pet001kambala.namopsfleetmanager.R
 import com.pet001kambala.namopsfleetmanager.databinding.NavHeaderMainBinding
 import com.pet001kambala.namopsfleetmanager.model.Account
 import com.pet001kambala.namopsfleetmanager.ui.account.AccountViewModel
 import com.pet001kambala.namopsfleetmanager.utils.AccessType
+import com.pet001kambala.namopsfleetmanager.utils.Const
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isAuthorized
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -31,7 +34,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
     private lateinit var accountModel: AccountViewModel
-    var navigationIcon: Drawable? = null
     private var account: Account? = null
 
     @ExperimentalCoroutinesApi
@@ -40,7 +42,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        navigationIcon = toolbar.navigationIcon
+        //notification bundle
+        savedInstanceState?.let {
+            println(savedInstanceState)
+        }
+        //TODO when
 
         accountModel = ViewModelProvider(this).get(AccountViewModel::class.java)
 
@@ -75,6 +81,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navMenu.findItem(R.id.nav_trailer).isEnabled = account.isAuthorized(AccessType.VIEW_TRAILER)
         navMenu.findItem(R.id.nav_notifications).isEnabled = account.isAuthorized(AccessType.ADMIN)
         navMenu.findItem(R.id.nav_fuel).isEnabled = false
+
+        if(account.isAuthorized(AccessType.ADMIN))
+            FirebaseMessaging.getInstance().subscribeToTopic(Const.TYRE_WORN_OUT)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -109,6 +118,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.about_developer -> {
                 if (curDest != R.id.aboutDeveloperFragment)
                     navController.navigate(R.id.action_global_aboutDeveloperFragment)
+            }
+            R.id.nav_notifications ->{
+                if (curDest != R.id.notificationsListFragment)
+                    navController.navigate(R.id.action_global_notificationsListFragment)
+
             }
         }
         return false

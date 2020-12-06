@@ -113,19 +113,24 @@ abstract class AbstractFragment : Fragment() {
     }
 
     protected open fun showProgressBar(message: String) {
-        mProgressbarBinding = ProgressbarBinding.inflate(layoutInflater, null, false)
-        mProgressbarBinding.progressMsg.text = message
+        if (mDialog == null || mDialog?.isShowing == false) {
+            mProgressbarBinding = ProgressbarBinding.inflate(layoutInflater, null, false)
+            mProgressbarBinding.progressMsg.text = message
 
-        mDialog = Dialog(requireContext(),android.R.style.Theme_Black)
-        mDialog?.apply {
+            mDialog = Dialog(requireContext(), android.R.style.Theme_Black)
+            mDialog?.apply {
 
-            window?.setGravity(Gravity.BOTTOM)
-            window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
-            requestWindowFeature(Window.FEATURE_NO_TITLE)
-            window?.setBackgroundDrawableResource(R.color.transparent)
-            setContentView(mProgressbarBinding.root)
-            setCancelable(false)
-            show()
+                window?.setGravity(Gravity.BOTTOM)
+                window?.setLayout(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                requestWindowFeature(Window.FEATURE_NO_TITLE)
+                window?.setBackgroundDrawableResource(R.color.transparent)
+                setContentView(mProgressbarBinding.root)
+                setCancelable(false)
+                show()
+            }
         }
     }
 

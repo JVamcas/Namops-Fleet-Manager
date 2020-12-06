@@ -4,7 +4,7 @@ import androidx.databinding.BaseObservable
 
 abstract class AbstractModel (
     open var id: String = "",
-    var photoUrl: String? =  null
+    open var photoUrl: String? =  null
 ): BaseObservable(){
     class EntityExistException : Exception()
     open class NoEntityException : Exception()

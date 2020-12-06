@@ -6,7 +6,6 @@ import androidx.lifecycle.Observer
 import com.pet001kambala.namopsfleetmanager.R
 import com.pet001kambala.namopsfleetmanager.model.Cell
 import com.pet001kambala.namopsfleetmanager.model.Tyre
-import com.pet001kambala.namopsfleetmanager.model.TyreWornOutAlert
 import com.pet001kambala.namopsfleetmanager.utils.AccessType
 import com.pet001kambala.namopsfleetmanager.utils.Const
 import com.pet001kambala.namopsfleetmanager.utils.Results

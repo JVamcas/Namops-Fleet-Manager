@@ -5,10 +5,9 @@ import android.view.*
 import androidx.core.view.isVisible
 import androidx.lifecycle.viewModelScope
 import com.pet001kambala.namopsfleetmanager.R
-import com.pet001kambala.namopsfleetmanager.model.Tyre
 import com.pet001kambala.namopsfleetmanager.model.TyreMountItem
 import com.pet001kambala.namopsfleetmanager.model.TyreRepairItem
-import com.pet001kambala.namopsfleetmanager.model.TyreSurveyItem
+import com.pet001kambala.namopsfleetmanager.model.TyreInspectionItem
 import com.pet001kambala.namopsfleetmanager.repository.TyreRepo
 import com.pet001kambala.namopsfleetmanager.utils.AccessType
 import com.pet001kambala.namopsfleetmanager.utils.Const
@@ -183,13 +182,13 @@ class TyreHomeDetailsFragment : TyreRegistrationDetailsFragment() {
                         endProgressBar()
 
                         var surveyRecords =
-                            ((recordResults[0] as? Results.Success<*>)?.data as? ArrayList<TyreSurveyItem>
+                            ((recordResults[0] as? Results.Success<*>)?.data as? ArrayList<TyreInspectionItem>
                                 ?: ArrayList())
                         surveyRecords = surveyRecords.map {
                             it.also {
                                 it.tyre = tyre
                             }
-                        } as ArrayList<TyreSurveyItem>
+                        } as ArrayList<TyreInspectionItem>
 
                         val mountRecords =
                             (recordResults[1] as? Results.Success<*>)?.data as? ArrayList<TyreMountItem>
