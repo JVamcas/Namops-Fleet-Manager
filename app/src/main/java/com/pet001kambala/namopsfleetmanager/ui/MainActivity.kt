@@ -66,12 +66,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         refreshMainActivity()
     }
 
-    private fun refreshMainActivity(){
+    private fun refreshMainActivity() {
         //enable/disable menu items if access given or not
         val navMenu = nav_view.menu
-        navMenu.findItem(R.id.nav_vehicles).isEnabled = account.isAuthorized(AccessType.VIEW_VEHICLES)
+        navMenu.findItem(R.id.nav_vehicles).isEnabled =
+            account.isAuthorized(AccessType.VIEW_VEHICLES)
         navMenu.findItem(R.id.nav_tyre).isEnabled = account.isAuthorized(AccessType.VIEW_TYRE)
         navMenu.findItem(R.id.nav_trailer).isEnabled = account.isAuthorized(AccessType.VIEW_TRAILER)
+        navMenu.findItem(R.id.nav_notifications).isEnabled = account.isAuthorized(AccessType.ADMIN)
         navMenu.findItem(R.id.nav_fuel).isEnabled = false
     }
 
@@ -104,8 +106,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     navController.navigate(R.id.action_global_trailerGraph)
 
             }
-            R.id.about_developer ->{
-                if(curDest != R.id.aboutDeveloperFragment)
+            R.id.about_developer -> {
+                if (curDest != R.id.aboutDeveloperFragment)
                     navController.navigate(R.id.action_global_aboutDeveloperFragment)
             }
         }

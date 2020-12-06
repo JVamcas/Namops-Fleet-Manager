@@ -13,7 +13,7 @@ import com.pet001kambala.namopsfleetmanager.utils.Results
 import kotlinx.android.synthetic.main.tyres_list_fragment.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-class WarnOutTyreListFragment : AbstractTyreRecord<TyreWornOutAlert>() {
+class WarnOutTyreListFragment : AbstractTyreRecord<Tyre>() {
 
 
     @ExperimentalCoroutinesApi
@@ -34,7 +34,7 @@ class WarnOutTyreListFragment : AbstractTyreRecord<TyreWornOutAlert>() {
                             if (!results.data.isNullOrEmpty()) {
                                 var wornOutTyres =
                                     results.data
-                                        .filter { (it as Tyre).currentThreadDepth?.toInt() ?: 0 <= Const.MIN_TYRE_DEPTH }
+                                        .filter { ((it as Tyre).currentThreadDepth?.toInt() ?: 0) <= Const.MIN_TYRE_DEPTH }
 
                                 binding.tyresCount = wornOutTyres.size
 
@@ -54,9 +54,8 @@ class WarnOutTyreListFragment : AbstractTyreRecord<TyreWornOutAlert>() {
                                         rows = rows,
                                         rowHeader = rowHeader,
                                         tableView = tyres_table,
-                                        destination = R.id.action_tyresListFragment_to_tyreHomeDetailsFragment,
-                                        tableData = wornOutTyres as ArrayList<TyreWornOutAlert>
-
+                                        destination = R.id.action_warnOutTyreListFragment_to_tyreHomeDetailsFragment,
+                                        tableData = wornOutTyres
                                     )
                                 }
                             }

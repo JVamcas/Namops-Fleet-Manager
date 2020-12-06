@@ -362,5 +362,9 @@
     <fragment
         android:id="@+id/warnOutTyreListFragment"
         android:name="com.pet001kambala.namopsfleetmanager.ui.tyres.records.WarnOutTyreListFragment"
-        android:label="Worn-out tyres" />
+        android:label="Worn-out tyres" >
+        <action
+            android:id="@+id/action_warnOutTyreListFragment_to_tyreHomeDetailsFragment"
+            app:destination="@id/tyreHomeDetailsFragment" />
+    </fragment>
 </navigation>

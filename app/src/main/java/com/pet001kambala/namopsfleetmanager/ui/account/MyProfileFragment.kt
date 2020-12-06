@@ -13,6 +13,7 @@ import com.pet001kambala.namopsfleetmanager.utils.AccessType.*
 import com.pet001kambala.namopsfleetmanager.utils.Const
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.convert
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isIncompleteAccount
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.toJson
 import kotlinx.android.synthetic.main.fragment_my_profile.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -74,12 +75,12 @@ open class MyProfileFragment : AbstractFragment(), PermissionListAdapter.OnPermi
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.update_account -> {
-                navController.navigate(R.id.action_myProfileFragment_to_updateProfileFragment)
+                val bundle = Bundle().also { it.putString(Const.ACCOUNT,it.toJson()) }
+                navController.navigate(R.id.action_myProfileFragment_to_updateProfileFragment,bundle)
             }
         }
         return super.onOptionsItemSelected(item)
     }
-
     /**
      * Convert user permissions <Strings> to PermissionItem
      */

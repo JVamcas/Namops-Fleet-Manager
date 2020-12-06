@@ -55,7 +55,7 @@ open class TyresListFragment : AbstractTyreRecord<Tyre>() {
                                 val tyreList = (results.data as ArrayList<Tyre>)
                                     .sorted()
                                     .reversed()
-//                                    .take(Const.MAX_TYRE)
+                                    .take(Const.MAX_TYRE)
                                 val headers =
                                     tyreList[0].data().map { it.first }//col headers text
                                 val colHeader = headers.map { Cell(it) } as ArrayList

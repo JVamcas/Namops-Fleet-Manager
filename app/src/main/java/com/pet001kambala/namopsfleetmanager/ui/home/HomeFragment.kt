@@ -10,7 +10,9 @@ import com.pet001kambala.namopsfleetmanager.databinding.FragmentHomeBinding
 import com.pet001kambala.namopsfleetmanager.ui.AbstractFragment
 import com.pet001kambala.namopsfleetmanager.ui.account.AccountViewModel
 import com.pet001kambala.namopsfleetmanager.utils.AccessType
+import com.pet001kambala.namopsfleetmanager.utils.Const
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isIncompleteAccount
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.toJson
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -32,13 +34,16 @@ class HomeFragment : AbstractFragment() {
     @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        accountModel.authState.observe(viewLifecycleOwner, Observer {
+            if(it == AccountViewModel.AuthState.AUTHENTICATED)
+                showProgressBar("Loading your profile...")
+        })
         accountModel.currentAccount.observe(viewLifecycleOwner, Observer {
-            showProgressBar("Loading your profile...")
             it?.let {
                 endProgressBar()
                 if (it.isIncompleteAccount())
                     navController.navigate(R.id.action_global_accountGraph)
+
                 else {
                     requireActivity().invalidateOptionsMenu() //force refresh app home_menu
                     currentAccount = it
@@ -60,13 +65,11 @@ class HomeFragment : AbstractFragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         when (item.itemId) {
             R.id.accounts -> {
                 navController.navigate(R.id.action_homeFragment_to_usersListFragment)
             }
         }
-
         return super.onOptionsItemSelected(item)
     }
 }

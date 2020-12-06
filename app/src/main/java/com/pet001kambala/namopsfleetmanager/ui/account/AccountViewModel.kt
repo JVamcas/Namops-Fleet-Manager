@@ -18,7 +18,7 @@ class AccountViewModel : ViewModel() {
     private val accountRepo = AccountRepo()
 
     enum class AuthState {
-        AUTHENTICATED, UNAUTHENTICATED, EMAIL_NOT_VERIFIED, ACCOUNT_INFO_MISSING
+        AUTHENTICATED, UNAUTHENTICATED, EMAIL_NOT_VERIFIED
     }
 
     private val userId = MutableLiveData<String>()
