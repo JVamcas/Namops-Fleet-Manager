@@ -14,9 +14,10 @@ import com.pet001kambala.namopsfleetmanager.utils.DateUtil
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion._24
 import com.pet001kambala.namopsfleetmanager.utils.Results
 import kotlinx.android.synthetic.main.fragment_trailer_list.*
+import kotlinx.android.synthetic.main.tyres_list_fragment.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-class TrailerListFragment : AbstractTableFragment() {
+class TrailerListFragment : AbstractTableFragment<Trailer>() {
 
     private lateinit var binding: FragmentTrailerListBinding
     private val trailerModel: TrailerViewModel by activityViewModels()
@@ -42,7 +43,7 @@ class TrailerListFragment : AbstractTableFragment() {
             navController.navigate(R.id.action_trailerListFragment_to_trailerRegistrationDetailsFragment)
         }
 
-        if(isAuthorized(AccessType.VIEW_TRAILER)) {
+        if (isAuthorized(AccessType.VIEW_TRAILER)) {
             trailerModel.trailersList.observe(viewLifecycleOwner, Observer {
                 it?.let { results ->
                     when (results) {
@@ -66,8 +67,12 @@ class TrailerListFragment : AbstractTableFragment() {
                                     results.data.withIndex()
                                         .map { Cell((it.index + 1).toString()) } as ArrayList
                                 initTable(
-                                    colHeader, rows, rowHeader, trailer_table,
-                                    R.id.action_trailerListFragment_to_trailerHomeDetailsFragment
+                                    colHeader = colHeader,
+                                    rows = rows,
+                                    rowHeader = rowHeader,
+                                    tableView = tyres_table,
+                                    destination = R.id.action_trailerListFragment_to_trailerHomeDetailsFragment,
+                                    tableData = results.data as ArrayList<Trailer>
                                 )
                             }
                         }

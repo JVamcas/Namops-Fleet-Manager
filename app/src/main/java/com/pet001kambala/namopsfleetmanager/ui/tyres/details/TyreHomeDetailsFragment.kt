@@ -14,6 +14,7 @@ import com.pet001kambala.namopsfleetmanager.utils.AccessType
 import com.pet001kambala.namopsfleetmanager.utils.Const
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion._24
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion.today
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.convert
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.toJson
 import com.pet001kambala.namopsfleetmanager.utils.Results
 import kotlinx.android.synthetic.main.fragment_tyre_registration.*
@@ -29,10 +30,9 @@ class TyreHomeDetailsFragment : TyreRegistrationDetailsFragment() {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
-            val rowIndex = it.getString(Const.ROW_POS)
-            rowIndex?.let {
-                val index = it.toInt()
-                tyre = ((tyreModel.tyresList.value as Results.Success<*>).data!![index] as Tyre)
+            val json = it.getString(Const.MODEL)
+            json?.let {
+                tyre = json.convert()
             }
         }
         tyreJson = tyre.toJson()

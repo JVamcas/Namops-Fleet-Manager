@@ -2,6 +2,8 @@ package com.pet001kambala.namopsfleetmanager.utils
 
 internal interface Const {
     companion object {
+        val MODEL: String = "AbstractModel"
+        val MIN_TYRE_DEPTH: Int = 4
         val MAX_TYRE: Int = 50
         val NEW_ACCOUNT: String = "new account"
         val PHONE_NUMBER: String = "phone number"

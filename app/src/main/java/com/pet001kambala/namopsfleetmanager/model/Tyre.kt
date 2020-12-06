@@ -165,7 +165,6 @@ class Tyre(
                 //when
                 var totalPrice = extractValueFromMoneyString(accumulatedCost).toDouble()
                 val purchasePrice = extractValueFromMoneyString(field).toDouble()
-                println("value is $value")
                 val newPrice = extractValueFromMoneyString(value).toDouble()
                 totalPrice -= purchasePrice + newPrice
                 accumulatedCost = moneyFormat("NAD",totalPrice)

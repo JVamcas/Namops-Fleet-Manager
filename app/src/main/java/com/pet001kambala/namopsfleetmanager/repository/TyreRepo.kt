@@ -54,10 +54,6 @@ class TyreRepo {
         try {//1. first load the tyre data
             val shot = collection.get().await()
             val data = shot.documents.mapNotNull { it.toObject(Tyre::class.java) }
-                .sorted()
-                .reversed()
-                .take(Const.MAX_TYRE)
-
 
             offer(
                 Results.Success<Tyre>(
@@ -77,9 +73,6 @@ class TyreRepo {
                 val data =
                     if (!this.isEmpty)
                         shot.documents.mapNotNull { it.toObject(Tyre::class.java) }
-                            .sorted()
-                            .reversed()
-                            .take(Const.MAX_TYRE)
                     else arrayListOf()
 
                 val results = Results.Success(
@@ -156,7 +149,7 @@ class TyreRepo {
                     )
                 )
                 update(
-                    trailerRef,"mountedTyreSNList",FieldValue.arrayUnion(tyre.serialNumber)
+                    trailerRef, "mountedTyreSNList", FieldValue.arrayUnion(tyre.serialNumber)
                 )
                 set(mountRef, mountItem)
             }.commit().await()
@@ -193,8 +186,7 @@ class TyreRepo {
             } catch (e: java.lang.Exception) {
                 Results.Error(e)
             }
-        }
-        else return unMountTyreFromTrailer(tyre,mountItem)
+        } else return unMountTyreFromTrailer(tyre, mountItem)
     }
 
     suspend fun unMountTyreFromTrailer(tyre: Tyre, mountItem: TyreMountItem): Results {
@@ -220,7 +212,7 @@ class TyreRepo {
                         "unMountReason" to mountItem.unMountReason
                     )
                 )
-                update(trailerRef,"mountedTyreSNList",FieldValue.arrayRemove(tyre.serialNumber!!))
+                update(trailerRef, "mountedTyreSNList", FieldValue.arrayRemove(tyre.serialNumber!!))
             }.commit().await()
             Results.Success<Tyre>(code = Results.Success.CODE.WRITE_SUCCESS)
         } catch (e: java.lang.Exception) {
@@ -281,7 +273,8 @@ class TyreRepo {
         return try {
             DB.collection(Docs.TYRES.name)
                 .document(tyre.serialNumber!!)
-                .update(tyre.toMap()
+                .update(
+                    tyre.toMap()
                 ).await()
             Results.Success<Tyre>(code = Results.Success.CODE.UPDATE_SUCCESS)
         } catch (e: java.lang.Exception) {
@@ -577,4 +570,5 @@ class TyreRepo {
             )
             deferredRecords.awaitAll()
         }
+
 }

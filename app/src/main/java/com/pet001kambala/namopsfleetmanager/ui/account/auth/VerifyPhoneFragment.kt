@@ -29,6 +29,7 @@ class VerifyPhoneFragment : AbstractAuthFragment() {
     private lateinit var verificationId: String
     private var acc: Account? = null
 
+    @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {

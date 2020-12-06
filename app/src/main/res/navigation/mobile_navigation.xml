@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_tyresListFragment_to_tyreVendors"
             app:destination="@id/tyreVendors" />
+        <action
+            android:id="@+id/action_tyresListFragment_to_warnOutTyreListFragment"
+            app:destination="@id/warnOutTyreListFragment" />
     </fragment>
     <action android:id="@+id/action_global_tyresListFragment" app:destination="@id/tyresListFragment" />
     <fragment
@@ -356,4 +359,8 @@
         android:name="com.pet001kambala.namopsfleetmanager.ui.home.AboutDeveloperFragment"
         tools:layout="@layout/fragment_about_developer"
         android:label="About developer" /><action android:id="@+id/action_global_aboutDeveloperFragment" app:destination="@id/aboutDeveloperFragment"/>
+    <fragment
+        android:id="@+id/warnOutTyreListFragment"
+        android:name="com.pet001kambala.namopsfleetmanager.ui.tyres.records.WarnOutTyreListFragment"
+        android:label="Worn-out tyres" />
 </navigation>

@@ -8,13 +8,14 @@ import com.pet001kambala.namopsfleetmanager.R
 import com.pet001kambala.namopsfleetmanager.model.Cell
 import com.pet001kambala.namopsfleetmanager.model.Tyre
 import com.pet001kambala.namopsfleetmanager.utils.AccessType
+import com.pet001kambala.namopsfleetmanager.utils.Const
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion._24
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion.today
 import com.pet001kambala.namopsfleetmanager.utils.Results
 import kotlinx.android.synthetic.main.tyres_list_fragment.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-open class TyresListFragment : AbstractTyreRecord() {
+open class TyresListFragment : AbstractTyreRecord<Tyre>() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,19 +52,26 @@ open class TyresListFragment : AbstractTyreRecord() {
                             binding.tyresCount = results.data?.size ?: 0
 
                             if (!results.data.isNullOrEmpty()) {
-
+                                val tyreList = (results.data as ArrayList<Tyre>)
+                                    .sorted()
+                                    .reversed()
+//                                    .take(Const.MAX_TYRE)
                                 val headers =
-                                    results.data[0].data().map { it.first }//col headers text
+                                    tyreList[0].data().map { it.first }//col headers text
                                 val colHeader = headers.map { Cell(it) } as ArrayList
-                                val rows = results.data.map {
+                                val rows = tyreList.map {
                                     it.data().map { Cell(it.second) } as ArrayList
                                 }
                                 val rowHeader =
-                                    results.data.withIndex()
+                                    tyreList.withIndex()
                                         .map { Cell((it.index + 1).toString()) } as ArrayList
                                 initTable(
-                                    colHeader, rows, rowHeader, tyres_table,
-                                    R.id.action_tyresListFragment_to_tyreHomeDetailsFragment
+                                    colHeader = colHeader,
+                                    rows = rows,
+                                    rowHeader = rowHeader,
+                                    tableView = tyres_table,
+                                    destination = R.id.action_tyresListFragment_to_tyreHomeDetailsFragment,
+                                    tableData = tyreList
                                 )
                             }
                         }
@@ -81,12 +89,16 @@ open class TyresListFragment : AbstractTyreRecord() {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.tyres_list_menu, menu)
         menu.findItem(R.id.tyre_vendors).isEnabled = isAuthorized(AccessType.VIEW_TYRE_VENDOR)
-        menu.findItem(R.id.export_all_tyres_history).isEnabled = isAuthorized(AccessType.EXPORT_TYRE)
+        menu.findItem(R.id.export_all_tyres_history).isEnabled =
+            isAuthorized(AccessType.EXPORT_TYRE)
     }
 
     @ExperimentalCoroutinesApi
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.worn_out_tyres -> {
+                navController.navigate(R.id.action_tyresListFragment_to_warnOutTyreListFragment)
+            }
             R.id.find_tyre -> {
                 navController.navigate(R.id.action_global_findTyreDetailsFragment)
             }

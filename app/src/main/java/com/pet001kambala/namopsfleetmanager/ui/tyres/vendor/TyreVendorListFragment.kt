@@ -17,7 +17,7 @@ import com.pet001kambala.namopsfleetmanager.utils.Results
 import kotlinx.android.synthetic.main.fragment_tyre_vendor_list.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-class TyreVendorListFragment : AbstractTableFragment() {
+class TyreVendorListFragment : AbstractTableFragment<TyreVendor>() {
 
     private lateinit var binding: FragmentTyreVendorListBinding
     val tyreModel: TyresViewModel by activityViewModels()
@@ -65,7 +65,8 @@ class TyreVendorListFragment : AbstractTableFragment() {
                                         .map { Cell((it.index + 1).toString()) } as ArrayList
                                 initTable(
                                     colHeader, rows, rowHeader, tyre_vendor_table,
-                                    R.id.action_tyreVendorListFragment_to_tyreVendorHomeFragment
+                                    R.id.action_tyreVendorListFragment_to_tyreVendorHomeFragment,
+                                    results.data as ArrayList<TyreVendor>
                                 )
                             }
                         }

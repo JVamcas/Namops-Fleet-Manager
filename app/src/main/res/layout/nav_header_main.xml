@@ -35,12 +35,12 @@
             android:textStyle="bold"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/textView"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textAlignment="center"-->
-<!--            android:text="@{user.toString()}" />-->
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@{user.companyName}" />
     </LinearLayout>
     <data>
         <variable

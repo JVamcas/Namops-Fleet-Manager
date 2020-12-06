@@ -13,10 +13,11 @@ import com.pet001kambala.namopsfleetmanager.utils.AccessType
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion._24
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion.today
 import com.pet001kambala.namopsfleetmanager.utils.Results
+import kotlinx.android.synthetic.main.tyres_list_fragment.*
 import kotlinx.android.synthetic.main.vehicles_fragment.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-class VehiclesListFragment : AbstractTableFragment() {
+class VehiclesListFragment : AbstractTableFragment<Vehicle>() {
 
     private lateinit var binding: VehiclesFragmentBinding
     private val vehicleModel: VehiclesViewModel by activityViewModels()
@@ -62,8 +63,12 @@ class VehiclesListFragment : AbstractTableFragment() {
                                     results.data.withIndex()
                                         .map { Cell((it.index + 1).toString()) } as ArrayList
                                 initTable(
-                                    colHeader, rows, rowHeader, vehicle_table,
-                                    R.id.action_vehiclesListFragment_to_vehicleHomeDetailsFragment
+                                    colHeader = colHeader,
+                                    rows = rows,
+                                    rowHeader = rowHeader,
+                                    tableView = tyres_table,
+                                    destination = R.id.action_vehiclesListFragment_to_vehicleHomeDetailsFragment,
+                                    tableData = results.data as ArrayList<Vehicle>
                                 )
                             }
                         }

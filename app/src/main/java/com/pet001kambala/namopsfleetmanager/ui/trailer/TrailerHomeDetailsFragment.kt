@@ -10,6 +10,7 @@ import com.pet001kambala.namopsfleetmanager.repository.TrailerRepo
 import com.pet001kambala.namopsfleetmanager.utils.AccessType
 import com.pet001kambala.namopsfleetmanager.utils.Const
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.convert
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.toJson
 import com.pet001kambala.namopsfleetmanager.utils.Results
 import kotlinx.android.synthetic.main.fragment_extended_vehicle_registration.*
@@ -23,11 +24,9 @@ class TrailerHomeDetailsFragment : TrailerRegistrationDetailsFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            val rowIndex = it.getString(Const.ROW_POS)
-            rowIndex?.let {
-                val index = it.toInt()
-                trailer =
-                    ((trailerModel.trailersList.value as Results.Success<*>).data!![index] as Trailer)
+            val json = it.getString(Const.MODEL)
+            json?.let {
+                trailer = json.convert()
             }
         }
     }

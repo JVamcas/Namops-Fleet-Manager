@@ -40,7 +40,6 @@ open class SelectSignUpModeFragment : AbstractAuthFragment() {
 
             else if (it == AccountViewModel.AuthState.AUTHENTICATED) {
                 val activity = (activity as MainActivity)
-                activity.drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
                 navController.popBackStack(R.id.homeFragment, false)
             }
         })

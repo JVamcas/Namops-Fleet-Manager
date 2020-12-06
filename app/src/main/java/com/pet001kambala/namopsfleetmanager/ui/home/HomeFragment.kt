@@ -33,12 +33,8 @@ class HomeFragment : AbstractFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (accountModel.authState.value == AccountViewModel.AuthState.AUTHENTICATED)
-            showProgressBar("Loading your profile...")
-
         accountModel.currentAccount.observe(viewLifecycleOwner, Observer {
-
-            requireActivity().drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            showProgressBar("Loading your profile...")
             it?.let {
                 endProgressBar()
                 if (it.isIncompleteAccount())

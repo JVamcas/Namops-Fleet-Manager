@@ -4,7 +4,7 @@ import com.evrencoskun.tableview.TableView
 import com.pet001kambala.namopsfleetmanager.model.AbstractModel
 import com.pet001kambala.namopsfleetmanager.model.Cell
 
-abstract class AbstractTableFragment :
+abstract class AbstractTableFragment<K : AbstractModel> :
     AbstractFragment() {
     fun initTable(
         colHeader: ArrayList<Cell>,
@@ -12,9 +12,9 @@ abstract class AbstractTableFragment :
         rowHeader: ArrayList<Cell>,
         tableView: TableView,
         destination: Int? = null, //where to go if row or column clicked
-        model: AbstractModel? = null
+        tableData: List<K>
     ) {
-        val tableAdapter = DataTableAdapter(navController, destination, model)
+        val tableAdapter = DataTableAdapter(navController, tableData, destination)
         tableView.setAdapter(tableAdapter)
         tableAdapter.setAllItems(colHeader, rowHeader, rows)
     }

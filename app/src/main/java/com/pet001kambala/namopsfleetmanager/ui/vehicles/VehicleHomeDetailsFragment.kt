@@ -8,6 +8,7 @@ import com.pet001kambala.namopsfleetmanager.model.Vehicle
 import com.pet001kambala.namopsfleetmanager.utils.AccessType
 import com.pet001kambala.namopsfleetmanager.utils.Const
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.convert
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.toJson
 import com.pet001kambala.namopsfleetmanager.utils.Results
 import kotlinx.android.synthetic.main.fragment_vehicle_registration.*
@@ -19,11 +20,9 @@ class VehicleHomeDetailsFragment : VehicleRegistrationDetailsFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            val rowIndex = it.getString(Const.ROW_POS)
-            rowIndex?.let {
-                val index = it.toInt()
-                vehicle =
-                    ((vehicleModel.vehiclesList.value as Results.Success<*>).data!![index] as Vehicle)
+            val json = it.getString(Const.MODEL)
+            json?.let {
+                vehicle = json.convert()
             }
         }
     }

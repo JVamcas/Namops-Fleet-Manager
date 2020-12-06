@@ -8,6 +8,10 @@
             android:title="@string/find_tyre"
             app:showAsAction="ifRoom"
             />
+        <item android:id="@+id/worn_out_tyres"
+            android:title="@string/worn_out_tyres"
+            app:showAsAction="never"
+            />
         <item
             android:id="@+id/tyre_vendors"
             android:title="@string/tyre_vendors"

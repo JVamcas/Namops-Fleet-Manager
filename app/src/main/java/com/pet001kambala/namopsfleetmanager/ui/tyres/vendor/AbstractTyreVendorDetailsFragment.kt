@@ -28,10 +28,9 @@ abstract class AbstractTyreVendorDetailsFragment: AbstractFragment() {
                 vendor = json.convert()
             }
 
-            val rowIndexJson = it.getString(Const.ROW_POS)
-            rowIndexJson?.let {
-                val rowIndex = rowIndexJson.toInt()
-                vendor = (tyreModel.tyreVendorsList.value as? Results.Success<*>)?.data?.get(rowIndex) as TyreVendor
+            val jsonModel = it.getString(Const.MODEL)
+            jsonModel?.let {
+                vendor = jsonModel.convert()
             }
         }
     }
