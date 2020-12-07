@@ -13,7 +13,6 @@ class NotificationListAdapter(
     mListener: ModelViewClickListener<Notification>,
 ) : AbstractAdapter<Notification, NotificationListAdapter.ViewHolder>(mListener) {
 
-
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

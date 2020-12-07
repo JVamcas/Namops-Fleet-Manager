@@ -1,5 +1,6 @@
 package com.pet001kambala.namopsfleetmanager.ui.notifications
 
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -32,24 +33,29 @@ class FBMessagingService : FirebaseMessagingService() {
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
 
         val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-        val notificationBuilder = NotificationCompat.Builder(this, Const.TYRE_WORNOUT_NOTIFICATION_CHANNEL)
+        val notificationBuilder = NotificationCompat.Builder(
+            this,
+            Const.TYRE_WORNOUT_NOTIFICATION_CHANNEL
+        )
             .setAutoCancel(true)
-            .setSmallIcon(R.drawable.seanam_logo)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(notification.body))
+            .setSmallIcon(R.mipmap.ic_launcher_round)
             .setContentIntent(pendingIntent)
             .setContentTitle(notification.title)
-            .setContentText(notification.body)
             .setSound(soundUri)
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         // Since android Oreo notification channel is needed.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(Const.TYRE_WORNOUT_NOTIFICATION_CHANNEL,
+            val channel = NotificationChannel(
+                Const.TYRE_WORNOUT_NOTIFICATION_CHANNEL,
                 "Tyre Worn-Out Alert",
-                NotificationManager.IMPORTANCE_DEFAULT)
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
             notificationManager.createNotificationChannel(channel)
         }
-        notificationManager.notify(1234,notificationBuilder.build())
+        notificationManager.notify(1234, notificationBuilder.build())
     }
 
     override fun onNewToken(p0: String) {
