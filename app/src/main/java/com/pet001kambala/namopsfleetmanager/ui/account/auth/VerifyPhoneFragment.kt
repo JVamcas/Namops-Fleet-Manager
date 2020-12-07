@@ -15,6 +15,7 @@ import com.pet001kambala.namopsfleetmanager.repository.AccountRepo
 import com.pet001kambala.namopsfleetmanager.utils.BindingUtil
 import com.pet001kambala.namopsfleetmanager.utils.Const
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.convert
 import com.pet001kambala.namopsfleetmanager.utils.Results
 import kotlinx.android.synthetic.main.fragment_verify_phone.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -26,13 +27,16 @@ class VerifyPhoneFragment : AbstractAuthFragment() {
     private lateinit var phoneNumber: String
     private lateinit var binding: FragmentVerifyPhoneBinding
     private lateinit var verificationId: String
+    private var acc: Account? = null
 
+    @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             val accountJson = it.getString(Const.ACCOUNT)
             accountJson?.let {
-                phoneNumber = account.cellphone!!
+                acc = it.convert()
+                phoneNumber = acc?.cellphone!!
             }
             val phoneJson = it.getString(Const.PHONE_NUMBER)
             phoneJson?.let {
@@ -61,7 +65,7 @@ class VerifyPhoneFragment : AbstractAuthFragment() {
             accountModel.viewModelScope.launch {
                 val verificationCode = verification_code.text.toString()
                 val phoneCred = PhoneAuthProvider.getCredential(verificationId, verificationCode)
-                signInAndCreateUserAccount(account, phoneCred)
+                signInAndCreateUserAccount(acc, phoneCred)
             }
         }
 
@@ -99,7 +103,7 @@ class VerifyPhoneFragment : AbstractAuthFragment() {
                         } else {
                             //Verification code detected automatically by android
                             val phoneCred = phoneAuthCred?.phoneAuthCredential!!
-                            signInAndCreateUserAccount(account, phoneCred)
+                            signInAndCreateUserAccount(acc, phoneCred)
                         }
                     }
                     else -> parseRepoResults(it)
@@ -114,25 +118,43 @@ class VerifyPhoneFragment : AbstractAuthFragment() {
     ) {
         accountModel.viewModelScope.launch {
             val accountRepo = AccountRepo()
-            val createMsg =
-                if (account == null) "Authenticating..." else "Creating your account... please wait!"
-            showProgressBar(createMsg)
+
+            showProgressBar("Just a moment...")
             val signInResults =
                 accountRepo.signInWithPhoneAuthCredential(phoneAuthCredential)
 
+            var accountExist = false
             if (signInResults is Results.Success<*>) {
                 account?.let {
-                    val accountCreationResults =
-                        accountRepo.createUserWithPhone(account)
-                    endProgressBar()
-                    if (accountCreationResults is Results.Success<*>) {
-                        showToast("Auth success.")
-                        navController.popBackStack(R.id.selectSignUpModeFragment, false)
-                    } else parseRepoResults(accountCreationResults)
-                    return@launch
+                    //check if phone not already belong to other account
+                    val findAccount = accountRepo.accountExist(account)
+                    if( findAccount is Results.Success<*>) {
+                        if(findAccount.data.isNullOrEmpty()) {
+                            val accountCreationResults =
+                                accountRepo.createUserWithPhone(account)
+                            endProgressBar()
+                            if (accountCreationResults is Results.Success<*>) {
+                                showToast("Account created successfully.")
+                                navController.popBackStack(R.id.selectSignUpModeFragment, false)
+                            } else parseRepoResults(accountCreationResults)
+                            return@launch
+                        }
+                        //account exist, user logged in pop to select sign up
+                        else  {
+                            accountExist  = true
+                            navController.popBackStack(R.id.selectSignUpModeFragment, false)
+                        }
+
+                    } else {
+                        endProgressBar()
+                        parseRepoResults(findAccount)
+                        return@launch
+                    }
                 }
                 val resultsMsg =
-                    if (account == null) "Auth success..." else "Account created successfully."
+                    if (account == null //login in
+                        //or creating duplicate account
+                        || accountExist) "Auth success..." else "Account created successfully."
                 showToast(resultsMsg)
                 navController.popBackStack(R.id.selectSignUpModeFragment, false)
             } else parseRepoResults(signInResults)

@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_tyresListFragment_to_tyreVendors"
             app:destination="@id/tyreVendors" />
+        <action
+            android:id="@+id/action_tyresListFragment_to_warnOutTyreListFragment"
+            app:destination="@id/warnOutTyreListFragment" />
     </fragment>
     <action android:id="@+id/action_global_tyresListFragment" app:destination="@id/tyresListFragment" />
     <fragment
@@ -47,7 +50,7 @@
         tools:layout="@layout/fragment_mount_tyre" />
     <fragment
         android:id="@+id/tyreSurveyFragment"
-        android:name="com.pet001kambala.namopsfleetmanager.ui.tyres.details.TyreSurveyDetailsFragment"
+        android:name="com.pet001kambala.namopsfleetmanager.ui.tyres.details.TyreInspectionDetailsFragment"
         android:label="Tyre inspection"
         tools:layout="@layout/fragment_tyre_survey" />
     <fragment
@@ -353,9 +356,24 @@
     </fragment><action android:id="@+id/action_global_findTyreDetailsFragment" app:destination="@id/findTyreDetailsFragment"/>
     <fragment
         android:id="@+id/aboutDeveloperFragment"
-        android:name="com.pet001kambala.namopsfleetmanager.ui.account.AboutDeveloperFragment"
-        android:label="About developer"
+        android:name="com.pet001kambala.namopsfleetmanager.ui.home.AboutDeveloperFragment"
         tools:layout="@layout/fragment_about_developer"
-        />
-    <action android:id="@+id/action_global_aboutDeveloperFragment" app:destination="@id/aboutDeveloperFragment"/>
+        android:label="About developer" /><action android:id="@+id/action_global_aboutDeveloperFragment" app:destination="@id/aboutDeveloperFragment"/>
+    <fragment
+        android:id="@+id/warnOutTyreListFragment"
+        android:name="com.pet001kambala.namopsfleetmanager.ui.tyres.records.WarnOutTyreListFragment"
+        android:label="Worn-out tyres" >
+        <action
+            android:id="@+id/action_warnOutTyreListFragment_to_tyreHomeDetailsFragment"
+            app:destination="@id/tyreHomeDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/notificationsListFragment"
+        android:name="com.pet001kambala.namopsfleetmanager.ui.notifications.NotificationsListFragment"
+        tools:layout="@layout/fragment_notifactions_list"
+        android:label="Notifications" >
+        <action
+            android:id="@+id/action_notificationsListFragment_to_warnOutTyreListFragment"
+            app:destination="@id/warnOutTyreListFragment" />
+    </fragment><action android:id="@+id/action_global_notificationsListFragment" app:destination="@id/notificationsListFragment"/>
 </navigation>

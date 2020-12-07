@@ -9,8 +9,9 @@ enum class Docs(private val value: String) {
     TYRE_MOUNT("Tyre Mount"),
     TRAILER("Trailer"),
     TRAILER_MOUNT("Trailer Mount"),
-    TYRE_VENDORS("Tyre Vendors");
-
+    TYRE_VENDORS("Tyre Vendors"),
+    NOTIFICATIONS("Notifications"),
+    TYRE_WORN_OUT_ALERTS("Tyre Worn Out alerts");
 
 
     override fun toString(): String {

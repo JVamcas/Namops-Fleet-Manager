@@ -72,7 +72,7 @@ class Account
     }
 
     override fun toString(): String {
-        return "$name - $companyName"
+        return "$name \n $companyName"
     }
 
 }

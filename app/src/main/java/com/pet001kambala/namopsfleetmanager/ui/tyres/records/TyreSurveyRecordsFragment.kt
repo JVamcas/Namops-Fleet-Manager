@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import com.pet001kambala.namopsfleetmanager.model.Cell
-import com.pet001kambala.namopsfleetmanager.model.TyreSurveyItem
+import com.pet001kambala.namopsfleetmanager.model.TyreInspectionItem
 import com.pet001kambala.namopsfleetmanager.utils.Results
 import kotlinx.android.synthetic.main.tyres_list_fragment.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 
-class TyreSurveyRecordsFragment : TyreMountRecordsFragment() {
+class TyreSurveyRecordsFragment : AbstractTyreRecord<TyreInspectionItem>() {
 
     @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -22,17 +22,25 @@ class TyreSurveyRecordsFragment : TyreMountRecordsFragment() {
                     is Results.Success<*> -> {
                         endProgressBar()
 
-                        binding.tyresCount = results.data?.size?: 0
+                        binding.tyresCount = results.data?.size ?: 0
 
                         if (!results.data.isNullOrEmpty()) {
-                            (results.data as ArrayList<TyreSurveyItem>).map { it.tyre = tyre }
+                            (results.data as ArrayList<TyreInspectionItem>).map { it.tyre = tyre }
                             val headers = results.data[0].data().map { it.first }//col headers text
                             val colHeader = headers.map { Cell(it) } as ArrayList
-                            val rows = results.data.map { it.data().map { Cell(it.second) } as ArrayList }
+                            val rows =
+                                results.data.map { it.data().map { Cell(it.second) } as ArrayList }
                             val rowHeader =
                                 results.data.withIndex()
                                     .map { Cell((it.index + 1).toString()) } as ArrayList
-                            initTable(colHeader, rows, rowHeader, tyres_table)
+                            initTable(
+                                colHeader = colHeader,
+                                rows = rows,
+                                rowHeader = rowHeader,
+                                tableView = tyres_table,
+                                destination = null,
+                                tableData = results.data
+                            )
                         }
                     }
                     else -> {

@@ -7,7 +7,7 @@ import com.pet001kambala.namopsfleetmanager.utils.Const
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion._24
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion.today
 import com.pet001kambala.namopsfleetmanager.utils.Docs
-import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.extractDigit
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.extractValueFromMoneyString
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.toMap
 import com.pet001kambala.namopsfleetmanager.utils.Results
 import kotlinx.coroutines.*
@@ -54,10 +54,6 @@ class TyreRepo {
         try {//1. first load the tyre data
             val shot = collection.get().await()
             val data = shot.documents.mapNotNull { it.toObject(Tyre::class.java) }
-                .sorted()
-                .reversed()
-                .take(Const.MAX_TYRE)
-
 
             offer(
                 Results.Success<Tyre>(
@@ -77,9 +73,6 @@ class TyreRepo {
                 val data =
                     if (!this.isEmpty)
                         shot.documents.mapNotNull { it.toObject(Tyre::class.java) }
-                            .sorted()
-                            .reversed()
-                            .take(Const.MAX_TYRE)
                     else arrayListOf()
 
                 val results = Results.Success(
@@ -156,7 +149,7 @@ class TyreRepo {
                     )
                 )
                 update(
-                    trailerRef,"mountedTyreSNList",FieldValue.arrayUnion(tyre.serialNumber)
+                    trailerRef, "mountedTyreSNList", FieldValue.arrayUnion(tyre.serialNumber)
                 )
                 set(mountRef, mountItem)
             }.commit().await()
@@ -193,8 +186,7 @@ class TyreRepo {
             } catch (e: java.lang.Exception) {
                 Results.Error(e)
             }
-        }
-        else return unMountTyreFromTrailer(tyre,mountItem)
+        } else return unMountTyreFromTrailer(tyre, mountItem)
     }
 
     suspend fun unMountTyreFromTrailer(tyre: Tyre, mountItem: TyreMountItem): Results {
@@ -220,7 +212,7 @@ class TyreRepo {
                         "unMountReason" to mountItem.unMountReason
                     )
                 )
-                update(trailerRef,"mountedTyreSNList",FieldValue.arrayRemove(tyre.serialNumber!!))
+                update(trailerRef, "mountedTyreSNList", FieldValue.arrayRemove(tyre.serialNumber!!))
             }.commit().await()
             Results.Success<Tyre>(code = Results.Success.CODE.WRITE_SUCCESS)
         } catch (e: java.lang.Exception) {
@@ -253,25 +245,25 @@ class TyreRepo {
         }
     }
 
-    suspend fun recordTyreSurvey(tyre: Tyre, survey: TyreSurveyItem): Results {
+    suspend fun recordTyreInspection(tyre: Tyre, inspection: TyreInspectionItem): Results {
         return try {
             val docRef = DB.collection(Docs.TYRE_INSPECTION.name).document()
-            survey.id = docRef.id
+            inspection.id = docRef.id
             val tyreRef = DB.collection(Docs.TYRES.name).document(tyre.serialNumber!!)
             DB.batch().apply {
-                tyre.currentThreadDepth = survey.depth
-                tyre.currentCondition = survey.currentCondition
+                tyre.currentThreadDepth = inspection.currentThreadDepth
+                tyre.currentCondition = inspection.currentCondition
                 update(
                     tyreRef,
                     mapOf(
-                        "currentThreadDepth" to survey.depth,
-                        "currentCondition" to survey.currentCondition,
-                        "currentThreadType" to survey.currentThreadType
+                        "currentThreadDepth" to inspection.currentThreadDepth,
+                        "currentCondition" to inspection.currentCondition,
+                        "currentThreadType" to inspection.currentThreadType
                     )
                 )
-                set(docRef, survey)
+                set(docRef, inspection)
             }.commit().await()
-            Results.Success<TyreSurveyItem>(code = Results.Success.CODE.WRITE_SUCCESS)
+            Results.Success<TyreInspectionItem>(code = Results.Success.CODE.WRITE_SUCCESS)
         } catch (e: java.lang.Exception) {
             Results.Error(e)
         }
@@ -281,7 +273,8 @@ class TyreRepo {
         return try {
             DB.collection(Docs.TYRES.name)
                 .document(tyre.serialNumber!!)
-                .update(tyre.toMap()
+                .update(
+                    tyre.toMap()
                 ).await()
             Results.Success<Tyre>(code = Results.Success.CODE.UPDATE_SUCCESS)
         } catch (e: java.lang.Exception) {
@@ -319,7 +312,7 @@ class TyreRepo {
     }
 
     /***
-     * Listen for the changes to the [TyreSurveyItem] record and emit the changes
+     * Listen for the changes to the [TyreInspectionItem] record and emit the changes
      */
     @ExperimentalCoroutinesApi
     fun surveyChangeListener(sn: String): Flow<Results> = callbackFlow {
@@ -334,7 +327,7 @@ class TyreRepo {
             shot?.apply {
                 val data =
                     if (!this.isEmpty)
-                        ArrayList(shot.documents.mapNotNull { it.toObject(TyreSurveyItem::class.java) })
+                        ArrayList(shot.documents.mapNotNull { it.toObject(TyreInspectionItem::class.java) })
                     else null
 
                 val results = Results.Success(
@@ -351,8 +344,8 @@ class TyreRepo {
         val collection = DB.collection(Docs.TYRE_INSPECTION.name).whereEqualTo("tyreSN", sn)
         return try {
             val shot = collection.get().await()
-            val data = shot.documents.mapNotNull { it.toObject(TyreSurveyItem::class.java) }
-            Results.Success<TyreSurveyItem>(
+            val data = shot.documents.mapNotNull { it.toObject(TyreInspectionItem::class.java) }
+            Results.Success<TyreInspectionItem>(
                 data = ArrayList(data),
                 code = Results.Success.CODE.LOAD_SUCCESS
             )
@@ -406,8 +399,8 @@ class TyreRepo {
     suspend fun receiveTyreFromRepair(tyre: Tyre, tyreRepair: TyreRepairItem): Results {
         val tyreRef = DB.collection(Docs.TYRES.name).document(tyre.serialNumber!!)
         val repairRef = DB.collection(Docs.TYRE_REPAIR.name).document(tyreRepair.id)
-        var curAccCost = extractDigit(tyre.accumulatedCost).toDouble()
-        curAccCost += extractDigit(tyre.purchasePrice).toDouble()
+        var curAccCost = extractValueFromMoneyString(tyre.accumulatedCost).toDouble()
+        curAccCost += extractValueFromMoneyString(tyre.purchasePrice).toDouble()
         tyre.accumulatedCost = curAccCost.toString()
         return try {
             DB.batch().apply {
@@ -564,7 +557,7 @@ class TyreRepo {
     }
 
     /***
-     * Load all the records for this tyre  [TyreSurveyItem] [TyreMountItem] [TyreRepairItem]
+     * Load all the records for this tyre  [TyreInspectionItem] [TyreMountItem] [TyreRepairItem]
      * @param sn serial number for the tyre
      * @return [List] of [Results]
      */
@@ -577,4 +570,5 @@ class TyreRepo {
             )
             deferredRecords.awaitAll()
         }
+
 }

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.viewModelScope
 import com.pet001kambala.namopsfleetmanager.R
 import com.pet001kambala.namopsfleetmanager.databinding.FragmentTyreSurveyBinding
-import com.pet001kambala.namopsfleetmanager.model.TyreSurveyItem
+import com.pet001kambala.namopsfleetmanager.model.TyreInspectionItem
 import com.pet001kambala.namopsfleetmanager.repository.TyreRepo
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion._24
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion.today
@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_tyre_survey.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
-class TyreSurveyDetailsFragment : AbstractTyreDetailsFragment() {
+class TyreInspectionDetailsFragment : AbstractTyreDetailsFragment() {
 
     private lateinit var binding: FragmentTyreSurveyBinding
 
@@ -33,7 +33,7 @@ class TyreSurveyDetailsFragment : AbstractTyreDetailsFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val survey = TyreSurveyItem()
+        val survey = TyreInspectionItem()
         binding.tyreSurvey = survey
         binding.tyre = tyre
         tyre_sn_layout.isEnabled = false
@@ -47,7 +47,7 @@ class TyreSurveyDetailsFragment : AbstractTyreDetailsFragment() {
             }
             tyreModel.viewModelScope.launch {
                 showProgressBar("Recording survey...")
-                val surveyRecord = tyreRepo.recordTyreSurvey(tyre, survey)
+                val surveyRecord = tyreRepo.recordTyreInspection(tyre, survey)
                 endProgressBar()
                 if (surveyRecord is Results.Success<*>) {
                     showToast("Survey recorded.")

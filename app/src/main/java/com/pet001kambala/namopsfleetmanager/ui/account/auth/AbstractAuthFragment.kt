@@ -1,6 +1,7 @@
 package com.pet001kambala.namopsfleetmanager.ui.account.auth
 
 import android.os.Bundle
+import android.view.View
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.activityViewModels
 import com.pet001kambala.namopsfleetmanager.R
@@ -17,7 +18,7 @@ abstract class AbstractAuthFragment: AbstractFragment() {
 
     val accountModel: AccountViewModel by activityViewModels()
 
-    lateinit var account: Account
+    open lateinit var account: Account
 
     @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +28,12 @@ abstract class AbstractAuthFragment: AbstractFragment() {
             val json = getString(Const.ACCOUNT)
             json?.let { account = json.convert() }
         }
+    }
+
+    @ExperimentalCoroutinesApi
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        requireActivity().drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
     }
 
     override fun onResume() {

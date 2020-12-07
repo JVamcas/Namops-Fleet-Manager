@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.pet001kambala.namopsfleetmanager.R
 import com.pet001kambala.namopsfleetmanager.databinding.FragmentUpdateAccountBinding
 import com.pet001kambala.namopsfleetmanager.repository.AccountRepo
@@ -18,7 +20,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
 class UpdateProfileFragment : AbstractAuthFragment() {
-
 
     private lateinit var binding: FragmentUpdateAccountBinding
 
@@ -38,14 +39,14 @@ class UpdateProfileFragment : AbstractAuthFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         var isMissingCred = false
         accountModel.currentAccount.observe(viewLifecycleOwner, Observer {
 
             it?.let {
                 account = it
+                it.cellphone = Firebase.auth.currentUser!!.phoneNumber.stripCountryCode()
                 isMissingCred = it.isIncompleteAccount()
-                binding.account = it.also { it.cellphone = it.cellphone.stripCountryCode() }
+                binding.account = it
                 binding.isEmailAccount = AccountRepo().isEmailAuth()
             }
         })

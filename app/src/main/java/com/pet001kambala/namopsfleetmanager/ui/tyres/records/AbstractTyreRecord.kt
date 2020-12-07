@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.pet001kambala.namopsfleetmanager.R
 import com.pet001kambala.namopsfleetmanager.databinding.TyresListFragmentBinding
+import com.pet001kambala.namopsfleetmanager.model.AbstractModel
 import com.pet001kambala.namopsfleetmanager.model.Tyre
 import com.pet001kambala.namopsfleetmanager.ui.AbstractTableFragment
 import com.pet001kambala.namopsfleetmanager.ui.tyres.TyresViewModel
@@ -15,7 +16,7 @@ import com.pet001kambala.namopsfleetmanager.utils.Const
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.convert
 
-abstract class AbstractTyreRecord: AbstractTableFragment() {
+abstract class AbstractTyreRecord<K: AbstractModel>: AbstractTableFragment<K>() {
 
     lateinit var binding: TyresListFragmentBinding
     lateinit var tyre: Tyre

@@ -7,11 +7,11 @@ import android.view.View.GONE
 import android.view.ViewGroup
 import com.pet001kambala.namopsfleetmanager.R
 import com.pet001kambala.namopsfleetmanager.model.Cell
+import com.pet001kambala.namopsfleetmanager.model.Tyre
 import kotlinx.android.synthetic.main.tyres_list_fragment.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-class TyreDetailsFragment : AbstractTyreRecord() {
-
+class TyreDetailsFragment : AbstractTyreRecord<Tyre>() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +38,7 @@ class TyreDetailsFragment : AbstractTyreRecord() {
 
         initTable(
             colHeader, arrayListOf(rows), arrayListOf(Cell("1")), tyres_table,
-            R.id.action_tyreDetailsFragment_to_tyreHomeDetailsFragment, tyre
+            R.id.action_tyreDetailsFragment_to_tyreHomeDetailsFragment, listOf(tyre)
         )
     }
 }

@@ -9,7 +9,7 @@ import androidx.databinding.BindingAdapter
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.pet001kambala.namopsfleetmanager.model.Tyre
-import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.extractDigit
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.extractValueFromMoneyString
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.getSNPrefix
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isMoney
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isValidEmail
@@ -62,7 +62,7 @@ class BindingUtil {
 
         @JvmStatic
         @BindingAdapter(value = ["errorMsg", "cellphoneUpdate"])
-        fun validateCellUpdate(mEditText: EditText,errorMsg: String?, cellphone: String?) {
+        fun validateCellUpdate(mEditText: EditText, errorMsg: String?, cellphone: String?) {
             mEditText.error =
                 if (isValidMobile(cellphone) || cellphone.isNullOrEmpty()) null else errorMsg
         }
@@ -247,11 +247,11 @@ class BindingUtil {
         }
 
         /***
-         * Load image from provided url, transform it and set it into the imageview
-         * @param mView the image view
+         * Load image.png from provided url, transform it and set it into the imageview
+         * @param mView the image.png view
          * @param default_icon default icon in case of error or when url is null
          * @param photoUrl the url: a base dir for device images else full url for online
-         * @param size the required size of the image
+         * @param size the required size of the image.png
          */
         @JvmStatic
         @BindingAdapter(value = ["viewId", "default_icon", "photoUrl", "size"])
@@ -306,12 +306,12 @@ class BindingUtil {
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     super.onTextChanged(p0, p1, p2, p3)
                     val moneyString = p0.toString()
-                    val digits = extractDigit(moneyString)
+                    val digits = extractValueFromMoneyString(moneyString)
 
                     mEditText.error =
                         if (isMoney(moneyString)) null else "Invalid price."
 
-                    tyre.purchasePrice = "NAD$digits"
+                    tyre.purchasePrice = "NAD${if (digits == "0.00") "" else digits}"
                     mEditText.setSelection(moneyString.length)
                 }
             })

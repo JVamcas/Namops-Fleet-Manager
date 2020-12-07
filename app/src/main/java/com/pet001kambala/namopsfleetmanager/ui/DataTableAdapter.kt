@@ -17,10 +17,10 @@ import com.pet001kambala.namopsfleetmanager.model.Cell
 import com.pet001kambala.namopsfleetmanager.utils.Const
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.toJson
 
-class DataTableAdapter(
+class DataTableAdapter<K: AbstractModel>(
     private val navController: NavController,
+    private val tableData: List<K>,
     private val destination: Int? = null,
-    private val model: AbstractModel? = null
 ) :
     AbstractTableAdapter<Cell, Cell, Cell>() {
     class CellViewHolder(
@@ -118,10 +118,8 @@ class DataTableAdapter(
         binding?.apply { cellData.text = data }
         binding?.root?.setOnClickListener {
             destination?.let {
-                val bundle = Bundle()
-                if (model == null)
-                    bundle.putString(Const.ROW_POS, rowPosition.toString())
-                else bundle.putString(Const.TYRE, model.toJson())
+                val model = tableData[rowPosition]
+                val bundle = Bundle().also { it.putString(Const.MODEL,model.toJson()) }
                 navController.navigate(destination, bundle)
             }
         }

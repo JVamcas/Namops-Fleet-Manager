@@ -5,15 +5,15 @@ import android.view.*
 import androidx.core.view.isVisible
 import androidx.lifecycle.viewModelScope
 import com.pet001kambala.namopsfleetmanager.R
-import com.pet001kambala.namopsfleetmanager.model.Tyre
 import com.pet001kambala.namopsfleetmanager.model.TyreMountItem
 import com.pet001kambala.namopsfleetmanager.model.TyreRepairItem
-import com.pet001kambala.namopsfleetmanager.model.TyreSurveyItem
+import com.pet001kambala.namopsfleetmanager.model.TyreInspectionItem
 import com.pet001kambala.namopsfleetmanager.repository.TyreRepo
 import com.pet001kambala.namopsfleetmanager.utils.AccessType
 import com.pet001kambala.namopsfleetmanager.utils.Const
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion._24
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion.today
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.convert
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.toJson
 import com.pet001kambala.namopsfleetmanager.utils.Results
 import kotlinx.android.synthetic.main.fragment_tyre_registration.*
@@ -29,10 +29,9 @@ class TyreHomeDetailsFragment : TyreRegistrationDetailsFragment() {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
-            val rowIndex = it.getString(Const.ROW_POS)
-            rowIndex?.let {
-                val index = it.toInt()
-                tyre = ((tyreModel.tyresList.value as Results.Success<*>).data!![index] as Tyre)
+            val json = it.getString(Const.MODEL)
+            json?.let {
+                tyre = json.convert()
             }
         }
         tyreJson = tyre.toJson()
@@ -55,6 +54,7 @@ class TyreHomeDetailsFragment : TyreRegistrationDetailsFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         register_tyre.isVisible = isAuthorized(AccessType.UPDATE_TYRE)
+        recommended_pressure_layout.isEnabled = false
 
         register_tyre.setOnClickListener {
             tyreModel.viewModelScope.launch {
@@ -182,13 +182,13 @@ class TyreHomeDetailsFragment : TyreRegistrationDetailsFragment() {
                         endProgressBar()
 
                         var surveyRecords =
-                            ((recordResults[0] as? Results.Success<*>)?.data as? ArrayList<TyreSurveyItem>
+                            ((recordResults[0] as? Results.Success<*>)?.data as? ArrayList<TyreInspectionItem>
                                 ?: ArrayList())
                         surveyRecords = surveyRecords.map {
                             it.also {
                                 it.tyre = tyre
                             }
-                        } as ArrayList<TyreSurveyItem>
+                        } as ArrayList<TyreInspectionItem>
 
                         val mountRecords =
                             (recordResults[1] as? Results.Success<*>)?.data as? ArrayList<TyreMountItem>

@@ -10,6 +10,7 @@
     <string name="menu_tyres">Tyres</string>
     <string name="menu_fuel">Fuel</string>
     <string name="Cancel">Cancel</string>
+    <string name="dev_qualification">BSc in Electrical and Computer Engineering\nUniversity of Cape Town</string>
     <string name="OK">OK</string>
     <string name="user_avatar">User Icon layout</string>
     <string name="vehicle_list">Vehicles</string>
@@ -138,6 +139,8 @@
     <string name="no_users_yet">No users yet.</string>
     <string name="accounts">Accounts</string>
     <string name="select_tyre_size">Size</string>
+    <string name="worn_out_tyres">Worn-out tyres</string>
+    <string name="no_notifications">No notifacations.</string>
 
     <!--    String constants-->
     <string-array name="trailer_type">
