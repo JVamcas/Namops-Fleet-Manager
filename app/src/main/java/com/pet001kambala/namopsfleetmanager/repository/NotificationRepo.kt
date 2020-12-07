@@ -2,8 +2,6 @@ package com.pet001kambala.namopsfleetmanager.repository
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pet001kambala.namopsfleetmanager.model.Notification
-import com.pet001kambala.namopsfleetmanager.model.Tyre
-import com.pet001kambala.namopsfleetmanager.model.TyreVendor
 import com.pet001kambala.namopsfleetmanager.utils.Docs
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.toMap
 import com.pet001kambala.namopsfleetmanager.utils.Results
@@ -21,7 +19,7 @@ class NotificationRepo {
     @ExperimentalCoroutinesApi
     suspend fun notificationChangeListener(): Flow<Results> = callbackFlow {
 
-        val collection = DB.collection(Docs.NOTIFICATIONS.name)
+        val collection = DB.collection(Docs.NOTIFICATIONS.name).whereEqualTo("resolved",false)
         try {//1. first load the tyre data
             val shot = collection.get().await()
             val data = shot.documents.mapNotNull { it.toObject(Notification::class.java) }

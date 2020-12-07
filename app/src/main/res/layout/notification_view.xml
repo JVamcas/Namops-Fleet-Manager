@@ -19,9 +19,20 @@
             android:layout_marginBottom="5dp"
             android:textStyle="bold"
             android:text="@{notification.title}"
-            android:textColor="@color/hint_color"
+            android:textColor="@color/shimmer_background"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/shimmer_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/notification_title"
+            android:text="@{notification.date??``}"
+            />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/notification_body"

@@ -13,6 +13,7 @@ class Notification : AbstractModel() {
     var type: String? = null
     var title: String? = null
     var body: String? = null
-    var seen: Boolean = false
+    var tyreSN: String? = null
+    var resolved: Boolean = false
     var date: String? = null
 }

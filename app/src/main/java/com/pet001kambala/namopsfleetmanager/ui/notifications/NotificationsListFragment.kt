@@ -6,17 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.viewModelScope
 import com.pet001kambala.namopsfleetmanager.R
 import com.pet001kambala.namopsfleetmanager.databinding.FragmentNotifactionsListBinding
 import com.pet001kambala.namopsfleetmanager.model.Notification
-import com.pet001kambala.namopsfleetmanager.repository.NotificationRepo
 import com.pet001kambala.namopsfleetmanager.ui.AbstractListFragment
 import com.pet001kambala.namopsfleetmanager.utils.Const
 import com.pet001kambala.namopsfleetmanager.utils.Results
 import kotlinx.android.synthetic.main.fragment_notifactions_list.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.launch
 
 class NotificationsListFragment :
     AbstractListFragment<Notification, NotificationListAdapter.ViewHolder>() {
@@ -75,10 +72,6 @@ class NotificationsListFragment :
     override fun onModelClick(model: Notification) {
         when (model.type) {
             Const.TYRE_WORN_OUT -> {
-                notificationModel.viewModelScope.launch {
-                    NotificationRepo().updateNotification(
-                        model.also { it.seen = true })
-                }
                 navController.navigate(R.id.action_notificationsListFragment_to_warnOutTyreListFragment)
             }
         }
