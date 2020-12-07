@@ -24,6 +24,7 @@
             android:id="@+id/take_new_picture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/app_splash"
             android:src="@drawable/ic_camera"
             android:visibility="@{cameraVisible? View.VISIBLE : View.GONE}"
             app:fabSize="mini"

@@ -211,8 +211,10 @@ class ParseUtil {
         @JvmStatic
         fun String?.isValidTyreSN(): Boolean {
 
-            val validSN = "^\\d{2}\\d{2}NOL[0-9]+$"
-            return !TextUtils.isEmpty(this) && Pattern.matches(validSN, this)
+            val validSN1 = "^\\d{4}NOL[0-9]+$"
+            val validSN2 = "^\\d{4}ITC[0-9]+$"
+            return !TextUtils.isEmpty(this) && (Pattern.matches(validSN1, this) ||
+                    Pattern.matches(validSN2, this))
         }
 
         fun isValidEmail(email: String?): Boolean {

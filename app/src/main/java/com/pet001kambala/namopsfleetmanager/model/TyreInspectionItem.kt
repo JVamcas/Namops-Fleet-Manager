@@ -17,7 +17,8 @@ data class TyreInspectionItem(
 
     override fun data() = arrayListOf(
         Pair("Date", date),
-        Pair("Current Tread Depth", currentThreadDepth),
+        Pair("Original Tread Depth","${tyre?.purchaseThreadDepth} mm"),
+        Pair("Current Tread Depth", "$currentThreadDepth mm"),
         Pair("Original Tread Type", tyre?.purchaseThreadType),
         Pair("Current Tread Type",currentThreadType),
         Pair("Valve Condition", valveCondition),

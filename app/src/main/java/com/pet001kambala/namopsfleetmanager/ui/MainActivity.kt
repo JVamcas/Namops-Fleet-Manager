@@ -1,6 +1,5 @@
 package com.pet001kambala.namopsfleetmanager.ui
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.navArgs
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -72,18 +70,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         refreshMainActivity()
     }
 
+    @ExperimentalCoroutinesApi
     private fun refreshMainActivity() {
         //enable/disable menu items if access given or not
         val navMenu = nav_view.menu
+
         navMenu.findItem(R.id.nav_vehicles).isEnabled =
             account.isAuthorized(AccessType.VIEW_VEHICLES)
         navMenu.findItem(R.id.nav_tyre).isEnabled = account.isAuthorized(AccessType.VIEW_TYRE)
         navMenu.findItem(R.id.nav_trailer).isEnabled = account.isAuthorized(AccessType.VIEW_TRAILER)
-        navMenu.findItem(R.id.nav_notifications).isEnabled = account.isAuthorized(AccessType.ADMIN)
         navMenu.findItem(R.id.nav_fuel).isEnabled = false
 
-        if(account.isAuthorized(AccessType.ADMIN))
+        if (account.isAuthorized(AccessType.ADMIN))
             FirebaseMessaging.getInstance().subscribeToTopic(Const.TYRE_WORN_OUT)
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -118,11 +118,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.about_developer -> {
                 if (curDest != R.id.aboutDeveloperFragment)
                     navController.navigate(R.id.action_global_aboutDeveloperFragment)
-            }
-            R.id.nav_notifications ->{
-                if (curDest != R.id.notificationsListFragment)
-                    navController.navigate(R.id.action_global_notificationsListFragment)
-
             }
         }
         return false

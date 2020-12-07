@@ -24,7 +24,6 @@ open class VehicleRegistrationDetailsFragment : AbstractVehicleDetailsFragment()
         // Inflate the layout for this fragment
         binding = FragmentVehicleRegistrationBinding.inflate(layoutInflater, container, false)
         binding.vehicle = vehicle
-
         return binding.root
     }
 

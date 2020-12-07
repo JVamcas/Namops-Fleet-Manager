@@ -157,9 +157,6 @@
     </string-array>
 
 
-
-
-
     <string-array name="Tyre_brand">
         <item>Select brand…</item>
         <item>Firestone</item>
@@ -238,7 +235,7 @@
     </string-array>
     <string-array name="treadTypes">
         <item>Select tread type…</item>
-        <item>MGO</item>
+        <item>MGO22</item>
         <item>FD</item>
     </string-array>
     <string-array name="Vehicle_Types">

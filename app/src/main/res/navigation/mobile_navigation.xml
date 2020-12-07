@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_homeFragment_to_usersListFragment"
             app:destination="@id/usersListFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_notificationsListFragment"
+            app:destination="@id/notificationsListFragment" />
     </fragment>
 
     <fragment
@@ -375,5 +378,5 @@
         <action
             android:id="@+id/action_notificationsListFragment_to_warnOutTyreListFragment"
             app:destination="@id/warnOutTyreListFragment" />
-    </fragment><action android:id="@+id/action_global_notificationsListFragment" app:destination="@id/notificationsListFragment"/>
+    </fragment>
 </navigation>

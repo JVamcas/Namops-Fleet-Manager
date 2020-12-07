@@ -85,6 +85,7 @@ open class TyresListFragment : AbstractTyreRecord<Tyre>() {
         }
     }
 
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.tyres_list_menu, menu)
