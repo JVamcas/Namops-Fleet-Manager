@@ -9,15 +9,31 @@ import com.pet001kambala.namopsfleetmanager.model.AbstractModel
 
 abstract class ItemSwipeCallback<K : AbstractModel, T : RecyclerView.ViewHolder>(
     private val mAdapter: AbstractAdapter<K, T>,
-    private val mListener: AbstractAdapter.ModelViewClickListener<K>
+    private val mListener: AbstractAdapter.ModelViewClickListener<K>,
+    private val leftSwipe: Boolean,
+    private val rightSwipe: Boolean
 ) :
     ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
 
     override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
-        return ItemTouchHelper.Callback.makeMovementFlags(
-            0,
-            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
-        )
+
+        return when{
+            leftSwipe && rightSwipe ->ItemTouchHelper.Callback.makeMovementFlags(
+                0,
+                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+            )
+            leftSwipe -> ItemTouchHelper.Callback.makeMovementFlags(
+                0,
+                ItemTouchHelper.LEFT
+            )
+
+            rightSwipe -> ItemTouchHelper.Callback.makeMovementFlags(
+                0,
+                ItemTouchHelper.RIGHT
+            )
+            else -> 0 //all swipes disabled
+        }
+
     }
 
     override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {

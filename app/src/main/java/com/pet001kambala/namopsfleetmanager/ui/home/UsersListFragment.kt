@@ -17,7 +17,9 @@ import com.pet001kambala.namopsfleetmanager.utils.Results
 import kotlinx.android.synthetic.main.fragment_users_list.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-class UsersListFragment : AbstractListFragment<Account, UsersListAdapter.ViewHolder>() {
+class UsersListFragment : AbstractListFragment<Account, UsersListAdapter.ViewHolder>(
+    rightSwipe = true
+) {
 
     private lateinit var binding: FragmentUsersListBinding
     private val accountModel: AccountViewModel by activityViewModels()

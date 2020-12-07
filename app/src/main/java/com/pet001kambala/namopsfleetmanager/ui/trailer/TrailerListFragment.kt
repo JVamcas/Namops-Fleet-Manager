@@ -14,7 +14,6 @@ import com.pet001kambala.namopsfleetmanager.utils.DateUtil
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion._24
 import com.pet001kambala.namopsfleetmanager.utils.Results
 import kotlinx.android.synthetic.main.fragment_trailer_list.*
-import kotlinx.android.synthetic.main.tyres_list_fragment.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class TrailerListFragment : AbstractTableFragment<Trailer>() {
@@ -70,7 +69,7 @@ class TrailerListFragment : AbstractTableFragment<Trailer>() {
                                     colHeader = colHeader,
                                     rows = rows,
                                     rowHeader = rowHeader,
-                                    tableView = tyres_table,
+                                    tableView = trailer_table,
                                     destination = R.id.action_trailerListFragment_to_trailerHomeDetailsFragment,
                                     tableData = results.data as ArrayList<Trailer>
                                 )
