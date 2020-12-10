@@ -1,6 +1,7 @@
 package com.pet001kambala.namopsfleetmanager.ui.account
 
 import androidx.lifecycle.*
+import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -50,12 +51,6 @@ class AccountViewModel : ViewModel() {
         val auth = Firebase.auth
 
         auth.currentUser?.apply {
-            try {
-                reload().await() //reload currently logged in user
-            } catch (e: FirebaseAuthInvalidUserException) {
-                //
-            }
-
             if (isEmailVerified)
                 userId.postValue(auth.currentUser!!.uid)//trigger data load via transformation switchMap
         }

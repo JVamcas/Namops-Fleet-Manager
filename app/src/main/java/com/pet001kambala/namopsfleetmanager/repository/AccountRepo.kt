@@ -124,13 +124,6 @@ class AccountRepo {
                         code = Results.Success.CODE.LOAD_SUCCESS)
                 )
             }
-//
-//            offer(
-//                Results.Success(
-//                    data = data,
-//                    code = Results.Success.CODE.LOAD_SUCCESS
-//                )
-//            )
         } catch (e: Exception) {
             offer(Results.Error(e))
         }
@@ -309,7 +302,7 @@ class AccountRepo {
         }
     }
 
-   suspend fun accountExist(account: Account): Results {
+   suspend fun accountExist(): Results {
         return try {
             val id = Firebase.auth.currentUser!!.uid
             val shot = DB.collection(Docs.ACCOUNTS.name).document(id).get().await()

@@ -127,7 +127,7 @@ class VerifyPhoneFragment : AbstractAuthFragment() {
             if (signInResults is Results.Success<*>) {
                 account?.let {
                     //check if phone not already belong to other account
-                    val findAccount = accountRepo.accountExist(account)
+                    val findAccount = accountRepo.accountExist()
                     if( findAccount is Results.Success<*>) {
                         if(findAccount.data.isNullOrEmpty()) {
                             val accountCreationResults =

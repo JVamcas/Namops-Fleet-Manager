@@ -42,10 +42,7 @@ class ReceiveTyreFromRepairDetailsFragment : SendTyreForRepairDetailsFragment() 
         tyre_vendor.isEnabled = false
 
         tyre_repair_record.setOnClickListener {
-            if (!tyreAtVendor(tyre)){
-                showToast("Err: Tyre is not at vendor.")
-                return@setOnClickListener
-            }
+
             showProgressBar("Just a moment...")
             tyreModel.viewModelScope.launch {
                 val tyreRepo = TyreRepo()

@@ -401,7 +401,6 @@ class TyreRepo {
         val repairRef = DB.collection(Docs.TYRE_REPAIR.name).document(tyreRepair.id)
         var curAccCost = extractValueFromMoneyString(tyre.accumulatedCost).toDouble()
         curAccCost += extractValueFromMoneyString(tyre.purchasePrice).toDouble()
-        tyre.accumulatedCost = curAccCost.toString()
         return try {
             DB.batch().apply {
                 update(
@@ -410,7 +409,7 @@ class TyreRepo {
                         "location" to Const.defaultLocation,
                         "currentThreadDepth" to tyreRepair.repairThreadDepth,
                         "currentThreadType" to tyreRepair.repairThreadType,
-                        "accumulatedCost" to tyre.accumulatedCost,
+                        "accumulatedCost" to curAccCost.toString(),
                         "currentCondition" to tyreRepair.repairCondition
                     )
                 )

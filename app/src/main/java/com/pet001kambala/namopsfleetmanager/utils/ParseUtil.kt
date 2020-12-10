@@ -72,6 +72,15 @@ class ParseUtil {
             return Gson().fromJson(this, object : TypeToken<O>() {}.type)
         }
 
+        fun Tyre?.inStorage() =
+            this != null &&
+                    !this.mounted && location == Const.defaultLocation
+
+        fun Tyre?.atVendor() =
+            !inStorage() && !mounted()
+
+        fun Tyre?.mounted() = this != null && mounted
+
         fun <K> K.toJson(): String {
             return Gson().toJson(this)
         }
@@ -203,7 +212,7 @@ class ParseUtil {
                 null
             else {
                 val match = Regex("^(\\+264)?(\\d+)?(8[1,5]\\d+)$").find(this)
-                val (_, _,cell) = match!!.destructured
+                val (_, _, cell) = match!!.destructured
                 "0$cell"
             }
         }
@@ -241,7 +250,8 @@ class ParseUtil {
             return "+264${this?.trimStart { it == '0' }}"
         }
 
-        fun Account.isIncompleteAccount() =
+        fun Account?.isIncompleteAccount() =
+            this == null ||
             name.isNullOrEmpty()
                     || companyName.isNullOrEmpty()
                     || companyNumber.isNullOrEmpty()

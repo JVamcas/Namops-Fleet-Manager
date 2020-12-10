@@ -13,7 +13,10 @@ import com.pet001kambala.namopsfleetmanager.utils.AccessType
 import com.pet001kambala.namopsfleetmanager.utils.Const
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion._24
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion.today
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.atVendor
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.convert
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.inStorage
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.mounted
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.toJson
 import com.pet001kambala.namopsfleetmanager.utils.Results
 import kotlinx.android.synthetic.main.fragment_tyre_registration.*
@@ -74,14 +77,14 @@ class TyreHomeDetailsFragment : TyreRegistrationDetailsFragment() {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.tyre_menu, menu)
 
-        menu.findItem(R.id.send_tyre_for_repair).isEnabled = !tyreAtVendor(tyre) && isAuthorized(AccessType.SEND_OR_RECEIVE_TYRE_FROM_VENDOR)
-        menu.findItem(R.id.receive_tyre_from_repair).isEnabled = tyreAtVendor(tyre) && isAuthorized(AccessType.SEND_OR_RECEIVE_TYRE_FROM_VENDOR)
+        menu.findItem(R.id.send_tyre_for_repair).isEnabled = tyre.inStorage() && isAuthorized(AccessType.SEND_OR_RECEIVE_TYRE_FROM_VENDOR)
+        menu.findItem(R.id.receive_tyre_from_repair).isEnabled = tyre.atVendor() && isAuthorized(AccessType.SEND_OR_RECEIVE_TYRE_FROM_VENDOR)
 
         menu.findItem(R.id.mount_tyre).isEnabled =
-            isAuthorized(AccessType.MOUNT_OR_UNMOUNT_TYRE)
+            isAuthorized(AccessType.MOUNT_OR_UNMOUNT_TYRE) && tyre.inStorage()
         menu.findItem(R.id.unmount_tyre).isEnabled =
-            isAuthorized(AccessType.MOUNT_OR_UNMOUNT_TYRE)
-        menu.findItem(R.id.inspect_tyre).isEnabled = isAuthorized(AccessType.INSPECT_TYRE)
+            isAuthorized(AccessType.MOUNT_OR_UNMOUNT_TYRE) && tyre.mounted()
+        menu.findItem(R.id.inspect_tyre).isEnabled = isAuthorized(AccessType.INSPECT_TYRE)  && !tyre.atVendor()
         menu.findItem(R.id.tyre_records).isEnabled = isAuthorized(AccessType.VIEW_TYRE_RECORDS)
         menu.findItem(R.id.export_to_excel).isEnabled = isAuthorized(AccessType.EXPORT_TYRE)
     }

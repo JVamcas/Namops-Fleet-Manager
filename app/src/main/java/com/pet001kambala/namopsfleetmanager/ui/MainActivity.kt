@@ -23,6 +23,7 @@ import com.pet001kambala.namopsfleetmanager.ui.account.AccountViewModel
 import com.pet001kambala.namopsfleetmanager.utils.AccessType
 import com.pet001kambala.namopsfleetmanager.utils.Const
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isAuthorized
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isIncompleteAccount
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -74,6 +75,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun refreshMainActivity() {
         //enable/disable menu items if access given or not
         val navMenu = nav_view.menu
+
+        navMenu.findItem(R.id.nav_my_profile).isEnabled = !account.isIncompleteAccount()
 
         navMenu.findItem(R.id.nav_vehicles).isEnabled =
             account.isAuthorized(AccessType.VIEW_VEHICLES)
