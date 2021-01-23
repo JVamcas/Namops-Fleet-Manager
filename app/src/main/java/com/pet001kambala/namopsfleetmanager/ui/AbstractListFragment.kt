@@ -9,7 +9,7 @@ import com.pet001kambala.namopsfleetmanager.model.AbstractModel
 abstract class AbstractListFragment<K: AbstractModel, T: RecyclerView.ViewHolder>(
     var leftSwipe: Boolean = false, var rightSwipe: Boolean = false
 )
-    : AbstractFragment(), AbstractAdapter.ModelViewClickListener<K> {
+    : AbstractFragment(), AbstractAdapter.ModelViewClickListener<K>, ListFragment<K,T> {
 
     lateinit var mAdapter: AbstractAdapter<K,T>
 
@@ -20,7 +20,7 @@ abstract class AbstractListFragment<K: AbstractModel, T: RecyclerView.ViewHolder
 
     abstract fun initAdapter()
 
-    fun handleRecycleView(recyclerView: RecyclerView, mListener: AbstractAdapter.ModelViewClickListener<K>) {
+    override fun handleRecycleView(recyclerView: RecyclerView, mListener: AbstractAdapter.ModelViewClickListener<K>) {
 
         recyclerView.adapter = mAdapter
         recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)

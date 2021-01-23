@@ -258,6 +258,11 @@ abstract class AbstractFragment : Fragment() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        endProgressBar()
+    }
+
     interface WarningDialogListener {
         /***
          * Called when user Ok the delete Op

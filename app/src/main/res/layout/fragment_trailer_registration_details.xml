@@ -245,10 +245,23 @@
                 android:text="@string/register"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/department" />
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{ParseUtil.mountDetails(trailer)}"
+                android:textColor="@color/hint_color"
+                android:textStyle="bold|italic"
+                app:layout_constraintBottom_toBottomOf="@id/register"
+                app:layout_constraintTop_toTopOf="@id/register"
+                app:layout_constraintStart_toStartOf="parent"
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 
     <data>
+        <import type="com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion"/>
+        <import type="com.pet001kambala.namopsfleetmanager.utils.ParseUtil" />
+
         <variable
             name="trailer"
             type="com.pet001kambala.namopsfleetmanager.model.Trailer" />

@@ -379,4 +379,13 @@
             android:id="@+id/action_notificationsListFragment_to_warnOutTyreListFragment"
             app:destination="@id/warnOutTyreListFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/mountedTyreListFragment"
+        android:name="com.pet001kambala.namopsfleetmanager.ui.tyres.MountedTyreListFragment"
+        android:label="Tyre mounted"
+        tools:layout="@layout/fragment_mounted_tyre_list" >
+        <action
+            android:id="@+id/action_mountedTyreListFragment_to_tyreHomeDetailsFragment"
+            app:destination="@id/tyreHomeDetailsFragment" />
+    </fragment><action android:id="@+id/action_global_mountedTyreListFragment" app:destination="@id/mountedTyreListFragment"/>
 </navigation>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        app:strokeColor="@color/emphasis_color"
+        app:strokeWidth="0.5dp"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tyre_sn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@{`Serial No: `+ tyre.serialNumber}"
+                android:layout_marginStart="10dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/user_company_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Mount Pos: ` +tyre.mountPosition}"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="5dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                app:layout_constraintTop_toBottomOf="@id/tyre_sn"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tyre_sn"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.pet001kambala.namopsfleetmanager.R" />
+        <variable
+            name="tyre"
+            type="com.pet001kambala.namopsfleetmanager.model.Tyre" />
+    </data>
+</layout>

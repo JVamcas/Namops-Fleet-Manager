@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.fragment.business.EmployeesFragment">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_tyres_on_unit"
+            android:textColor="@color/hint_color"
+            android:textAlignment="center"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:id="@+id/no_users_yet"
+            android:visibility="@{tyreCount > 0? View.GONE: View.VISIBLE}"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tyre_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{tyreCount > 0? View.VISIBLE: View.GONE}"
+            tools:listitem="@layout/user_view" />
+    </FrameLayout>
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="tyreCount"
+            type="Integer" />
+    </data>
+</layout>

@@ -140,6 +140,8 @@
     <string name="select_tyre_size">Size</string>
     <string name="worn_out_tyres">Worn-out tyres</string>
     <string name="no_notifications">No notifacations.</string>
+    <string name="no_tyres_on_unit">No tyres found on this unit.</string>
+    <string name="mounted_tyres">Mounted Tyres</string>
 
     <!--    String constants-->
     <string-array name="trailer_type">

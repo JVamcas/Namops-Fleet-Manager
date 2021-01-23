@@ -2,6 +2,7 @@ package com.pet001kambala.namopsfleetmanager.utils
 
 internal interface Const {
     companion object {
+        const val UNIT_NO: String = "unit_no"
         const val TYRE_WORN_OUT: String = "/topics/TyreWornOut"
         const val TYRE_WORNOUT_NOTIFICATION_CHANNEL: String = "Tyre worn-out alert"
         const val MODEL: String = "AbstractModel"

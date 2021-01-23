@@ -41,11 +41,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        //notification bundle
-        savedInstanceState?.let {
-            println(savedInstanceState)
-        }
-        //TODO when
 
         accountModel = ViewModelProvider(this).get(AccountViewModel::class.java)
 
@@ -82,7 +77,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             account.isAuthorized(AccessType.VIEW_VEHICLES)
         navMenu.findItem(R.id.nav_tyre).isEnabled = account.isAuthorized(AccessType.VIEW_TYRE)
         navMenu.findItem(R.id.nav_trailer).isEnabled = account.isAuthorized(AccessType.VIEW_TRAILER)
-        navMenu.findItem(R.id.nav_fuel).isEnabled = false
 
         if (account.isAuthorized(AccessType.ADMIN))
             FirebaseMessaging.getInstance().subscribeToTopic(Const.TYRE_WORN_OUT)

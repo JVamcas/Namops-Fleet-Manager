@@ -23,10 +23,6 @@
             android:id="@+id/nav_tyre"
             android:icon="@drawable/ic_tyre"
             android:title="@string/menu_tyres" />
-        <item
-            android:id="@+id/nav_fuel"
-            android:icon="@drawable/ic_fuel"
-            android:title="@string/menu_fuel" />
 
         <item android:title="@string/info"
             android:id="@+id/info"

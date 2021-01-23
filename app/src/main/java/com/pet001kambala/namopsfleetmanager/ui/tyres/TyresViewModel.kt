@@ -1,10 +1,10 @@
 package com.pet001kambala.namopsfleetmanager.ui.tyres
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.lifecycle.*
+import com.pet001kambala.namopsfleetmanager.model.Account
 import com.pet001kambala.namopsfleetmanager.repository.TyreRepo
 import com.pet001kambala.namopsfleetmanager.utils.Results
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 
@@ -24,6 +24,22 @@ class TyresViewModel : ViewModel() {
             }
         } catch (e: java.lang.Exception) {
             emit(Results.Error(e))
+        }
+    }
+
+    private val unitNo = MutableLiveData<String>()
+
+    @ExperimentalCoroutinesApi
+    val mountedTyreList = unitNo.switchMap { unitNo ->
+        liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
+            emit(Results.loading())
+            try {
+                tyreRepo.loadTyresOnUnit(unitNo).collect {
+                    emit(it)
+                }
+            } catch (e: Exception) {
+                Results.Error(e)
+            }
         }
     }
 
@@ -83,5 +99,11 @@ class TyresViewModel : ViewModel() {
             }
         }
         return repairRecords
+    }
+
+    fun loadMountedTyres(unitNo: String) {
+        if (unitNo != this.unitNo.value)
+            this.unitNo.postValue(unitNo)
+
     }
 }

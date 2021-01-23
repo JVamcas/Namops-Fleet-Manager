@@ -1,5 +1,6 @@
 package com.pet001kambala.namopsfleetmanager.repository
 
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pet001kambala.namopsfleetmanager.model.*
@@ -8,6 +9,7 @@ import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion._24
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion.today
 import com.pet001kambala.namopsfleetmanager.utils.Docs
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.extractValueFromMoneyString
+import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.isValidTrailerNo
 import com.pet001kambala.namopsfleetmanager.utils.ParseUtil.Companion.toMap
 import com.pet001kambala.namopsfleetmanager.utils.Results
 import kotlinx.coroutines.*
@@ -525,6 +527,51 @@ class TyreRepo {
                     )
                     offer(results)
                 }
+            }
+        }
+        awaitClose { subscription.remove() }
+    }
+
+    @ExperimentalCoroutinesApi
+    suspend fun loadTyresOnUnit(unitNo: String): Flow<Results> = callbackFlow {
+
+        val collection = if (unitNo.isValidTrailerNo())
+            DB.collection(Docs.TYRES.name).whereEqualTo("trailerNo", unitNo)
+        else DB.collection(Docs.TYRES.name).whereEqualTo("horseNo", unitNo)
+
+        try {//1. first load the tyre data
+            val shot = collection.get().await()
+            val data = shot.documents
+                .mapNotNull { it.toObject(Tyre::class.java) }
+                .sortedBy { it.mountPosition?.toInt() ?: 0 }
+
+            offer(
+                Results.Success<Tyre>(
+                    data = ArrayList(data),
+                    code = Results.Success.CODE.LOAD_SUCCESS
+                )
+            )
+        } catch (e: Exception) {
+            offer(Results.Error(e))
+        }
+        //2.  then listen for document changes on the tyre collection
+        val subscription = collection.addSnapshotListener { shot, error ->
+            error?.let {
+                offer(Results.Error(error))
+            }
+            shot?.apply {
+                val data =
+                    if (!this.isEmpty)
+                        shot.documents
+                            .mapNotNull { it.toObject(Tyre::class.java) }
+                            .sortedBy { it.mountPosition?.toInt() ?: 0 }
+                    else arrayListOf()
+
+                val results = Results.Success(
+                    data = ArrayList(data),
+                    code = Results.Success.CODE.LOAD_SUCCESS
+                )
+                offer(results)
             }
         }
         awaitClose { subscription.remove() }

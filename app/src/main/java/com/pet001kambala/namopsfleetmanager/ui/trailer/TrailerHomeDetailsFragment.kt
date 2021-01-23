@@ -96,6 +96,11 @@ class TrailerHomeDetailsFragment : TrailerRegistrationDetailsFragment() {
                     bundle
                 )
             }
+            R.id.mounted_tyres ->{
+                val bundle = Bundle().also { it.putString(Const.UNIT_NO, trailer.unitNumber) }
+                navController.navigate(R.id.action_global_mountedTyreListFragment,bundle)
+                return true
+            }
         }
 
         return super.onOptionsItemSelected(item)

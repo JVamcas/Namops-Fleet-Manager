@@ -1,7 +1,7 @@
 package com.pet001kambala.namopsfleetmanager.ui.vehicles
 
 import android.os.Bundle
-import android.view.View
+import android.view.*
 import androidx.core.view.isVisible
 import com.pet001kambala.namopsfleetmanager.R
 import com.pet001kambala.namopsfleetmanager.model.Vehicle
@@ -27,6 +27,15 @@ class VehicleHomeDetailsFragment : VehicleRegistrationDetailsFragment() {
         }
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        setHasOptionsMenu(true)
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
     @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,5 +53,22 @@ class VehicleHomeDetailsFragment : VehicleRegistrationDetailsFragment() {
                 bundle
             )
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.vehicle_menu, menu)
+    }
+    @ExperimentalCoroutinesApi
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val bundle = Bundle().also { it.putString(Const.UNIT_NO, vehicle.unitNumber) }
+        when (item.itemId) {
+            R.id.mounted_tyres ->{
+                navController.navigate(R.id.action_global_mountedTyreListFragment,bundle)
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

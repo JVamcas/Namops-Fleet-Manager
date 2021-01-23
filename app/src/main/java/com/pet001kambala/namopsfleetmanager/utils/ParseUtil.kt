@@ -7,6 +7,7 @@ import com.google.firebase.firestore.Exclude
 import com.google.gson.Gson
 import com.pet001kambala.namopsfleetmanager.model.AbstractModel
 import com.pet001kambala.namopsfleetmanager.model.Account
+import com.pet001kambala.namopsfleetmanager.model.Trailer
 import com.pet001kambala.namopsfleetmanager.model.Tyre
 import com.pet001kambala.namopsfleetmanager.utils.DateUtil.Companion._24
 import com.squareup.picasso.Picasso
@@ -60,6 +61,13 @@ class ParseUtil {
         fun Tyre.mountDetails(): String {
             return if (mounted)
                 "[Mounted on: ${trailerNo ?: horseNo}] [Pos = $mountPosition]"
+            else "Location = $location"
+        }
+
+        @JvmStatic
+        fun Trailer.mountDetails(): String{
+            return if (mounted)
+                "Mounted on: $horseNo"
             else "Location = $location"
         }
 
