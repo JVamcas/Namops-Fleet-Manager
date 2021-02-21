@@ -22,7 +22,6 @@ open class MountTyreDetailsFragment : AbstractTyreDetailsFragment() {
 
     lateinit var binding: FragmentMountTyreBinding
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

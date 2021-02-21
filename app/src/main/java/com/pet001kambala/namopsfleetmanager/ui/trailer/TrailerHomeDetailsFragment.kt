@@ -102,7 +102,6 @@ class TrailerHomeDetailsFragment : TrailerRegistrationDetailsFragment() {
                 return true
             }
         }
-
         return super.onOptionsItemSelected(item)
     }
 }

@@ -39,12 +39,12 @@ class ParseUtil {
         }
 
         fun String?.isValidVehicleNo(): Boolean {
-            val pattern = Pattern.compile("^[HL]\\d{2,}$")
+            val pattern = Pattern.compile("^[H|L]\\d{2,}$")
             return !this.isNullOrEmpty() && pattern.matcher(this).matches()
         }
 
         fun String?.isValidTrailerNo(): Boolean {
-            val pattern = Pattern.compile("^[TL]\\d{2,}$")
+            val pattern = Pattern.compile("^[L]?T\\d{2,}$")
             return !this.isNullOrEmpty() && pattern.matcher(this).matches()
         }
 
