@@ -44,7 +44,7 @@ class UpdateProfileFragment : AbstractAuthFragment() {
 
             it?.let {
                 account = it
-                it.cellphone = Firebase.auth.currentUser!!.phoneNumber.stripCountryCode()
+                it.cellphone = Firebase.auth.currentUser?.phoneNumber.stripCountryCode()
                 isMissingCred = it.isIncompleteAccount()
                 binding.account = it
                 binding.isEmailAccount = AccountRepo().isEmailAuth()

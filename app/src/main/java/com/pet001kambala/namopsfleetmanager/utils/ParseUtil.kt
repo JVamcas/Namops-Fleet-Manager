@@ -216,10 +216,10 @@ class ParseUtil {
         }
 
         fun String?.stripCountryCode(): String? {
-            return if (this == null)
+            return if (this == null|| !isValidMobile(this))
                 null
             else {
-                val match = Regex("^(\\+264)?(\\d+)?(8[1,5]\\d+)$").find(this)
+                val match = Regex("^(\\+264)?(\\d+)?(8[1,5]\\d{7})$").find(this)
                 val (_, _, cell) = match!!.destructured
                 "0$cell"
             }
@@ -247,7 +247,7 @@ class ParseUtil {
             if (phone.isNullOrEmpty()) return false
             val phone1 = phone.replace("\\s+".toRegex(), "")
             return phone1.isNotEmpty() && Pattern.matches(
-                "^0?8[1,5]\\d{7}",
+                "^(\\+264)?(\\d+)?(8[1,5]\\d{7})$",
                 phone1
             )
         }

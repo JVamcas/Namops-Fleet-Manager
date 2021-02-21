@@ -1,5 +1,6 @@
 package com.pet001kambala.namopsfleetmanager.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -115,6 +116,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.about_developer -> {
                 if (curDest != R.id.aboutDeveloperFragment)
                     navController.navigate(R.id.action_global_aboutDeveloperFragment)
+            }
+            R.id.nav_share_app ->{
+                val sharingIntent = Intent(Intent.ACTION_SEND)
+                sharingIntent.type = "text/plain"
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "NamOps Fleet")
+                sharingIntent.putExtra(
+                    Intent.EXTRA_TEXT,
+                    resources.getString(R.string.share_app_text)
+                )
+                startActivity(Intent.createChooser(sharingIntent, "Share app via"))
             }
         }
         return false

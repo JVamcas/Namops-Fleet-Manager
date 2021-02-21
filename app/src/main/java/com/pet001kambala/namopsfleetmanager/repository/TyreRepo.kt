@@ -538,6 +538,7 @@ class TyreRepo {
         val collection = if (unitNo.isValidTrailerNo())
             DB.collection(Docs.TYRES.name).whereEqualTo("trailerNo", unitNo)
         else DB.collection(Docs.TYRES.name).whereEqualTo("horseNo", unitNo)
+            .whereEqualTo("trailerNo", null)
 
         try {//1. first load the tyre data
             val shot = collection.get().await()
